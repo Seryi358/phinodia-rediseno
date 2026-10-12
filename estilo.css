@@ -10,12 +10,31 @@
   font-display: swap;
   font-style: normal;
 }
+/* El crítico de la ronda 7 vio huecos dentro de las palabras —"f alla",
+   "automá t icamente", "bo t ón", "a t ravés"— y los atribuyó a kerning o a
+   una fuente de reserva. Tenía razón en el síntoma, y la causa resultó ser el
+   subset: onest_latin-s.woff2 mete un hueco espurio tras la f y la t. Se
+   comprobó renderizando la misma frase con el subset, con la Onest completa de
+   Google Fonts y con la del sistema: el hueco solo aparece con el subset, y
+   font-kerning:none no lo cambia. No es el kerning, es el archivo.
+   Pasa a mandar la de Google (33.760 B, 48 B menos que la rota). El subset
+   antiguo se queda solo para la flecha → y el símbolo de pausa ❚, que el
+   subset latin de Google no incluye. */
+@font-face {
+  font-family: 'Onest';
+  src: url('fuentes/onest-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 @font-face {
   font-family: 'Onest';
   src: url('fuentes/onest_latin-s.woff2') format('woff2');
   font-weight: 100 900;
   font-display: swap;
   font-style: normal;
+  unicode-range: U+2192, U+275A;
 }
 
 :root {
