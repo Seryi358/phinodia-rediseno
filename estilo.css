@@ -960,7 +960,10 @@ a  { color: inherit; }
   display: block; margin-top: 0.15rem; color: var(--lima);
   font-size: var(--t-rotulo); font-weight: 600; font-variant-numeric: tabular-nums;
 }
-.ahorro--base { color: var(--apagado); font-weight: 400; }
+/* El portero cazó esto en la primera pasada de la ronda 7: con var(--apagado)
+   "precio base" daba 4,04:1, por debajo del 4,5 de AA. Es una regresión mía,
+   del mismo día. Pasa al gris que ya mide 7,75:1 en el resto de la página. */
+.ahorro--base { color: var(--apagado-claro); font-weight: 400; }
 
 /* 21c · "falsa affordance, y esto es lo más serio": la barra caía en la misma
    coordenada y que el subrayado del enlace "Comprar", en el mismo lima y con
