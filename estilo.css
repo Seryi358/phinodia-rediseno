@@ -644,3 +644,14 @@ a  { color: inherit; }
   .pie__nav   { grid-column: 6 / span 3; }
   .pie__legal { grid-column: 9 / -1; }
 }
+
+/* --- 8 · reequilibrio del hero tras meter el video ---
+   Con el texto en 6 columnas el titular pasaba a 4 líneas y los botones caían
+   bajo el pliegue. La vara resuelve su titular en 3 líneas; este también. */
+@media (min-width: 1024px) {
+  .hero__texto { grid-column: 1 / span 7; }
+  .hero__media { grid-column: 9 / -1; }
+  .hero h1 { font-size: clamp(2.8rem, 5.9vw, 5.25rem); max-width: 100%; }
+  .hero__video { max-height: 60vh; margin-left: auto; }
+  .hero { padding-block: clamp(6rem, 11vh, 8.5rem) var(--ritmo); }
+}
