@@ -672,3 +672,47 @@ a  { color: inherit; }
   .menu { visibility: hidden; transition: transform 0.38s var(--curva), visibility 0s linear 0.38s; }
   .menu-abierto .menu { visibility: visible; transition: transform 0.38s var(--curva), visibility 0s; }
 }
+
+/* ===========================================================
+   Ronda 3 · lo que señaló el segundo crítico
+   =========================================================== */
+
+/* --- 11 · «Cuatro pasos»: el texto moría a 442 px del borde y dejaba
+       un tercio del ancho vacío a la derecha de cada filete. --- */
+@media (min-width: 900px) {
+  .paso__texto {
+    grid-column: 3 / -1;
+    display: grid; grid-template-columns: 4fr 6fr;
+    gap: clamp(1.5rem, 3vw, 3.5rem); align-items: start;
+  }
+  .paso__texto h3 { margin-bottom: 0; }
+  .paso__texto p { max-width: 54ch; }
+}
+
+/* --- 12 · Preguntas: la columna izquierda quedaba en blanco bajo el botón.
+       Sticky: acompaña al acordeón en vez de abandonarlo. --- */
+@media (min-width: 1024px) {
+  .faq__cab { position: sticky; top: 7rem; align-self: start; }
+}
+
+/* --- 13 · la navegación tenía que parecer el control principal, y era al
+       revés: la hamburguesa iba sin recuadro y el botón de pausa con aro. --- */
+.hamburguesa { box-shadow: inset 0 0 0 1.5px rgba(169, 184, 255, 0.45); }
+.hamburguesa:hover { box-shadow: inset 0 0 0 1.5px var(--lima); }
+.menu-abierto .hamburguesa { box-shadow: inset 0 0 0 1.5px var(--lima); }
+.pausa { box-shadow: inset 0 0 0 1px rgba(169, 184, 255, 0.22); }
+.pausa:hover { box-shadow: inset 0 0 0 1px var(--lima); }
+
+/* --- 14 · el CTA desaparecía en toda la franja móvil. Cabe desde 480 px;
+       por debajo sigue dentro del menú, que es donde hay sitio. --- */
+@media (min-width: 480px) and (max-width: 1023px) {
+  .cabecera__acciones .btn { display: inline-flex; padding: 0.6rem 1.05rem; font-size: 0.9rem; }
+  .menu__cta { display: none; }
+}
+
+/* --- 15 · a 768 px la foto ocupaba 290 de 616 px y dejaba la derecha vacía. --- */
+@media (min-width: 560px) and (max-width: 1023px) {
+  .hero__media { display: flex; flex-direction: column; align-items: center; }
+  .hero__video { max-width: min(100%, 460px); }
+  .hero__pieMedia { max-width: 46ch; text-align: center; }
+}
