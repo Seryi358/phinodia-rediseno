@@ -46,15 +46,16 @@
   --t-cuerpo: clamp(1rem, 1.05vw, 1.1875rem);
   --t-rotulo: 0.8125rem;
 
-  /* --- velocidad del carrusel: escala con el ancho (vara: 27→52 px/s) --- */
-  --marquesina-a: 86s;
-  --marquesina-b: 64s;
+  /* --- velocidad del carrusel ---
+     Duración fija: como la cinta se ensancha con la pantalla, los px/s suben
+     solos (31 → 39 → 52 px/s de 360 a 1440), que es como se comporta la vara.
+     Medido antes a 86s/64s: daba 8–30 px/s, demasiado lento para leerse vivo. */
+  --marquesina-a: 24s;
+  --marquesina-b: 17s;
 
   --curva: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (min-width: 768px)  { :root { --marquesina-a: 62s; --marquesina-b: 46s; } }
-@media (min-width: 1280px) { :root { --marquesina-a: 54s; --marquesina-b: 40s; } }
 
 *, *::before, *::after { box-sizing: border-box; }
 
