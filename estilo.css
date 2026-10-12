@@ -824,11 +824,17 @@ a  { color: inherit; }
    duplica el widget —gastaría crédito de ElevenLabs de Sergio en una página de
    previsualización—; se enlaza al que ya está contestando. */
 .servicio__demo { margin-top: 0.9rem; color: var(--apagado-claro); font-size: 0.9375rem; }
-.servicio__demo a {
-  color: var(--lima); font-weight: 600; text-decoration: none;
+
+/* Este enlace iba dentro del parrafo y el portero lo caza igual que al de la
+   tienda: 257x20 px en 390, 430 y 412. Es la segunda vez que cometo el mismo
+   fallo, asi que queda escrito: en esta pagina un enlace no vive dentro de un
+   parrafo. Sale a su linea, con su caja de 44 px. */
+.servicio__demo-enlace {
+  display: inline-flex; align-items: center; min-height: 44px; margin-top: 0.2rem;
+  color: var(--lima); font-weight: 600; font-size: 0.9375rem; text-decoration: none;
   box-shadow: inset 0 -1px 0 0 currentColor;
 }
-.servicio__demo a:hover { color: var(--blanco); }
+.servicio__demo-enlace:hover { color: var(--blanco); }
 
 @media (max-width: 759px) {
   .tabla-precio td:nth-child(2), .tabla-precio td:nth-child(4), .tabla-precio td:nth-child(5),
