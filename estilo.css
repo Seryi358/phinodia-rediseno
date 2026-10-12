@@ -716,3 +716,69 @@ a  { color: inherit; }
   .hero__video { max-width: min(100%, 460px); }
   .hero__pieMedia { max-width: 46ch; text-align: center; }
 }
+
+/* --- 16 · Precios reales del servicio de video -----------------------------
+   El crítico de la ronda 3 señaló lo único que de verdad era un retroceso:
+   la web de hoy publica cuatro paquetes con precio y un botón de compra por
+   fila, y el rediseño lo había degradado a un enlace. Los números son los que
+   publica phinodia.com/precios; aquí no se calcula ni se redondea ninguno.
+
+   Va con filetes, sin fondo propio y sin radio: una tabla de datos, no cuatro
+   tarjetas de precio. La fila "más elegida" se marca con una etiqueta lima, no
+   con un recuadro tintado, que sería exactamente la cajita que el encargo veta. */
+
+.precios { margin-top: var(--ritmo); border-top: 1px solid rgba(169, 184, 255, 0.22); padding-top: clamp(2.5rem, 4vw, 4rem); }
+.precios__cab { max-width: 60ch; }
+.precios__cab h3 { margin: 0.6rem 0 0.85rem; font-size: var(--t-h3); }
+.precios__nota { color: var(--apagado-claro); max-width: 56ch; }
+
+.tabla-precio { width: 100%; border-collapse: collapse; margin-top: clamp(2rem, 3.2vw, 3rem); text-align: left; }
+.tabla-precio th, .tabla-precio td { padding-block: 1.15rem; padding-right: 1rem; vertical-align: baseline; font-weight: 400; }
+.tabla-precio thead th {
+  font-size: var(--t-rotulo); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--apagado-claro); font-weight: 600; padding-bottom: 0.9rem;
+}
+.tabla-precio thead tr, .tabla-precio tbody tr { border-bottom: 1px solid rgba(169, 184, 255, 0.22); }
+.tabla-precio tbody th[scope="row"] { font-weight: 600; color: var(--bruma); white-space: nowrap; }
+.tabla-precio tbody th em {
+  display: block; font-style: normal; font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase; color: var(--lima); margin-top: 0.3rem;
+}
+.tabla-precio td { color: var(--apagado-claro); }
+.tabla-precio .cifra-precio { color: var(--bruma); font-weight: 600; font-size: 1.125rem; white-space: nowrap; }
+.tabla-precio tbody a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--lima); font-weight: 600; text-decoration: none;
+  box-shadow: inset 0 -1px 0 0 currentColor;
+}
+.tabla-precio tbody a:hover { color: var(--blanco); }
+.precios__pie { margin-top: 1.6rem; color: var(--apagado-claro); font-size: 0.9375rem; }
+.precios__pie a { color: var(--lima); font-weight: 600; }
+
+/* Por debajo de 760 px una tabla de seis columnas no cabe: cada fila pasa a
+   bloque y cada celda lleva delante su rótulo, sacado de `data-r`. Sigue siendo
+   una <table> para quien usa lector de pantalla. */
+@media (max-width: 759px) {
+  .tabla-precio thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .tabla-precio tbody tr { display: block; padding-block: 1.3rem 1.5rem; }
+  .tabla-precio tbody th[scope="row"] { display: block; font-size: 1.125rem; padding-block: 0 0.5rem; white-space: normal; }
+  .tabla-precio tbody td { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.3rem; }
+  .tabla-precio tbody td::before { content: attr(data-r); color: var(--apagado-claro); }
+  .tabla-precio tbody td:last-child { display: block; padding-top: 0.5rem; }
+  .tabla-precio tbody td:last-child::before { content: none; }
+}
+
+/* --- 17 · el CTA final era el elemento más pequeño de la banda más grande ---
+   Medido: "Escríbenos" 139×52 px, contra 255×52 del CTA del héroe. Es la
+   acción principal de la página y pesaba menos que la secundaria.
+
+   El color también cambia, y no por gusto: cobalto sobre lima da 5,27:1 de
+   contraste de borde y tinta sobre lima da 16,27:1 (calculado, no estimado).
+   Los dos pasan AA, pero el triple de separación es lo que hace que el botón
+   se despegue del fondo en vez de vibrar contra él. El par tinta/lima ya
+   existía en esta banda: es el hover del botón fantasma. */
+.empezar .btn--cobalto {
+  background: var(--tinta); color: var(--lima);
+  padding-inline: 2.4rem; min-height: 60px; font-size: 1.0625rem;
+}
+.empezar .btn--cobalto:hover { background: #1d2340; color: var(--blanco); }
