@@ -13,13 +13,19 @@
 
   /* ---------- 1 · marquesina de tecnologías ---------- */
 
+  // Las diez marcas en las dos filas, en orden distinto. Con cinco por fila
+  // se veía el mismo ciclo tres veces en una sola pantalla.
   var LOGOS_A = [
-    ['meta.svg', 'Meta'], ['whatsapp.svg', 'WhatsApp'], ['instagram.svg', 'Instagram'],
-    ['google.svg', 'Google'], ['openai.svg', 'OpenAI']
+    ['meta.svg', 'Meta'], ['n8n.svg', 'n8n'], ['whatsapp.svg', 'WhatsApp'],
+    ['shopify.svg', 'Shopify'], ['instagram.svg', 'Instagram'], ['openai.svg', 'OpenAI'],
+    ['googlecalendar.svg', 'Google Calendar'], ['google.svg', 'Google'],
+    ['hubspot.svg', 'HubSpot'], ['elevenlabs.svg', 'ElevenLabs']
   ];
   var LOGOS_B = [
-    ['n8n.svg', 'n8n'], ['elevenlabs.svg', 'ElevenLabs'], ['shopify.svg', 'Shopify'],
-    ['hubspot.svg', 'HubSpot'], ['googlecalendar.svg', 'Google Calendar']
+    ['openai.svg', 'OpenAI'], ['instagram.svg', 'Instagram'], ['hubspot.svg', 'HubSpot'],
+    ['google.svg', 'Google'], ['elevenlabs.svg', 'ElevenLabs'], ['meta.svg', 'Meta'],
+    ['shopify.svg', 'Shopify'], ['googlecalendar.svg', 'Google Calendar'],
+    ['n8n.svg', 'n8n'], ['whatsapp.svg', 'WhatsApp']
   ];
 
   function grupo(lista) {
@@ -43,11 +49,9 @@
     var cinta = document.getElementById(id);
     if (!cinta) return;
     for (var mitad = 0; mitad < 2; mitad++) {
-      for (var i = 0; i < 2; i++) {
-        var g = grupo(lista);
-        if (mitad > 0 || i > 0) g.setAttribute('aria-hidden', 'true');
-        cinta.appendChild(g);
-      }
+      var g = grupo(lista);
+      if (mitad > 0) g.setAttribute('aria-hidden', 'true');
+      cinta.appendChild(g);
     }
   }
   poblar('cinta-a', LOGOS_A);
@@ -70,6 +74,35 @@
     secciones.forEach(function (s) { observador.observe(s); });
   } else {
     secciones.forEach(function (s) { s.classList.add('dentro'); });
+  }
+
+  /* ---------- 2b · menú de móvil y tableta ----------
+     Sin esto, las cinco secciones eran inalcanzables por debajo de 1024 px:
+     el menú estaba en `display:none` y no había nada que lo abriera. */
+
+  var hamburguesa = document.getElementById('hamburguesa');
+  var panelMenu = document.getElementById('menu');
+
+  function cerrarMenu() {
+    if (!hamburguesa) return;
+    hamburguesa.setAttribute('aria-expanded', 'false');
+    hamburguesa.setAttribute('aria-label', 'Abrir menú');
+    raiz.classList.remove('menu-abierto');
+  }
+  function alternarMenu() {
+    var abierto = hamburguesa.getAttribute('aria-expanded') === 'true';
+    hamburguesa.setAttribute('aria-expanded', String(!abierto));
+    hamburguesa.setAttribute('aria-label', abierto ? 'Abrir menú' : 'Cerrar menú');
+    raiz.classList.toggle('menu-abierto', !abierto);
+  }
+  if (hamburguesa && panelMenu) {
+    hamburguesa.addEventListener('click', alternarMenu);
+    panelMenu.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') cerrarMenu();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') cerrarMenu();
+    });
   }
 
   /* ---------- 3 · cabecera al posarse ---------- */
@@ -192,9 +225,12 @@
   function aplicar() {
     raiz.classList.toggle('sin-animacion', pausado);
     if (boton) {
+      var rotulo = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
       boton.setAttribute('aria-pressed', String(pausado));
-      boton.querySelector('.pausa__texto').textContent = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
-      boton.firstElementChild.textContent = pausado ? '▶' : '❚❚';
+      boton.setAttribute('aria-label', rotulo);
+      boton.setAttribute('title', rotulo);
+      var icono = boton.querySelector('.pausa__icono');
+      if (icono) icono.textContent = pausado ? '▶' : '❚❚';
     }
     if (pausado) detener(); else arrancar();
   }

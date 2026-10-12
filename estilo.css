@@ -552,3 +552,95 @@ a  { color: inherit; }
    rótulo caía al cobalto (3,09:1). Y el pie del vídeo en bruma daba 4,14:1. */
 .tec .rotulo { color: var(--lima); }
 .prueba__pie { color: var(--pizarra); }
+
+/* ===========================================================
+   Ronda 2 · correcciones del crítico ciego
+   =========================================================== */
+
+/* --- 1 · logo: va en línea para heredar `color`.
+       Como <img> salía negro puro sobre tinta: 1,1:1 de contraste. --- */
+.marca__glifo { width: 26px; height: 30px; flex: none; color: var(--lima); }
+.pie .marca__glifo { color: var(--lima); }
+
+/* --- 2 · menú de móvil y tableta --- */
+.hamburguesa {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; flex: none; margin-left: auto;
+  background: transparent; border: 0; cursor: pointer; padding: 0;
+  border-radius: 999px;
+}
+.hamburguesa:focus-visible { outline: 3px solid var(--lima); outline-offset: 2px; }
+.hamburguesa__barras, .hamburguesa__barras::before, .hamburguesa__barras::after {
+  content: ''; display: block; width: 22px; height: 2px; background: var(--bruma);
+  transition: transform 0.3s var(--curva), opacity 0.2s;
+}
+.hamburguesa__barras { position: relative; }
+.hamburguesa__barras::before { position: absolute; top: -7px; }
+.hamburguesa__barras::after  { position: absolute; top: 7px; }
+.menu-abierto .hamburguesa__barras { background: transparent; }
+.menu-abierto .hamburguesa__barras::before { transform: translateY(7px) rotate(45deg); }
+.menu-abierto .hamburguesa__barras::after  { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 1023px) {
+  .menu {
+    display: flex; flex-direction: column; gap: 0;
+    position: fixed; inset: 64px 0 auto 0;
+    background: rgba(11, 16, 38, 0.98);
+    backdrop-filter: blur(16px);
+    padding: 0.5rem var(--canal) 1.5rem;
+    margin: 0;
+    transform: translateY(-120%);
+    transition: transform 0.38s var(--curva);
+    box-shadow: 0 1px 0 rgba(169, 184, 255, 0.18);
+  }
+  .menu-abierto .menu { transform: translateY(0); }
+  .menu a {
+    display: flex; align-items: center; min-height: 56px;
+    font-size: 1.1rem; color: var(--bruma);
+    border-bottom: 1px solid rgba(169, 184, 255, 0.14);
+  }
+  .menu a:last-child { border-bottom: 0; }
+  .cabecera__acciones { margin-left: 0; }
+}
+@media (min-width: 1024px) {
+  .hamburguesa { display: none; }
+  .menu { display: flex; }
+}
+
+/* --- 3 · pausa en icono: pesaba el doble que la llamada principal --- */
+.pausa { width: 44px; height: 44px; min-height: 44px; padding: 0; flex: none; }
+.pausa__icono { font-size: 0.8rem; line-height: 1; }
+
+/* --- 4 · el hero enseña el producto, no solo lo cuenta --- */
+.hero .rejilla { align-items: center; }
+.hero__media { grid-column: 1 / -1; margin: 2.5rem 0 0; }
+@media (min-width: 1024px) {
+  .hero__texto { grid-column: 1 / span 6; }
+  .hero__media { grid-column: 8 / -1; margin: 0; }
+}
+.hero__video {
+  width: 100%; max-width: 360px; aspect-ratio: 9 / 16; object-fit: cover;
+  background: var(--tinta-2);
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.75);
+}
+@media (min-width: 1024px) { .hero__video { max-width: none; } }
+.hero__pieMedia {
+  margin-top: 0.85rem; font-size: 0.8125rem; color: var(--apagado-claro);
+  max-width: 34ch;
+}
+
+/* --- 5 · tira de fotogramas: tres imágenes reales en vez de repetir el reproductor --- */
+.tira { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.tira img { width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; }
+
+/* --- 6 · la columna izquierda de Preguntas estaba vacía --- */
+.faq__nota { margin: 1.3rem 0 1.6rem; color: var(--pizarra); max-width: 32ch; }
+
+/* --- 7 · pie: la regla de ancho completo iba DESPUÉS de la media query y la
+       anulaba, así que las tres columnas se apilaban a la izquierda en
+       escritorio y el 40 % derecho quedaba vacío. --- */
+@media (min-width: 768px) {
+  .pie__marca { grid-column: 1 / span 4; }
+  .pie__nav   { grid-column: 6 / span 3; }
+  .pie__legal { grid-column: 9 / -1; }
+}

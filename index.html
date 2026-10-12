@@ -19,10 +19,13 @@
 <header class="cabecera" id="cabecera">
   <div class="eje cabecera__fila">
     <a class="marca" href="#inicio">
-      <img src="logos/phinodia-marca.svg" alt="" width="26" height="30">
+      <svg class="marca__glifo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 435.74 496.23" aria-hidden="true" focusable="false"><path d="M219.22 496.23 L213.22 494.30 L6.22 371.18 L0.59 366.96 L0.02 362.96 L0.00 136.96 L0.91 126.96 L6.22 122.65 L26.22 110.91 L218.22 0.00 L224.22 2.51 L431.22 123.56 L435.13 126.96 L435.74 133.96 L435.72 361.96 L434.89 367.96 L427.22 373.37 L219.22 496.23Z M189.25 419.96 L189.49 307.96 L190.77 301.96 L218.22 284.76 L368.99 194.96 L373.33 190.96 L373.45 159.96 L372.22 158.07 L234.22 78.38 L221.22 69.89 L218.22 68.87 L63.98 159.96 L67.22 163.04 L109.22 187.66 L112.63 189.96 L113.86 191.96 L114.14 375.96 L185.22 418.96 L188.22 420.61 L189.25 419.96Z M191.22 233.33 L188.22 233.23 L184.22 231.14 L125.22 196.27 L119.22 192.21 L118.32 189.96 L145.22 172.67 L218.22 130.12 L222.22 131.64 L290.51 172.96 L290.48 173.96 L286.22 177.27 L191.22 233.33Z" fill="currentColor"></path></svg>
       <span>PhinodIA</span>
     </a>
-    <nav class="menu" aria-label="Principal">
+    <button class="hamburguesa" id="hamburguesa" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+      <span class="hamburguesa__barras" aria-hidden="true"></span>
+    </button>
+    <nav class="menu" id="menu" aria-label="Principal">
       <a href="#prueba">La prueba</a>
       <a href="#servicios">Qué hacemos</a>
       <a href="#proceso">Cómo trabajamos</a>
@@ -30,8 +33,9 @@
       <a href="#preguntas">Preguntas</a>
     </nav>
     <div class="cabecera__acciones">
-      <button class="pausa" id="pausa" type="button" aria-pressed="false">
-        <span aria-hidden="true">❚❚</span><span class="pausa__texto">Pausar animaciones</span>
+      <button class="pausa" id="pausa" type="button" aria-pressed="false"
+              aria-label="Pausar animaciones" title="Pausar animaciones">
+        <span class="pausa__icono" aria-hidden="true">❚❚</span>
       </button>
       <a class="btn btn--lima" href="#empezar">Empezar</a>
     </div>
@@ -59,6 +63,12 @@
           <span>Nequi, PSE o tarjeta</span>
         </p>
       </div>
+      <figure class="hero__media">
+        <video class="hero__video" src="media/ejemplo-cafe.mp4" poster="media/ejemplo-cafe.jpg"
+               autoplay muted loop playsinline preload="metadata"
+               aria-label="Video de producto generado con IA, con voz colombiana"></video>
+        <figcaption class="hero__pieMedia">Salida real de nuestro flujo de video, de una sola foto.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -91,10 +101,12 @@
         </ul>
       </div>
       <div class="prueba__media escalona">
-        <video class="prueba__video" src="media/ejemplo-cafe.mp4" poster="media/ejemplo-cafe.jpg"
-               controls preload="none" playsinline muted loop
-               aria-label="Ejemplo de video generado: café Montaña Alta"></video>
-        <p class="prueba__pie">Salida real de nuestro flujo de video. «Montaña Alta» es un producto de muestra que usamos para demostrar, no un cliente.</p>
+        <div class="tira">
+          <img src="media/fotograma-1.jpg" alt="Fotograma del video: la presentadora muestra el producto" width="440" height="782" loading="lazy" decoding="async">
+          <img src="media/fotograma-2.jpg" alt="Fotograma del video: plano del empaque en primer plano" width="440" height="782" loading="lazy" decoding="async">
+          <img src="media/fotograma-3.jpg" alt="Fotograma del video: cierre con la marca visible" width="440" height="782" loading="lazy" decoding="async">
+        </div>
+        <p class="prueba__pie">Tres fotogramas del video que se reproduce arriba. «Montaña Alta» es un producto de muestra que usamos para demostrar, no un cliente.</p>
       </div>
     </div>
   </section>
@@ -240,6 +252,8 @@
       <div class="faq__cab escalona">
         <p class="rotulo">Preguntas</p>
         <h2>Lo que suelen preguntarnos.</h2>
+        <p class="faq__nota">¿La tuya no está? Escríbenos y te respondemos con una persona, no con un formulario.</p>
+        <a class="btn btn--cobalto" href="mailto:scastellanos@phinodia.com?subject=Una%20pregunta%20sobre%20PhinodIA">Preguntar</a>
       </div>
       <div class="faq escalona">
         <details>
@@ -277,7 +291,7 @@
     <div class="pie__fila">
       <div class="pie__marca">
         <a class="marca" href="#inicio">
-          <img src="logos/phinodia-marca.svg" alt="" width="26" height="30">
+          <svg class="marca__glifo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 435.74 496.23" aria-hidden="true" focusable="false"><path d="M219.22 496.23 L213.22 494.30 L6.22 371.18 L0.59 366.96 L0.02 362.96 L0.00 136.96 L0.91 126.96 L6.22 122.65 L26.22 110.91 L218.22 0.00 L224.22 2.51 L431.22 123.56 L435.13 126.96 L435.74 133.96 L435.72 361.96 L434.89 367.96 L427.22 373.37 L219.22 496.23Z M189.25 419.96 L189.49 307.96 L190.77 301.96 L218.22 284.76 L368.99 194.96 L373.33 190.96 L373.45 159.96 L372.22 158.07 L234.22 78.38 L221.22 69.89 L218.22 68.87 L63.98 159.96 L67.22 163.04 L109.22 187.66 L112.63 189.96 L113.86 191.96 L114.14 375.96 L185.22 418.96 L188.22 420.61 L189.25 419.96Z M191.22 233.33 L188.22 233.23 L184.22 231.14 L125.22 196.27 L119.22 192.21 L118.32 189.96 L145.22 172.67 L218.22 130.12 L222.22 131.64 L290.51 172.96 L290.48 173.96 L286.22 177.27 L191.22 233.33Z" fill="currentColor"></path></svg>
           <span>PhinodIA</span>
         </a>
         <p>Agencia de IA colombiana. Chatbots de WhatsApp, agentes de voz, automatización y video con IA.</p>
