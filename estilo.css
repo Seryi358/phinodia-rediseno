@@ -1,0 +1,512 @@
+/* ===========================================================
+   PhinodIA · sistema de diseño v7
+   Editorial, sin tarjetas. Bandas a sangre, filetes y numerales.
+   =========================================================== */
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('fuentes/bricolage_grotesque_latin-s.woff2') format('woff2');
+  font-weight: 200 800;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Onest';
+  src: url('fuentes/onest_latin-s.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+:root {
+  /* --- identidad, extraída del propio phinodia.com --- */
+  --tinta: #0b1026;
+  --tinta-2: #151b3d;
+  --cobalto: #2448ff;
+  --cobalto-hondo: #1b35c9;
+  --cobalto-claro: #a9b8ff;
+  --lima: #d4ff3a;
+  --lima-honda: #b8e62a;
+  --guayaba: #ff5a7a;
+  --bruma: #eef1ff;
+  --filete: #d9def5;
+  --apagado: #6b7394;
+  --pizarra: #4a5070;
+  --blanco: #fff;
+
+  /* --- ritmo: 72 @360 · 93 @768 · 128 @1440 (recta ajustada, luego tope) --- */
+  --ritmo: clamp(4.5rem, 3.33rem + 5.19vw, 8rem);
+  --canal: clamp(1.25rem, 4.2vw, 5rem);
+  --ancho: 1320px;
+
+  /* --- escala tipográfica fluida --- */
+  --t-h1: clamp(2.8rem, 7.6vw, 6.75rem);
+  --t-h2: clamp(2rem, 4.6vw, 4rem);
+  --t-h3: clamp(1.25rem, 1.8vw, 1.6rem);
+  --t-cuerpo: clamp(1rem, 1.05vw, 1.1875rem);
+  --t-rotulo: 0.8125rem;
+
+  /* --- velocidad del carrusel: escala con el ancho (vara: 27→52 px/s) --- */
+  --marquesina-a: 86s;
+  --marquesina-b: 64s;
+
+  --curva: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 768px)  { :root { --marquesina-a: 62s; --marquesina-b: 46s; } }
+@media (min-width: 1280px) { :root { --marquesina-a: 54s; --marquesina-b: 40s; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--tinta);
+  color: var(--tinta);
+  font-family: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--t-cuerpo);
+  line-height: 1.6;
+  font-weight: 400;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+h1, h2, h3, .cifra {
+  font-family: 'Bricolage Grotesque', 'Onest', sans-serif;
+  font-weight: 600;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: var(--t-h1); line-height: 1.02; letter-spacing: -0.035em; }
+h2 { font-size: var(--t-h2); line-height: 1.06; letter-spacing: -0.03em; }
+h3 { font-size: var(--t-h3); line-height: 1.2;  letter-spacing: -0.01em; }
+p  { margin: 0; }
+a  { color: inherit; }
+
+/* ---------- estructura ---------- */
+
+.banda { padding-block: var(--ritmo); position: relative; }
+.banda--tinta { background: var(--tinta); color: var(--bruma); }
+.banda--bruma { background: var(--bruma); color: var(--tinta); }
+.banda--blanca { background: var(--blanco); color: var(--tinta); }
+
+.eje {
+  width: min(100% - var(--canal) * 2, var(--ancho));
+  margin-inline: auto;
+}
+
+.rejilla { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(1.5rem, 3vw, 3rem); }
+
+/* ---------- rótulos y filetes ---------- */
+
+.rotulo {
+  font-size: var(--t-rotulo);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cobalto);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.banda--tinta .rotulo { color: var(--lima); }
+.rotulo::before {
+  content: '';
+  width: 1.75rem;
+  height: 2px;
+  background: currentColor;
+  flex: none;
+}
+
+.filete { height: 1px; background: var(--filete); border: 0; margin: 0; }
+.banda--tinta .filete { background: rgba(169, 184, 255, 0.22); }
+
+/* ---------- botones (sin sombra ni borde + fondo: no cuentan como cajita) ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 52px;
+  min-width: 52px;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  border: 0;
+  font: 600 1rem/1 'Onest', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s var(--curva), background-color 0.25s, color 0.25s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:focus-visible { outline: 3px solid var(--lima); outline-offset: 3px; }
+.btn--lima { background: var(--lima); color: var(--tinta); }
+.btn--lima:hover { background: var(--lima-honda); }
+.btn--cobalto { background: var(--cobalto); color: #fff; }
+.btn--cobalto:hover { background: var(--cobalto-hondo); }
+.btn--fantasma {
+  background: transparent;
+  color: currentColor;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+  border-radius: 999px;
+}
+.btn--fantasma:hover { background: currentColor; color: var(--tinta); }
+.banda--tinta .btn--fantasma:hover { color: var(--tinta); }
+
+/* ---------- cabecera ---------- */
+
+.cabecera {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding-block: 0.9rem;
+  transition: background-color 0.35s, box-shadow 0.35s;
+}
+.cabecera.posado {
+  background: rgba(11, 16, 38, 0.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(169, 184, 255, 0.18);
+}
+.cabecera__fila { display: flex; align-items: center; gap: 1.5rem; }
+.marca {
+  display: flex; align-items: center; gap: 0.65rem;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: 1.3rem; letter-spacing: -0.03em;
+  color: var(--bruma); text-decoration: none; flex: none;
+}
+.marca svg, .marca img { width: 26px; height: 30px; color: var(--lima); }
+.menu { display: none; gap: 1.9rem; margin-inline: auto; }
+.menu a {
+  text-decoration: none; font-size: 0.95rem; font-weight: 500;
+  color: var(--cobalto-claro); padding: 0.5rem 0;
+  transition: color 0.2s;
+}
+.menu a:hover { color: var(--lima); }
+.cabecera__acciones { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }
+.cabecera__acciones .btn { min-height: 44px; padding: 0.6rem 1.15rem; font-size: 0.925rem; }
+@media (min-width: 1024px) { .menu { display: flex; } .cabecera__acciones { margin-left: 0; } }
+
+.pausa {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  min-height: 44px; min-width: 44px; padding: 0.55rem 0.9rem;
+  background: transparent; color: var(--cobalto-claro);
+  box-shadow: inset 0 0 0 1.5px rgba(169, 184, 255, 0.35);
+  border: 0; border-radius: 999px; cursor: pointer;
+  font: 500 0.85rem/1 'Onest', sans-serif;
+}
+.pausa:hover { color: var(--lima); box-shadow: inset 0 0 0 1.5px var(--lima); }
+.pausa__texto { display: none; }
+@media (min-width: 640px) { .pausa__texto { display: inline; } }
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: clamp(7rem, 14vh, 11rem) var(--ritmo);
+  background: var(--tinta);
+  color: var(--bruma);
+  overflow: hidden;
+}
+#lienzo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  opacity: 0.95;
+}
+/* El velo solo tiene que dar contraste al texto de la izquierda.
+   Si oscurece todo, el fondo animado deja de verse — y verlo es el encargo. */
+.hero__velo {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(95% 75% at 74% 42%, rgba(36,72,255,0.22), transparent 66%),
+    linear-gradient(100deg, rgba(11,16,38,0.90) 0%, rgba(11,16,38,0.72) 34%, rgba(11,16,38,0.10) 62%, rgba(11,16,38,0) 100%),
+    linear-gradient(180deg, rgba(11,16,38,0.55) 0%, rgba(11,16,38,0) 22%, rgba(11,16,38,0) 74%, rgba(11,16,38,0.82) 100%);
+}
+@media (max-width: 899px) {
+  .hero__velo {
+    background:
+      radial-gradient(110% 60% at 62% 76%, rgba(36,72,255,0.24), transparent 70%),
+      linear-gradient(180deg, rgba(11,16,38,0.90) 0%, rgba(11,16,38,0.76) 48%, rgba(11,16,38,0.22) 78%, rgba(11,16,38,0.86) 100%);
+  }
+}
+.hero .eje { position: relative; z-index: 2; }
+/* Sin `max-width` en ch: se medía con la fuente del cuerpo (16 px) y dejaba
+   el bloque en ~160 px, partiendo el titular y los botones. La columna manda. */
+.hero__texto { grid-column: 1 / -1; }
+@media (min-width: 1024px) { .hero__texto { grid-column: 1 / span 9; } }
+.hero h1 { max-width: 15ch; }
+
+.hero h1 { margin-block: 1.4rem 0; }
+.hero h1 em { font-style: normal; color: var(--lima); }
+.hero__sub {
+  margin-top: 1.6rem;
+  font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+  line-height: 1.55;
+  color: var(--cobalto-claro);
+  max-width: 46ch;
+}
+.hero__acciones { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2.4rem; }
+.hero__pie {
+  display: flex; flex-wrap: wrap; gap: 0.6rem 1.75rem;
+  margin-top: 3rem; padding-top: 1.5rem;
+  border-top: 1px solid rgba(169,184,255,0.2);
+  font-size: 0.9rem; color: var(--apagado);
+}
+.hero__pie span { display: flex; align-items: center; gap: 0.5rem; }
+.hero__pie span::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--lima); flex: none;
+}
+
+/* ---------- marquesina ---------- */
+
+.tec { background: var(--tinta); color: var(--bruma); padding-block: clamp(3rem, 5vw, 5rem); overflow: hidden; }
+.tec__rotulo { margin-bottom: 2rem; }
+.pista { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); }
+.pista + .pista { margin-top: clamp(1rem, 2vw, 1.75rem); }
+.pista__cinta { display: flex; width: max-content; will-change: transform; }
+.pista--a .pista__cinta { animation: desliza-izq var(--marquesina-a) linear infinite; }
+.pista--b .pista__cinta { animation: desliza-der var(--marquesina-b) linear infinite; }
+.pista__grupo { display: flex; align-items: center; gap: clamp(2.5rem, 5vw, 5rem); padding-right: clamp(2.5rem, 5vw, 5rem); }
+.pista__grupo img {
+  height: clamp(30px, 3.6vw, 46px);
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.78;
+  transition: opacity 0.3s;
+}
+.pista__grupo img:hover { opacity: 1; }
+
+@keyframes desliza-izq { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+@keyframes desliza-der { from { transform: translate3d(-50%,0,0); } to { transform: translate3d(0,0,0); } }
+
+.sin-animacion .pista__cinta { animation-play-state: paused !important; }
+
+/* ---------- la prueba ---------- */
+
+.prueba__cab { grid-column: 1 / -1; }
+@media (min-width: 1024px) { .prueba__cab { grid-column: 1 / span 6; } }
+.prueba__media { grid-column: 1 / -1; margin-top: 2.5rem; }
+@media (min-width: 1024px) { .prueba__media { grid-column: 8 / -1; margin-top: 0; } }
+.prueba__video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 72vh;
+  object-fit: cover;
+  background: var(--tinta-2);
+}
+.prueba__pie { margin-top: 1rem; font-size: 0.875rem; color: var(--apagado); }
+.prueba__lista { margin: 2.25rem 0 0; padding: 0; list-style: none; }
+.prueba__lista li { padding-block: 1.1rem; border-top: 1px solid var(--filete); display: flex; gap: 1rem; align-items: baseline; }
+.banda--tinta .prueba__lista li { border-color: rgba(169,184,255,0.2); }
+.prueba__lista li:last-child { border-bottom: 1px solid var(--filete); }
+.banda--tinta .prueba__lista li:last-child { border-bottom-color: rgba(169,184,255,0.2); }
+.prueba__lista b { font-weight: 600; }
+
+/* ---------- servicios: bandas a sangre, nunca tarjetas ---------- */
+
+.servicio { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: center; padding-block: clamp(3rem, 5.5vw, 5.5rem); }
+.servicio + .servicio { border-top: 1px solid var(--filete); }
+.banda--tinta .servicio + .servicio { border-top-color: rgba(169,184,255,0.2); }
+.servicio__texto { grid-column: 1 / -1; }
+.servicio__arte { grid-column: 1 / -1; order: -1; }
+@media (min-width: 900px) {
+  .servicio__texto { grid-column: 1 / span 5; }
+  .servicio__arte  { grid-column: 7 / -1; order: 0; }
+  .servicio--volteado .servicio__texto { grid-column: 8 / -1; }
+  .servicio--volteado .servicio__arte  { grid-column: 1 / span 6; order: -1; }
+}
+/* El PNG/WebP lleva el fondo recortado a alfa (derivado de la luminancia),
+   así que el dibujo flota sobre la banda en vez de quedar como un rectángulo
+   pegado, que leería como cajita. `screen` se probó antes y ACLARABA el fondo
+   del arte respecto a la banda, haciéndolo más visible: se descartó. */
+.servicio__arte img {
+  width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain;
+}
+.servicio__indice {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em;
+  color: var(--cobalto); margin-bottom: 0.9rem;
+}
+.banda--tinta .servicio__indice { color: var(--lima); }
+.servicio h3 { margin-bottom: 0.85rem; }
+.servicio p { color: var(--pizarra); max-width: 48ch; }
+.banda--tinta .servicio p { color: var(--cobalto-claro); }
+.servicio__etiqueta {
+  display: inline-block; margin-top: 1.1rem;
+  font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--cobalto);
+}
+.banda--tinta .servicio__etiqueta { color: var(--lima); }
+
+/* ---------- proceso: numerales grandes, filetes ---------- */
+
+.paso { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(1rem, 2.5vw, 2.5rem); padding-block: clamp(2rem, 3.4vw, 3.2rem); border-top: 1px solid var(--filete); align-items: start; }
+.banda--tinta .paso { border-top-color: rgba(169,184,255,0.2); }
+.paso:last-child { border-bottom: 1px solid var(--filete); }
+.banda--tinta .paso:last-child { border-bottom-color: rgba(169,184,255,0.2); }
+.cifra {
+  grid-column: 1 / -1;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.85;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--cobalto);
+}
+.banda--tinta .cifra { -webkit-text-stroke-color: var(--lima); }
+.paso__texto { grid-column: 1 / -1; }
+@media (min-width: 768px) {
+  .cifra { grid-column: 1 / span 2; }
+  .paso__texto { grid-column: 4 / span 8; }
+}
+.paso h3 { margin-bottom: 0.6rem; }
+.paso p { color: var(--pizarra); max-width: 56ch; }
+.banda--tinta .paso p { color: var(--cobalto-claro); }
+
+/* ---------- quién está detrás ---------- */
+
+.honesto__cab { grid-column: 1 / -1; }
+@media (min-width: 1024px) { .honesto__cab { grid-column: 1 / span 7; } }
+.honesto h2 em { font-style: normal; color: var(--lima); }
+.honesto__cuerpo { grid-column: 1 / -1; margin-top: 2rem; }
+@media (min-width: 1024px) { .honesto__cuerpo { grid-column: 1 / span 6; margin-top: 2.5rem; } }
+.honesto__cuerpo p + p { margin-top: 1.1rem; }
+.honesto__cuerpo p { color: var(--cobalto-claro); font-size: clamp(1.0625rem, 1.3vw, 1.25rem); }
+.honesto__datos { grid-column: 1 / -1; margin-top: 2.5rem; display: grid; gap: 0; }
+@media (min-width: 1024px) { .honesto__datos { grid-column: 8 / -1; margin-top: 2.5rem; } }
+.dato { padding-block: 1.25rem; border-top: 1px solid rgba(169,184,255,0.2); }
+.dato:last-child { border-bottom: 1px solid rgba(169,184,255,0.2); }
+.dato dt { font-size: 0.8125rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--apagado); margin-bottom: 0.35rem; }
+.dato dd { margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 600; letter-spacing: -0.02em; color: var(--bruma); }
+.dato dd small { display: block; font-family: 'Onest', sans-serif; font-size: 0.9375rem; font-weight: 400; letter-spacing: 0; color: var(--cobalto-claro); margin-top: 0.3rem; }
+
+/* ---------- empezar ---------- */
+
+.empezar { background: var(--lima); color: var(--tinta); }
+.empezar__cab { grid-column: 1 / -1; }
+@media (min-width: 1024px) { .empezar__cab { grid-column: 1 / span 7; } }
+.empezar .rotulo { color: var(--cobalto-hondo); }
+.empezar h2 { margin-top: 1.2rem; }
+.empezar__sub { margin-top: 1.4rem; font-size: clamp(1.0625rem, 1.4vw, 1.3rem); max-width: 50ch; color: #1d2340; }
+.empezar__acciones { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2.2rem; }
+.empezar .btn--fantasma { box-shadow: inset 0 0 0 1.5px var(--tinta); }
+.empezar .btn--fantasma:hover { background: var(--tinta); color: var(--lima); }
+.empezar__precio { grid-column: 1 / -1; margin-top: 2.5rem; }
+@media (min-width: 1024px) { .empezar__precio { grid-column: 9 / -1; margin-top: 0; } }
+.empezar__precio .filete { background: rgba(11,16,38,0.22); }
+.empezar__precio p { padding-block: 1rem; font-size: 0.9375rem; color: #1d2340; }
+
+/* ---------- preguntas ---------- */
+
+.faq { grid-column: 1 / -1; }
+@media (min-width: 1024px) { .faq { grid-column: 4 / -1; } .faq__cab { grid-column: 1 / span 3; } }
+.faq__cab { grid-column: 1 / -1; margin-bottom: 1.5rem; }
+.faq details { border-top: 1px solid var(--filete); }
+.faq details:last-of-type { border-bottom: 1px solid var(--filete); }
+.faq summary {
+  list-style: none; cursor: pointer;
+  padding-block: 1.3rem;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(1.0625rem, 1.5vw, 1.3rem); font-weight: 600; letter-spacing: -0.015em;
+  min-height: 44px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; font-size: 1.5rem; line-height: 1; color: var(--cobalto); flex: none; transition: transform 0.3s var(--curva); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 1.4rem; color: var(--pizarra); max-width: 62ch; }
+
+/* ---------- pie ---------- */
+
+.pie { background: var(--tinta); color: var(--cobalto-claro); padding-block: clamp(3.5rem, 5vw, 5rem) 2.5rem; }
+.pie__fila { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
+.pie__marca { grid-column: 1 / -1; }
+@media (min-width: 768px) { .pie__marca { grid-column: 1 / span 5; } .pie__nav { grid-column: 7 / span 3; } .pie__legal { grid-column: 10 / -1; } }
+.pie__marca p { margin-top: 1rem; font-size: 0.9375rem; max-width: 34ch; color: var(--apagado); }
+.pie__nav, .pie__legal { grid-column: 1 / -1; }
+.pie h4 { font: 600 0.8125rem/1 'Onest', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--apagado); margin: 0 0 1rem; }
+.pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+.pie a { text-decoration: none; font-size: 0.9375rem; transition: color 0.2s; display: inline-block; padding-block: 0.15rem; }
+.pie a:hover { color: var(--lima); }
+.pie__fin { margin-top: 3rem; padding-top: 1.75rem; border-top: 1px solid rgba(169,184,255,0.16); font-size: 0.85rem; color: var(--apagado); display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+
+/* ---------- animación de entrada al scroll ---------- */
+
+.js section.revela { opacity: 0; transform: translate3d(0, 34px, 0); }
+.js section.revela.dentro { opacity: 1; transform: translate3d(0, 0, 0); transition: opacity 0.75s var(--curva), transform 0.75s var(--curva); }
+
+.js .escalona > * { opacity: 0; transform: translate3d(0, 22px, 0); }
+.js .dentro .escalona > * { opacity: 1; transform: translate3d(0, 0, 0); transition: opacity 0.6s var(--curva), transform 0.6s var(--curva); }
+.js .dentro .escalona > :nth-child(2) { transition-delay: 0.07s; }
+.js .dentro .escalona > :nth-child(3) { transition-delay: 0.14s; }
+.js .dentro .escalona > :nth-child(4) { transition-delay: 0.21s; }
+.js .dentro .escalona > :nth-child(5) { transition-delay: 0.28s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js section.revela, .js .escalona > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .pista__cinta { animation: none !important; }
+  .btn:hover { transform: none; }
+}
+.sin-animacion section.revela, .sin-animacion .escalona > * { opacity: 1 !important; transform: none !important; }
+
+/* ---------- utilidades ---------- */
+
+.oculto-visual {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+/* Fuera de vista sin desplazar la caja: `left:-9999px` contaba como desborde. */
+.saltar {
+  position: absolute; left: 1rem; top: 1rem; z-index: 100;
+  background: var(--lima); color: var(--tinta); padding: 0.9rem 1.4rem; font-weight: 600;
+  clip-path: inset(50%); opacity: 0; pointer-events: none;
+}
+.saltar:focus { clip-path: none; opacity: 1; pointer-events: auto; }
+
+/* ---------- cabeceras de sección y entradillas ----------
+   max-width en `ch` sobre el contenedor usa la fuente del contenedor (16 px),
+   no la del H2 (64 px): por eso el titular partía en tres líneas estrechas.
+   Se limita el H2 con su propia medida. */
+.cab { max-width: 46rem; }
+.cab h2 { max-width: 16ch; margin-top: 1.2rem; }
+.entradilla { margin-top: 1.4rem; color: var(--pizarra); max-width: 46ch; }
+.banda--tinta .entradilla { color: var(--cobalto-claro); }
+.lista-pasos { margin-top: var(--ritmo); }
+.servicio--primero { margin-top: var(--ritmo); }
+.honesto h2, .empezar h2 { max-width: 17ch; }
+.faq__cab h2 { margin-top: 1.2rem; }
+
+/* ---------- arreglo de desborde en pantallas estrechas ----------
+   Una rejilla de 12 columnas con gap fijo tiene un ancho mínimo de
+   11 × gap antes de contar el contenido: a 360 px eso ya desborda.
+   Por debajo de 640 px se colapsa a una sola columna. */
+.rejilla, .pie__fila, .servicio, .paso { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.rejilla > *, .pie__fila > *, .servicio > *, .paso > * { min-width: 0; }
+
+@media (max-width: 639px) {
+  .rejilla, .pie__fila, .servicio, .paso { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+}
+
+/* La cabecera a 320 px: el conjunto marca + pausa + CTA no cabe. */
+@media (max-width: 349px) {
+  .cabecera__fila { gap: 0.5rem; }
+  .marca span { display: none; }
+  .cabecera__acciones { gap: 0.4rem; }
+  .cabecera__acciones .btn { padding: 0.6rem 0.9rem; font-size: 0.875rem; }
+  .pausa { padding: 0.55rem 0.7rem; }
+}
+
+/* A ancho de móvil los CTA partían el texto en dos líneas dentro de una fila flex.
+   A pantalla completa quedan en una línea y además son objetivo táctil cómodo. */
+@media (max-width: 479px) {
+  .hero__acciones .btn, .empezar__acciones .btn { flex: 1 1 100%; }
+}

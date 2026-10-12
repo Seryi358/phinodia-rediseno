@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PhinodIA · Agencia de IA en Colombia — chatbots, agentes de voz y automatización</title>
+<meta name="description" content="Agencia de IA colombiana. Chatbots de WhatsApp, agentes de voz, automatización con n8n y videos UGC con IA. Quince meses construyendo, con Cámara de Comercio.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b1026">
+<link rel="icon" href="logos/phinodia-marca.svg" type="image/svg+xml">
+<link rel="preload" href="fuentes/bricolage_grotesque_latin-s.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fuentes/onest_latin-s.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera" id="cabecera">
+  <div class="eje cabecera__fila">
+    <a class="marca" href="#inicio">
+      <img src="logos/phinodia-marca.svg" alt="" width="26" height="30">
+      <span>PhinodIA</span>
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#prueba">La prueba</a>
+      <a href="#servicios">Qué hacemos</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#nosotros">Quiénes somos</a>
+      <a href="#preguntas">Preguntas</a>
+    </nav>
+    <div class="cabecera__acciones">
+      <button class="pausa" id="pausa" type="button" aria-pressed="false">
+        <span aria-hidden="true">❚❚</span><span class="pausa__texto">Pausar animaciones</span>
+      </button>
+      <a class="btn btn--lima" href="#empezar">Empezar</a>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- 1 · HERO -->
+  <section class="hero" id="inicio">
+    <canvas id="lienzo" aria-hidden="true"></canvas>
+    <div class="hero__velo" aria-hidden="true"></div>
+    <div class="eje rejilla">
+      <div class="hero__texto escalona">
+        <p class="rotulo">Agencia de IA · Colombia</p>
+        <h1>Que la IA conteste, llame y <em>grabe</em> por ti.</h1>
+        <p class="hero__sub">Chatbots de WhatsApp, agentes de voz, automatización con n8n y videos UGC. Construidos aquí, para negocios que venden aquí.</p>
+        <div class="hero__acciones">
+          <a class="btn btn--lima" href="#empezar">Cuéntanos qué necesitas</a>
+          <a class="btn btn--fantasma" href="#prueba">Ver una salida real</a>
+        </div>
+        <p class="hero__pie">
+          <span>Quince meses construyendo</span>
+          <span>Cámara de Comercio</span>
+          <span>Nequi, PSE o tarjeta</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · MARQUESINA DE TECNOLOGÍAS -->
+  <section class="tec revela" id="tecnologias" aria-label="Tecnologías con las que trabajamos">
+    <div class="eje tec__rotulo"><p class="rotulo">Tecnologías con las que trabajamos</p></div>
+    <div class="pista pista--a">
+      <div class="pista__cinta" id="cinta-a"></div>
+    </div>
+    <div class="pista pista--b">
+      <div class="pista__cinta" id="cinta-b"></div>
+    </div>
+    <p class="oculto-visual">Meta, WhatsApp, Instagram, Google, OpenAI, n8n, ElevenLabs, Shopify, HubSpot y Google Calendar son herramientas y plataformas sobre las que construimos. No son clientes nuestros ni nos patrocinan.</p>
+  </section>
+
+  <!-- 3 · LA PRUEBA -->
+  <section class="banda banda--bruma revela" id="prueba">
+    <div class="eje rejilla">
+      <div class="prueba__cab escalona">
+        <p class="rotulo">La prueba</p>
+        <h2>No te pedimos que nos creas. Míralo.</h2>
+        <p class="entradilla">
+          Esto salió de una sola foto de producto. Sin set, sin cámara, sin actriz, sin edición.
+          Diez segundos, voz colombiana, listo para pautar.
+        </p>
+        <ul class="prueba__lista">
+          <li><b>La foto entra, el video sale.</b> Tú subes la imagen que ya tienes.</li>
+          <li><b>Voz colombiana, no neutra.</b> Suena de aquí porque vende aquí.</li>
+          <li><b>Vertical y con subtítulos.</b> Formato de Reels y TikTok, sin retocar.</li>
+        </ul>
+      </div>
+      <div class="prueba__media escalona">
+        <video class="prueba__video" src="media/ejemplo-cafe.mp4" poster="media/ejemplo-cafe.jpg"
+               controls preload="none" playsinline muted loop
+               aria-label="Ejemplo de video generado: café Montaña Alta"></video>
+        <p class="prueba__pie">Salida real de nuestro flujo de video. «Montaña Alta» es un producto de muestra que usamos para demostrar, no un cliente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · QUÉ HACEMOS -->
+  <section class="banda banda--tinta revela" id="servicios">
+    <div class="eje">
+      <div class="escalona cab">
+        <p class="rotulo">Qué hacemos</p>
+        <h2>Cuatro cosas, y las cuatro de verdad.</h2>
+      </div>
+
+      <div class="servicio servicio--primero">
+        <div class="servicio__texto">
+          <p class="servicio__indice">01 — Conversación</p>
+          <h3>Chatbots de WhatsApp con IA</h3>
+          <p>Atienden, responden dudas, toman pedidos y pasan a una persona cuando toca. Sobre la API oficial de WhatsApp, con el historial y las reglas de tu negocio.</p>
+          <span class="servicio__etiqueta">Se cotiza según alcance</span>
+        </div>
+        <div class="servicio__arte"><img src="img/arte-chat.webp" alt="" width="1280" height="853" loading="lazy" decoding="async"></div>
+      </div>
+
+      <div class="servicio servicio--volteado">
+        <div class="servicio__texto">
+          <p class="servicio__indice">02 — Voz</p>
+          <h3>Agentes de voz que llaman y contestan</h3>
+          <p>Un número que atiende a cualquier hora, confirma citas, hace seguimiento y deja el resumen escrito. Habla como una persona de aquí, no como un contestador.</p>
+          <span class="servicio__etiqueta">Se cotiza según alcance</span>
+        </div>
+        <div class="servicio__arte"><img src="img/arte-voz.webp" alt="" width="1280" height="853" loading="lazy" decoding="async"></div>
+      </div>
+
+      <div class="servicio">
+        <div class="servicio__texto">
+          <p class="servicio__indice">03 — Automatización</p>
+          <h3>Procesos conectados con n8n</h3>
+          <p>Lo que hoy haces copiando y pegando entre el WhatsApp, el Excel y la pasarela de pagos, hecho solo. Sin cambiar de herramientas: conectamos las que ya usas.</p>
+          <span class="servicio__etiqueta">Se cotiza según alcance</span>
+        </div>
+        <div class="servicio__arte"><img src="img/arte-auto.webp" alt="" width="1280" height="853" loading="lazy" decoding="async"></div>
+      </div>
+
+      <div class="servicio servicio--volteado">
+        <div class="servicio__texto">
+          <p class="servicio__indice">04 — Video</p>
+          <h3>Videos UGC con IA</h3>
+          <p>De una foto de producto a un video vertical con voz colombiana, listo para pautar en Meta y TikTok. Es el único servicio con precio público y compra directa.</p>
+          <a class="servicio__etiqueta" href="https://phinodia.com/precios">Ver precios y comprar →</a>
+        </div>
+        <div class="servicio__arte"><img src="img/arte-video.webp" alt="" width="1280" height="853" loading="lazy" decoding="async"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · CÓMO TRABAJAMOS -->
+  <section class="banda banda--bruma revela" id="proceso">
+    <div class="eje">
+      <div class="escalona cab">
+        <p class="rotulo">Cómo trabajamos</p>
+        <h2>Cuatro pasos, en este orden.</h2>
+      </div>
+      <div class="lista-pasos">
+        <div class="paso">
+          <p class="cifra">01</p>
+          <div class="paso__texto">
+            <h3>Te escuchamos media hora</h3>
+            <p>Sin presentación comercial. Queremos entender qué te quita tiempo hoy y cuánto te cuesta. Si lo que necesitas no lo hacemos nosotros, te lo decimos ahí mismo.</p>
+          </div>
+        </div>
+        <div class="paso">
+          <p class="cifra">02</p>
+          <div class="paso__texto">
+            <h3>Te damos alcance, fecha y precio por escrito</h3>
+            <p>Antes de empezar, no después. Si el alcance cambia a mitad de camino, se vuelve a cotizar; no aparecen sorpresas en la factura.</p>
+          </div>
+        </div>
+        <div class="paso">
+          <p class="cifra">03</p>
+          <div class="paso__texto">
+            <h3>Construimos y lo pruebas tú</h3>
+            <p>Lo recorres como lo recorrería tu cliente, con tus casos raros y tus clientes difíciles. Se ajusta hasta que funcione con los tuyos, no con un ejemplo de demostración.</p>
+          </div>
+        </div>
+        <div class="paso">
+          <p class="cifra">04</p>
+          <div class="paso__texto">
+            <h3>Queda tuyo, y lo sostenemos</h3>
+            <p>Las cuentas, los números y los flujos quedan a tu nombre. Si un día nos quieres fuera, te llevas todo y no se rompe nada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · QUIÉN ESTÁ DETRÁS -->
+  <section class="banda banda--tinta revela honesto" id="nosotros">
+    <div class="eje rejilla">
+      <div class="honesto__cab escalona">
+        <p class="rotulo">Quién está detrás</p>
+        <h2>No vas a ver aquí un muro de <em>cuarenta logos</em>.</h2>
+      </div>
+      <div class="honesto__cuerpo escalona">
+        <p>PhinodIA nació en julio de 2025. A octubre de 2026 son quince meses, una empresa con Cámara de Comercio y un puñado de clientes que caben en una mano.</p>
+        <p>Podríamos llenar esta página de logos grises y de cifras redondas. Casi todas las agencias lo hacen, y casi ninguna te deja llamar a los clientes que enseña.</p>
+        <p>Preferimos decirlo como es: somos pequeños, llevamos poco, y por eso cada proyecto lo lleva quien lo construye. Si quieres hablar con alguno de nuestros clientes antes de decidir, te lo presentamos.</p>
+      </div>
+      <dl class="honesto__datos escalona">
+        <div class="dato"><dt>Fundada</dt><dd>Julio 2025<small>Quince meses a octubre de 2026</small></dd></div>
+        <div class="dato"><dt>Constitución</dt><dd>Cámara de Comercio<small>Sin RUT. No somos entidad vigilada</small></dd></div>
+        <div class="dato"><dt>Clientes activos</dt><dd>Dos<small>No publicamos sus nombres sin su permiso</small></dd></div>
+        <div class="dato"><dt>Dónde</dt><dd>Colombia<small>Trabajo remoto en todo el país</small></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 7 · EMPEZAR -->
+  <section class="banda empezar revela" id="empezar">
+    <div class="eje rejilla">
+      <div class="empezar__cab escalona">
+        <p class="rotulo">Empezar</p>
+        <h2>Cuéntanos qué te está quitando el día.</h2>
+        <p class="empezar__sub">Escríbenos con una frase sobre tu negocio y qué quisieras automatizar. Te respondemos con una hora para hablar, no con un catálogo.</p>
+        <div class="empezar__acciones">
+          <a class="btn btn--cobalto" href="mailto:scastellanos@phinodia.com?subject=Quiero%20automatizar%20algo%20en%20mi%20negocio">Escríbenos</a>
+          <a class="btn btn--fantasma" href="https://phinodia.com/precios">Ver precios de video</a>
+        </div>
+      </div>
+      <div class="empezar__precio escalona">
+        <hr class="filete">
+        <p><b>Videos UGC</b> — precio público y compra directa en la tienda.</p>
+        <hr class="filete">
+        <p><b>Chatbots, voz y automatización</b> — se cotizan según el alcance. Siempre por escrito antes de empezar.</p>
+        <hr class="filete">
+        <p><b>Pagos</b> — Nequi, PSE o tarjeta. Sin suscripción obligatoria.</p>
+        <hr class="filete">
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · PREGUNTAS -->
+  <section class="banda banda--blanca revela" id="preguntas">
+    <div class="eje rejilla">
+      <div class="faq__cab escalona">
+        <p class="rotulo">Preguntas</p>
+        <h2>Lo que suelen preguntarnos.</h2>
+      </div>
+      <div class="faq escalona">
+        <details>
+          <summary>¿Cuánto tardan en montar un chatbot?</summary>
+          <p>Depende del alcance, y por eso no ponemos aquí un número que luego no se cumpla. Lo que sí te garantizamos es que la fecha te la damos por escrito <em>antes</em> de empezar, en el paso 2, y que si cambia te lo decimos en el momento.</p>
+        </details>
+        <details>
+          <summary>¿Y si al final no me sirve?</summary>
+          <p>Lo pruebas tú antes de que esté en producción, con tus propios casos. Si en esa prueba no hace lo que quedó por escrito, se ajusta o no se cobra la parte que no cumple. Para los videos UGC, la política de reembolsos está publicada en la tienda.</p>
+        </details>
+        <details>
+          <summary>¿De quién son las cuentas y los flujos?</summary>
+          <p>Tuyos. Las cuentas de WhatsApp, de la pasarela y de las herramientas van a tu nombre desde el primer día. Si mañana quieres a otro proveedor, se lleva todo y no hay que rehacer nada.</p>
+        </details>
+        <details>
+          <summary>¿Trabajan con negocios fuera de Colombia?</summary>
+          <p>Sí, pero lo que hacemos mejor es lo colombiano: la voz, los modismos, Nequi y PSE, los horarios. Si vendes fuera, te lo decimos de frente antes de cobrarte.</p>
+        </details>
+        <details>
+          <summary>¿Con qué herramientas se integra?</summary>
+          <p>Con las que ya usas. Habitualmente la API de WhatsApp de Meta, Instagram, Google Workspace y Calendar, Shopify, HubSpot y lo que exponga una API. La plomería la hacemos con n8n.</p>
+        </details>
+        <details>
+          <summary>¿Son una entidad vigilada?</summary>
+          <p>No, y desconfía de quien lo insinúe sin serlo. PhinodIA está constituida con Cámara de Comercio y es una agencia de tecnología: no manejamos dinero de terceros ni somos entidad financiera, así que no nos vigila ninguna Superintendencia.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pie">
+  <div class="eje">
+    <div class="pie__fila">
+      <div class="pie__marca">
+        <a class="marca" href="#inicio">
+          <img src="logos/phinodia-marca.svg" alt="" width="26" height="30">
+          <span>PhinodIA</span>
+        </a>
+        <p>Agencia de IA colombiana. Chatbots de WhatsApp, agentes de voz, automatización y video con IA.</p>
+      </div>
+      <div class="pie__nav">
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="#prueba">La prueba</a></li>
+          <li><a href="#servicios">Qué hacemos</a></li>
+          <li><a href="#proceso">Cómo trabajamos</a></li>
+          <li><a href="#nosotros">Quiénes somos</a></li>
+          <li><a href="#preguntas">Preguntas</a></li>
+        </ul>
+      </div>
+      <div class="pie__legal">
+        <h4>Legal y contacto</h4>
+        <ul>
+          <li><a href="https://phinodia.com/terminos">Términos</a></li>
+          <li><a href="https://phinodia.com/privacidad">Privacidad</a></li>
+          <li><a href="https://phinodia.com/cookies">Cookies</a></li>
+          <li><a href="https://phinodia.com/reembolsos">Reembolsos</a></li>
+          <li><a href="https://phinodia.com/pqr">PQR · Protección al consumidor</a></li>
+          <li><a href="mailto:scastellanos@phinodia.com">scastellanos@phinodia.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pie__fin">
+      <span>© 2026 PhinodIA</span>
+      <span>Constituida con Cámara de Comercio · Colombia</span>
+      <span>Las marcas de terceros pertenecen a sus dueños</span>
+    </div>
+  </div>
+</footer>
+
+<script src="guion.js" defer></script>
+</body>
+</html>
