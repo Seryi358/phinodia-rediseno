@@ -792,3 +792,45 @@ a  { color: inherit; }
   padding-inline: 2.4rem; min-height: 60px; font-size: 1.0625rem;
 }
 .empezar .btn--cobalto:hover { background: #1d2340; color: var(--blanco); }
+
+/* --- 18 · lo que encontró el crítico ciego de la ronda 4 -------------------
+   De sus nueve "retrocesos frente a la web actual", cuatro resultaron ciertos
+   al medirlos contra el sitio vivo. Estos son los arreglos. Los otros cinco,
+   y por qué no se tocan, están en el informe. */
+
+/* 18a · las cifras se alineaban a la izquierda, así que $ 19.900 y $ 339.900
+   empezaban en el mismo píxel y los dígitos no se podían comparar de un
+   vistazo, que es para lo que existe una tabla de precios. A la derecha y con
+   cifras de ancho fijo. */
+.tabla-precio th:nth-child(2), .tabla-precio td:nth-child(2),
+.tabla-precio th:nth-child(4), .tabla-precio td:nth-child(4),
+.tabla-precio th:nth-child(5), .tabla-precio td:nth-child(5) { text-align: right; }
+.tabla-precio td:nth-child(2), .tabla-precio td:nth-child(4), .tabla-precio td:nth-child(5) {
+  font-variant-numeric: tabular-nums;
+}
+.tabla-precio th:last-child, .tabla-precio td:last-child { text-align: right; }
+
+/* 18b · "El más elegido" se quedó en 12 px, el único texto de la página por
+   debajo de 13. Sube al mismo cuerpo que el resto de rótulos. */
+.tabla-precio tbody th em { font-size: var(--t-rotulo); }
+
+/* 18c · "Iniciar sesión" no existía en ninguna parte, y phinodia.com tiene
+   cuentas de usuario: quien ya es cliente se quedaba sin puerta. Va en el menú
+   y en el pie, apuntando a app.phinodia.com/ingresar (comprobado, HTTP 200). */
+.menu__sesion { font-weight: 500; }
+@media (min-width: 1024px) { .menu__sesion { margin-left: 0.8rem; opacity: 0.85; } }
+
+/* 18d · el demo de voz vivo de phinodia.com no tenía equivalente aquí. No se
+   duplica el widget —gastaría crédito de ElevenLabs de Sergio en una página de
+   previsualización—; se enlaza al que ya está contestando. */
+.servicio__demo { margin-top: 0.9rem; color: var(--apagado-claro); font-size: 0.9375rem; }
+.servicio__demo a {
+  color: var(--lima); font-weight: 600; text-decoration: none;
+  box-shadow: inset 0 -1px 0 0 currentColor;
+}
+.servicio__demo a:hover { color: var(--blanco); }
+
+@media (max-width: 759px) {
+  .tabla-precio td:nth-child(2), .tabla-precio td:nth-child(4), .tabla-precio td:nth-child(5),
+  .tabla-precio td:last-child { text-align: left; }
+}
