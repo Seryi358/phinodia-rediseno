@@ -768,7 +768,7 @@ a  { color: inherit; }
 /* Por debajo de 760 px una tabla de seis columnas no cabe: cada fila pasa a
    bloque y cada celda lleva delante su rótulo, sacado de `data-r`. Sigue siendo
    una <table> para quien usa lector de pantalla. */
-@media (max-width: 759px) {
+@media (max-width: 899px) {
   .tabla-precio thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .tabla-precio tbody tr { display: block; padding-block: 1.3rem 1.5rem; }
   .tabla-precio tbody th[scope="row"] { display: block; font-size: 1.125rem; padding-block: 0 0.5rem; white-space: normal; }
@@ -836,7 +836,70 @@ a  { color: inherit; }
 }
 .servicio__demo-enlace:hover { color: var(--blanco); }
 
-@media (max-width: 759px) {
+@media (max-width: 899px) {
   .tabla-precio td:nth-child(2), .tabla-precio td:nth-child(4), .tabla-precio td:nth-child(5),
   .tabla-precio td:last-child { text-align: left; }
+}
+
+/* --- 19 · lo que encontró el crítico ciego de la ronda 5 -------------------
+   Tercer crítico, tercer "Sí", pero el más preciso de los tres con la tabla.
+   De lo que dijo, esto es lo que resultó cierto al mirarlo. */
+
+/* 19a · "la fila recomendada apenas se distingue: de reojo, las cuatro pesan
+   igual". Cierto. Se marca con un filete lima de 3 px a la izquierda y con su
+   botón relleno — NO con fondo teñido, que sería la cajita que el encargo veta. */
+.tabla-precio tbody tr.es-elegido th[scope="row"] { box-shadow: inset 3px 0 0 0 var(--lima); padding-left: 0.9rem; }
+.tabla-precio a.comprar-destacado {
+  background: var(--lima); color: var(--tinta); border-radius: 999px;
+  padding-inline: 1.3rem; box-shadow: none; font-weight: 600;
+}
+.tabla-precio a.comprar-destacado:hover { background: var(--lima-honda); color: var(--tinta); }
+
+/* 19b · "el rótulo cuelga bajo su fila y la empuja: 81 px las demás, 97 px la
+   recomendada". Cierto y medible. Pasa a ir en línea con el nombre. */
+.tabla-precio tbody th em { display: inline; margin-top: 0; margin-left: 0.55rem; white-space: nowrap; }
+@media (max-width: 899px) { .tabla-precio tbody th em { display: block; margin-left: 0; margin-top: 0.3rem; } }
+
+/* 19c · "la columna de precio por segundo ha perdido la barra proporcional que
+   hacía que el argumento se entendiera de un vistazo". La barra vuelve, y su
+   ancho es el valor dividido por el mayor: anclada en cero, sin exagerar la
+   diferencia. 995 → 100 %, 850 → 85,4 %. */
+.tabla-precio td .ps { display: block; }
+.tabla-precio td .barra {
+  display: block; height: 2px; width: var(--p); margin-top: 0.4rem; margin-left: auto;
+  background: var(--lima); opacity: 0.55;
+}
+@media (max-width: 899px) { .tabla-precio td .barra { margin-left: 0; } }
+
+/* 19d · "tres de las cuatro garantías han desaparecido de ese punto; quitarlas
+   no limpia, desprotege". Vuelven. Son las que publica phinodia.com/precios. */
+.garantias { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 0.1rem; }
+@media (min-width: 900px) { .garantias { grid-template-columns: 1fr 1fr; column-gap: 2.5rem; } }
+.garantias li {
+  padding-block: 0.85rem; color: var(--apagado-claro); font-size: 0.9375rem;
+  border-top: 1px solid rgba(169, 184, 255, 0.22);
+}
+.garantias b { color: var(--bruma); font-weight: 600; }
+
+/* 19e · "C elimina la prueba social; quitar los testimonios de la página que
+   cobra es un retroceso comercial". Vuelven tres, copiados literales de los que
+   phinodia.com ya publica. Sin recuadro: filete arriba y la cita en grande. */
+.opiniones { margin-top: clamp(2.5rem, 4vw, 4rem); border-top: 1px solid rgba(169, 184, 255, 0.22); padding-top: clamp(2.5rem, 4vw, 3.5rem); }
+.opiniones blockquote { margin: 0; padding-block: 1.6rem; border-top: 1px solid rgba(169, 184, 255, 0.14); }
+.opiniones blockquote:first-of-type { border-top: 0; }
+.opiniones blockquote p {
+  margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 500;
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem); line-height: 1.3; letter-spacing: -0.015em; color: var(--bruma);
+  max-width: 44ch; text-wrap: balance;
+}
+.opiniones blockquote p::before { content: '«'; color: var(--lima); margin-right: 0.15em; }
+.opiniones blockquote p::after  { content: '»'; color: var(--lima); margin-left: 0.15em; }
+.opiniones cite { display: block; margin-top: 0.8rem; font-style: normal; font-weight: 600; color: var(--bruma); font-size: 0.9375rem; }
+.opiniones cite small { display: block; font-weight: 400; color: var(--apagado-claro); margin-top: 0.15rem; }
+.opiniones__pie { margin-top: 1.8rem; color: var(--apagado-claro); font-size: 0.9375rem; max-width: 60ch; }
+@media (min-width: 900px) {
+  .opiniones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 2.5rem; }
+  .opiniones .rotulo, .opiniones__pie { grid-column: 1 / -1; }
+  .opiniones blockquote { border-top: 1px solid rgba(169, 184, 255, 0.22); padding-top: 1.6rem; }
+  .opiniones blockquote:first-of-type { border-top: 1px solid rgba(169, 184, 255, 0.22); }
 }
