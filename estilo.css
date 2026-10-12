@@ -511,3 +511,39 @@ a  { color: inherit; }
 @media (max-width: 479px) {
   .hero__acciones .btn, .empezar__acciones .btn { flex: 1 1 100%; }
 }
+
+/* ===========================================================
+   Correcciones del recorrido del portero (9 pantallas)
+   =========================================================== */
+
+/* --- 1 · objetivos táctiles de 44 px de alto mínimo --- */
+.marca { min-height: 44px; }
+.servicio__etiqueta { display: inline-flex; align-items: center; min-height: 44px; margin-top: 0.6rem; }
+.pie a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 0; }
+.pie ul { gap: 0; }
+.pie__fin span { display: inline-flex; align-items: center; min-height: 32px; }
+
+/* --- 2 · contraste AA sobre tinta ---
+   `--apagado` (#6b7394) da 4,04:1 sobre #0b1026: no llega a AA.
+   `--cobalto` (#2448ff) da 3,09:1: tampoco. Sobre oscuro se usan estos. */
+:root { --apagado-claro: #9aa5cf; }
+.hero .rotulo { color: var(--lima); }
+.hero__pie { color: var(--apagado-claro); }
+.pie { color: var(--cobalto-claro); }
+.pie__marca p, .pie h4, .pie__fin { color: var(--apagado-claro); }
+.dato dt { color: var(--apagado-claro); }
+
+/* --- 3 · enlace de salto ---
+   Con `clip-path` conservaba caja y el recorrido intentaba pulsarlo sin poder.
+   Con alto 0 no tiene caja (queda fuera de `:visible`) pero sigue recibiendo
+   el foco del teclado, que es justo para quien existe. */
+.saltar {
+  position: absolute; left: 1rem; top: 1rem; z-index: 100;
+  height: 0; padding: 0 1.4rem; overflow: hidden; opacity: 0; pointer-events: none;
+  clip-path: none;
+  background: var(--lima); color: var(--tinta); font-weight: 600;
+}
+.saltar:focus {
+  height: auto; padding: 0.9rem 1.4rem; overflow: visible;
+  opacity: 1; pointer-events: auto;
+}
