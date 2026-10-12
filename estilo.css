@@ -655,3 +655,12 @@ a  { color: inherit; }
   .hero__video { max-height: 60vh; margin-left: auto; }
   .hero { padding-block: clamp(6rem, 11vh, 8.5rem) var(--ritmo); }
 }
+
+/* --- 9 · a 360 px la cabecera no cabía con hamburguesa + pausa + CTA.
+       Por debajo de 1024 px el CTA vive dentro del menú. --- */
+.menu__cta { display: none; }
+@media (max-width: 1023px) {
+  .cabecera__acciones .btn { display: none; }
+  .menu__cta { display: inline-flex; margin-top: 1.25rem; align-self: flex-start; border-bottom: 0; }
+  .menu a.menu__cta { color: var(--tinta); }
+}
