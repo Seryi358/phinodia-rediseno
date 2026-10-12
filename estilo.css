@@ -753,7 +753,17 @@ a  { color: inherit; }
 }
 .tabla-precio tbody a:hover { color: var(--blanco); }
 .precios__pie { margin-top: 1.6rem; color: var(--apagado-claro); font-size: 0.9375rem; }
-.precios__pie a { color: var(--lima); font-weight: 600; }
+
+/* El enlace iba dentro del parrafo y media 187x20 px: el recorrido del portero
+   lo marco como objetivo pequeno en 430, 412 y 768 px, y tenia razon — 20 px de
+   alto no se pulsan con un dedo. Sale del parrafo y pasa a tener su propia caja
+   de 44 px, que es el minimo para un dedo, no una preferencia. */
+.precios__enlace {
+  display: inline-flex; align-items: center; min-height: 44px; margin-top: 0.4rem;
+  color: var(--lima); font-weight: 600; text-decoration: none;
+  box-shadow: inset 0 -1px 0 0 currentColor;
+}
+.precios__enlace:hover { color: var(--blanco); }
 
 /* Por debajo de 760 px una tabla de seis columnas no cabe: cada fila pasa a
    bloque y cada celda lleva delante su rótulo, sacado de `data-r`. Sigue siendo
