@@ -903,3 +903,22 @@ a  { color: inherit; }
   .opiniones blockquote { border-top: 1px solid rgba(169, 184, 255, 0.22); padding-top: 1.6rem; }
   .opiniones blockquote:first-of-type { border-top: 1px solid rgba(169, 184, 255, 0.22); }
 }
+
+/* --- 20 · lo que encontró el crítico ciego de la ronda 6 -------------------
+   Cuarto "Sí" seguido. De sus cinco defectos, dos resultaron ciertos al
+   medirlos y uno de los que él marcó como sospecha resultó falso. */
+
+/* 20a · "los tres pies de testimonio quedan a tres alturas distintas". Cierto
+   y medido: 5.940, 6.002 y 6.033 px — 93 px de escalón, porque las citas tienen
+   3, 2 y 1 líneas y van alineadas arriba. Con filetes verticales entre columnas
+   el ojo espera retícula. Cada cita pasa a columna flexible y el nombre se va
+   al fondo, a un riel común. */
+@media (min-width: 900px) {
+  .opiniones blockquote { display: flex; flex-direction: column; height: 100%; }
+  .opiniones blockquote cite { margin-top: auto; padding-top: 1.2rem; }
+}
+
+/* 20b · "cite small" era el unico texto que quedaba por debajo de 13 px (12,5).
+   Su contraste es 7,75:1, muy por encima de AA — el problema era el cuerpo, no
+   el color. */
+.opiniones cite small { font-size: var(--t-rotulo); }
