@@ -547,3 +547,8 @@ a  { color: inherit; }
   height: auto; padding: 0.9rem 1.4rem; overflow: visible;
   opacity: 1; pointer-events: auto;
 }
+
+/* La marquesina es tinta pero no lleva la clase `.banda--tinta`, así que su
+   rótulo caía al cobalto (3,09:1). Y el pie del vídeo en bruma daba 4,14:1. */
+.tec .rotulo { color: var(--lima); }
+.prueba__pie { color: var(--pizarra); }
