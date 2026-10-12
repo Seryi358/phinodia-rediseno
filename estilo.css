@@ -922,3 +922,117 @@ a  { color: inherit; }
    Su contraste es 7,75:1, muy por encima de AA — el problema era el cuerpo, no
    el color. */
 .opiniones cite small { font-size: var(--t-rotulo); }
+
+/* --- 21 · lo que encontró el crítico de la ronda 7 ------------------------
+   Séptimo crítico, el primero que miró la tabla de precios a tamaño real.
+   Dijo "no está listo para firmar: en escritorio cerca, en móvil no".
+   De sus cuatro bloqueantes, al medirlos contra el DOM, uno era cierto, uno
+   era cierto por una causa que él no podía ver, y dos eran falsos. Lo que
+   sigue son los ciertos. Los falsos, y por qué, están en el informe. */
+
+/* 21a · CAUSA RAÍZ de casi todo lo que falla en móvil, y no la vio ninguno de
+   los siete porque no se ve en una captura: en <900px el td es display:flex
+   con justify-content:space-between, así que ".ps" y ".barra" son HERMANOS
+   flex. De ahí salen, de un solo golpe, los tres defectos que él midió:
+     · la cifra "$ 995/s" se parte en dos líneas (51 px de alto sobre 26 de
+       interlineado) porque es un flex-item que se encoge;
+     · queda en el centro, a 150 px, mientras los demás valores de la tarjeta
+       alinean a 340 — el único dato fuera de su columna;
+     · y la barra, que debería medir var(--p), la encoge el flex a 158 px
+       EXACTOS en las cuatro filas. Medido: 158/158/158/158.
+   Eso último es lo más grave que se ha encontrado en siete rondas: la única
+   ayuda visual para comparar precio estaba diciendo, en móvil, que los cuatro
+   paquetes cuestan lo mismo por segundo. Lo contrario del argumento de venta.
+   Se arregla agrupando cifra, ahorro y barra en un solo hijo flex. */
+.ps-grupo { display: block; }
+.tabla-precio td .ps { white-space: nowrap; }
+
+/* 21b · la barra ya no codifica el precio por segundo, codifica el AHORRO.
+   Él demostró que la codificación anterior era correcta y aun así inútil:
+   base cero sobre un rango real de 850–995 daba cuatro barras con 8 px de
+   paso — "el ojo no ve una escalera, ve cuatro rayas iguales" — y encima
+   invertida, porque la más larga era la del paquete más caro por segundo.
+   Ahora: 0 / 32,1 / 65,9 / 100 %. Más barra = mejor negocio, que es la
+   convención. Los porcentajes salen de dividir las cifras que publica
+   phinodia.com/precios, recalculados aparte en Python:
+     948/995−1 = −4,69 %   899/995−1 = −9,61 %   850/995−1 = −14,60 % */
+.ahorro {
+  display: block; margin-top: 0.15rem; color: var(--lima);
+  font-size: var(--t-rotulo); font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.ahorro--base { color: var(--apagado); font-weight: 400; }
+
+/* 21c · "falsa affordance, y esto es lo más serio": la barra caía en la misma
+   coordenada y que el subrayado del enlace "Comprar", en el mismo lima y con
+   el mismo grosor. Dos subrayados lima idénticos en la misma línea, uno dato
+   y otro el único elemento clicable. Tenía razón. La barra se va a cobalto,
+   sube a 3 px y se pega al grupo en vez de flotar 22 px por debajo. */
+.tabla-precio td .barra {
+  height: 3px; margin-top: 0.35rem; margin-left: auto;
+  background: var(--cobalto-claro); opacity: 0.9; border-radius: 2px;
+}
+.tabla-precio tbody tr:first-child .barra { opacity: 0; }
+
+/* 21d · "no se dice la moneda en ninguna parte". Falso: el h3 dice "Paquetes
+   de video, en pesos colombianos" y el caption también. Pero su error tiene
+   causa real — mi recorte se la ocultó — y el refuerzo cuesta tres letras,
+   así que la moneda entra también en la cabecera de la columna. */
+.cab-moneda { opacity: 0.7; font-weight: 400; }
+
+/* 21e · "Crecimiento no alinea con los otros tres nombres". Cierto: su texto
+   arranca en x=34,4 y los demás en x=21 — 13,4 px, porque el acento de la
+   fila recomendada se metía en el flujo con un padding-left. El acento sale
+   del flujo y el sangrado se iguala para las cuatro. */
+.tabla-precio tbody th[scope="row"] { padding-left: 0.9rem; position: relative; }
+.tabla-precio tbody tr.es-elegido th[scope="row"] { box-shadow: none; padding-left: 0.9rem; }
+.tabla-precio tbody tr.es-elegido th[scope="row"]::after {
+  content: ''; position: absolute; left: 0; top: 0.3rem; bottom: 0.3rem;
+  width: 3px; background: var(--lima);
+}
+
+@media (max-width: 899px) {
+  /* el grupo recupera su sitio: a la derecha, como los demás valores de la
+     tarjeta, y con un ancho propio donde el porcentaje de la barra vuelve a
+     significar algo */
+  .ps-grupo { margin-left: auto; text-align: right; width: 9.5rem; }
+  /* 21f · "en móvil la señal de la fila recomendada se degrada: queda un
+     muñón". Cierto — el acento solo cubría el encabezado de la tarjeta.
+     Ahora corre la tarjeta entera, y el margen negativo lo saca del flujo
+     para que el contenido siga alineado con las otras tres. */
+  .tabla-precio tbody tr.es-elegido { position: relative; padding-left: 0.9rem; margin-left: -0.9rem; }
+  .tabla-precio tbody tr.es-elegido::before {
+    content: ''; position: absolute; left: 0; top: 1.3rem; bottom: 1.5rem;
+    width: 3px; background: var(--lima);
+  }
+  .tabla-precio tbody th[scope="row"],
+  .tabla-precio tbody tr.es-elegido th[scope="row"] { padding-left: 0; }
+  .tabla-precio tbody tr.es-elegido th[scope="row"]::after { content: none; }
+}
+
+/* 21g · "en tipografía española las comillas van pegadas por dentro en ambos
+   extremos". Cierto, y estaban a 3,6 px a cada lado. */
+.opiniones blockquote p::before { margin-right: 0; }
+.opiniones blockquote p::after  { margin-left: 0; }
+
+/* 21h · los testimonios dejan de ser tres columnas.
+   La ronda 6 encontró que los tres pies quedaban a tres alturas distintas
+   (93 px de escalón) y se arreglaron anclándolos al fondo. La ronda 7
+   encontró el precio de aquel arreglo: 94 px de vacío bajo la cita más
+   corta, que "leído de lejos transmite: se nos acabaron los testimonios".
+   Los dos tenían razón, y los dos defectos son el mismo problema — tres
+   citas de 3, 2 y 1 líneas metidas en columnas de igual altura. En filas no
+   existe ninguno de los dos: la cita a la izquierda, la atribución en un
+   riel común a la derecha, filete de 1 px entre medias. Sin cajas.
+   Y de paso cae el defecto 5-d: la nota al pie ya no queda a caballo entre
+   dos columnas, porque ya no hay columnas. */
+@media (min-width: 900px) {
+  .opiniones { display: block; }
+  .opiniones blockquote {
+    display: grid; grid-template-columns: minmax(0, 1fr) 14rem; gap: 2.5rem;
+    align-items: start; height: auto; padding-block: 1.7rem;
+    border-top: 1px solid rgba(169, 184, 255, 0.14);
+  }
+  .opiniones blockquote p { max-width: 58ch; }
+  .opiniones blockquote cite { margin-top: 0; padding-top: 0.3rem; text-align: right; }
+  .opiniones__pie { max-width: 72ch; }
+}
