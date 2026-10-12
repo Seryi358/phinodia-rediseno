@@ -664,3 +664,11 @@ a  { color: inherit; }
   .menu__cta { display: inline-flex; margin-top: 1.25rem; align-self: flex-start; border-bottom: 0; }
   .menu a.menu__cta { color: var(--tinta); }
 }
+
+/* --- 10 · el menú cerrado seguía en el árbol de accesibilidad y en el orden
+       de tabulación, desplazado fuera de pantalla. `visibility` lo retira
+       de verdad sin perder la transición. --- */
+@media (max-width: 1023px) {
+  .menu { visibility: hidden; transition: transform 0.38s var(--curva), visibility 0s linear 0.38s; }
+  .menu-abierto .menu { visibility: visible; transition: transform 0.38s var(--curva), visibility 0s; }
+}
