@@ -312,6 +312,10 @@ a  { color: inherit; }
 .pista__grupo { display: flex; align-items: center; gap: clamp(2.5rem, 5vw, 5rem); padding-right: clamp(2.5rem, 5vw, 5rem); }
 .pista__grupo img {
   height: clamp(30px, 3.6vw, 46px);
+  /* Los diez logos son cuadrados (viewBox 0 0 24 24). Declararlo aquí da el ancho
+     antes de que el SVG llegue; sin esto `width:auto` valía 0 mientras cargaba y
+     la cinta se recolocaba al aparecer cada marca. */
+  aspect-ratio: 1;
   width: auto;
   filter: brightness(0) invert(1);
   opacity: 0.78;

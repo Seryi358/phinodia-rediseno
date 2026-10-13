@@ -46,7 +46,10 @@
       var img = document.createElement('img');
       img.src = 'logos/' + par[0];
       img.alt = '';
-      img.loading = 'lazy';
+      // Sin `loading="lazy"`: son diez SVG que suman 44 KB y viven en una banda
+      // que se ve casi desde arriba. Diferirlos no ahorraba nada y a 360 px
+      // tardaban ~8 s en pintar todos, así que la cinta se movía con huecos.
+      // Es el mismo error que ya costó una ronda con el mapa del flujo.
       img.decoding = 'async';
       var nombre = document.createElement('span');
       nombre.className = 'pista__nombre';
