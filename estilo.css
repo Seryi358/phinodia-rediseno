@@ -502,7 +502,10 @@ a  { color: inherit; }
 .pie__marca { grid-column: 1 / -1; }
 .pie__marca p { margin-top: 1rem; font-size: 0.9375rem; max-width: 34ch; color: var(--apagado); }
 .pie__nav, .pie__legal, .pie__contacto { grid-column: 1 / -1; }
-.pie__contacto li { font-size: 0.9375rem; color: var(--apagado); }
+/* `--apagado` da 4,04:1 sobre la tinta del pie y no llega a AA: lo midió el
+   medidor en cuanto entró esta columna. El resto del pie ya usa la variante
+   clara por el mismo motivo (ver la regla de `.pie__marca p`). */
+.pie__contacto li { font-size: 0.9375rem; color: var(--apagado-claro); }
 /* El correo no tiene espacios y no puede partir: en una columna estrecha era él,
    y no la lista legal, quien desbordaba. Red de seguridad para cualquier ancho. */
 .pie__contacto a { overflow-wrap: anywhere; }
