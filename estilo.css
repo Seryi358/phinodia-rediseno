@@ -304,6 +304,14 @@ a  { color: inherit; }
   transition: opacity 0.3s;
 }
 .pista__grupo img:hover { opacity: 1; }
+/* El nombre al lado del logo: ver el comentario de `grupo()` en guion.js. Todos
+   los logos quedan monocromos y el nombre aporta el rasgo común que no tenían. */
+.pista__marca { display: inline-flex; align-items: center; gap: 0.7rem; white-space: nowrap; }
+.pista__nombre {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(0.8rem, 1vw, 0.95rem); font-weight: 600;
+  letter-spacing: 0.01em; color: var(--cobalto-claro);
+}
 
 @keyframes desliza-izq { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
 @keyframes desliza-der { from { transform: translate3d(-50%,0,0); } to { transform: translate3d(0,0,0); } }
@@ -541,6 +549,9 @@ a  { color: inherit; }
 .pie a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 0; }
 .pie ul { gap: 0; }
 .pie__fin span { display: inline-flex; align-items: center; min-height: 32px; }
+/* La identificación del operador ocupa su propia línea: es el dato que exige el
+   Estatuto del Consumidor y no debe quedar perdido entre los avisos cortos. */
+.pie__operador { flex: 1 0 100%; color: var(--apagado-claro); }
 
 /* --- 2 · contraste AA sobre tinta ---
    `--apagado` (#6b7394) da 4,04:1 sobre #0b1026: no llega a AA.
@@ -637,12 +648,17 @@ a  { color: inherit; }
   .hero__texto { grid-column: 1 / span 6; }
   .hero__media { grid-column: 8 / -1; margin: 0; }
 }
+/* El archivo es 480x854 = 9:16 exacto. La caja tiene que serlo también: limitar la
+   altura con `max-height` mientras el ancho era 100% rompía la proporción y
+   `object-fit: cover` recortaba el vertical a 0,72 — una agencia de video vertical
+   enseñando su video recortado. Ahora el tope se expresa como ancho derivado de la
+   altura, que es lo único que conserva la proporción, y `contain` nunca recorta. */
 .hero__video {
-  width: 100%; max-width: 360px; aspect-ratio: 9 / 16; object-fit: cover;
+  width: 100%; max-width: min(360px, calc(62vh * 9 / 16)); aspect-ratio: 9 / 16; object-fit: contain;
   background: var(--tinta-2);
   box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.75);
 }
-@media (min-width: 1024px) { .hero__video { max-width: none; } }
+@media (min-width: 1024px) { .hero__video { max-width: calc(62vh * 9 / 16); } }
 .hero__pieMedia {
   margin-top: 0.85rem; font-size: 0.8125rem; color: var(--apagado-claro);
   max-width: 34ch;
@@ -671,7 +687,7 @@ a  { color: inherit; }
   .hero__texto { grid-column: 1 / span 7; }
   .hero__media { grid-column: 9 / -1; }
   .hero h1 { font-size: clamp(2.8rem, 5.9vw, 5.25rem); max-width: 100%; }
-  .hero__video { max-height: 60vh; margin-left: auto; }
+  .hero__video { margin-left: auto; }
   .hero { padding-block: clamp(6rem, 11vh, 8.5rem) var(--ritmo); }
 }
 
@@ -1101,3 +1117,103 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
    las comillas de cierre. El punto se quita del texto y lo pone el pseudo-
    elemento, detrás del ». */
 .opiniones blockquote p::after { content: '».'; }
+
+/* --- 23 · Las cuatro piezas de los servicios -------------------------------
+   Sustituyen a cuatro WebP decorativos: dos bocadillos vacíos, un ecualizador
+   que invitaba a pulsar y no se podía pulsar, un árbol de nodos sin un solo
+   rótulo dentro y un triángulo de play que no reproducía nada. El crítico de la
+   ronda 9 los llamó «relleno de vectores» y tenía razón: no contenían
+   información y eran la causa directa de cuatro tramos muertos de página.
+
+   Van en HTML y no en imagen por cuatro razones medibles: se leen con lector de
+   pantalla, se indexan, se reflujan en cualquier ancho sin recorte, y pesan
+   ~228 KB menos que los cuatro WebP juntos.
+
+   Regla que NO se rompe: ni una caja. Nada aquí tiene radio, sombra ni fondo
+   propio. Toda la separación la hacen filetes de 1 px, como en el resto. --- */
+
+.pieza { margin: 0; display: grid; gap: 1.15rem; align-content: start; }
+.pieza__rotulo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--apagado-claro);
+  padding-bottom: 0.8rem; border-bottom: 1px solid rgba(169, 184, 255, 0.24);
+}
+.hilo, .acta, .flujo { list-style: none; margin: 0; padding: 0; }
+.pieza p { font-size: 0.95rem; line-height: 1.55; }
+
+/* 23a · el hilo de WhatsApp. Quién habla se marca con un filete lateral y el
+   color del rótulo, no metiendo el turno en una burbuja. */
+.hilo__turno { padding: 0.85rem 0; border-bottom: 1px solid rgba(169, 184, 255, 0.14); }
+.hilo__turno:last-child { border-bottom: 0; padding-bottom: 0; }
+.hilo__quien {
+  display: block; font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--apagado-claro); margin-bottom: 0.4rem;
+}
+.hilo__turno p { margin: 0; color: var(--bruma); }
+.hilo__turno--bot { padding-left: 1rem; border-left: 2px solid var(--lima); }
+.hilo__turno--bot .hilo__quien { color: var(--lima); }
+.hilo__turno--humano { padding-left: 1rem; border-left: 2px solid var(--cobalto-claro); }
+.hilo__turno--humano .hilo__quien { color: var(--cobalto-claro); }
+.hilo__turno--humano p { color: var(--apagado-claro); }
+
+/* 23b · el acta de la llamada: minutado a la izquierda, en cifras tabulares. */
+.acta li {
+  display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.9rem;
+  padding: 0.8rem 0; border-bottom: 1px solid rgba(169, 184, 255, 0.14);
+}
+.acta__t { font-variant-numeric: tabular-nums; font-size: 0.8rem; color: var(--lima); }
+.acta__q {
+  font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--apagado-claro);
+}
+.acta li p { grid-column: 2; margin: 0; color: var(--bruma); }
+
+/* 23c · pares dato/valor, para el cierre del acta y para el canje del video. */
+.acta__salida, .canje { margin: 0; }
+.acta__salida div, .canje div {
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; justify-content: space-between;
+  align-items: baseline; padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(169, 184, 255, 0.14);
+}
+.acta__salida div:last-child, .canje div:last-child { border-bottom: 0; }
+.acta__salida dt, .canje dt {
+  font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--apagado-claro);
+}
+.acta__salida dd, .canje dd {
+  margin: 0; color: var(--bruma); font-size: 0.95rem; text-align: right;
+  flex: 1 1 14ch; min-width: 0;
+}
+
+/* 23d · el flujo de n8n. La secuencia la dibuja un filete vertical con un
+   marcador cuadrado por nodo: es una viñeta, no un contenedor. */
+.flujo { position: relative; padding-left: 1.6rem; }
+.flujo::before {
+  content: ''; position: absolute; left: 3px; top: 1.1rem; bottom: 1.1rem;
+  width: 1px; background: rgba(212, 255, 58, 0.4);
+}
+.flujo li {
+  position: relative; display: grid; grid-template-columns: 6.5rem 1fr;
+  gap: 0.2rem 0.9rem; align-items: baseline;
+  padding: 0.7rem 0; border-bottom: 1px solid rgba(169, 184, 255, 0.14);
+}
+.flujo li:last-child { border-bottom: 0; }
+.flujo li::before {
+  content: ''; position: absolute; left: -1.6rem; top: 1.15rem;
+  width: 7px; height: 7px; background: var(--lima);
+}
+.flujo__n {
+  font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.78rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--lima);
+}
+.flujo li p { margin: 0; color: var(--bruma); }
+.flujo__pie { margin: 0; color: var(--apagado-claro); font-size: 0.85rem; }
+
+/* 23e · en móvil el arte ya no es decoración, es contenido: va DESPUÉS del
+   texto que lo introduce, no antes. En escritorio sigue alternando lados. */
+@media (max-width: 899px) {
+  .servicio__arte { order: 0; margin-top: 1.75rem; }
+  .flujo li { grid-template-columns: 5.5rem 1fr; }
+}

@@ -120,6 +120,10 @@
       <div class="escalona cab">
         <p class="rotulo">Qué hacemos</p>
         <h2>Cuatro cosas, y las cuatro de verdad.</h2>
+        <!-- El crítico de la ronda 9 midió aquí 1.320 x 275 px de nada entre el
+             titular y el primer servicio. Se rellena con lo que el comprador
+             necesita saber para seguir leyendo, no con aire. -->
+        <p class="entradilla">Tres se cotizan según lo que necesites, y la cotización va por escrito antes de empezar. El cuarto tiene precio público y lo puedes comprar hoy mismo, sin hablar con nadie.</p>
       </div>
 
       <div class="servicio servicio--primero">
@@ -129,7 +133,22 @@
           <p>Atienden, responden dudas, toman pedidos y pasan a una persona cuando toca. Sobre la API oficial de WhatsApp, con el historial y las reglas de tu negocio.</p>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
-        <div class="servicio__arte"><img src="img/arte-chat.webp" alt="" width="1280" height="853" loading="lazy" decoding="async"></div>
+        <!-- Antes aquí había dos bocadillos vacíos en WebP: decoración sin información.
+             Ahora el espacio lo ocupa lo que de verdad vende el servicio, que es cómo
+             contesta el bot. Va en HTML, no en imagen: se lee, se indexa, se traduce y
+             pesa menos. Es una conversación de muestra, y lo dice su rótulo. -->
+        <div class="servicio__arte">
+          <figure class="pieza">
+            <figcaption class="pieza__rotulo">Demostración · cómo contesta el bot de una tienda</figcaption>
+            <ol class="hilo">
+              <li class="hilo__turno"><span class="hilo__quien">Clienta · 8:42 p.&nbsp;m.</span><p>Hola, tienen la crema de 500 ml?</p></li>
+              <li class="hilo__turno hilo__turno--bot"><span class="hilo__quien">Bot</span><p>Sí, quedan 6. Vale $&nbsp;68.000 y llega mañana a Bogotá. ¿Te la aparto?</p></li>
+              <li class="hilo__turno"><span class="hilo__quien">Clienta</span><p>Sí porfa. Puedo pagar con Nequi?</p></li>
+              <li class="hilo__turno hilo__turno--bot"><span class="hilo__quien">Bot</span><p>Claro. Te paso el link de pago y te confirmo el envío apenas entre.</p></li>
+              <li class="hilo__turno hilo__turno--humano"><span class="hilo__quien">Pasa a una persona</span><p>«Quiero devolver un pedido» — eso no lo decide el bot: entra Laura, del equipo.</p></li>
+            </ol>
+          </figure>
+        </div>
       </div>
 
       <div class="servicio servicio--volteado">
@@ -141,7 +160,24 @@
           <a class="servicio__demo-enlace" href="https://phinodia.com/">Háblale y pregúntale lo que quieras →</a>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
-        <div class="servicio__arte"><img src="img/arte-voz.webp" alt="" width="1280" height="853" loading="lazy" decoding="async"></div>
+        <!-- Antes: un ecualizador dibujado que invitaba a pulsar y no se podía pulsar.
+             Lo que el comprador quiere ver de un agente de voz no son barritas: es qué
+             queda escrito cuando la llamada cuelga. Eso es el entregable del servicio. -->
+        <div class="servicio__arte">
+          <figure class="pieza">
+            <figcaption class="pieza__rotulo">Demostración · el resumen que queda cuando el agente cuelga</figcaption>
+            <ol class="acta">
+              <li><span class="acta__t">00:02</span><span class="acta__q">Agente</span><p>Buenas, le llamo de la clínica para confirmar su cita del jueves a las 10.</p></li>
+              <li><span class="acta__t">00:09</span><span class="acta__q">Paciente</span><p>Ay, el jueves no puedo. ¿Habrá algo el viernes?</p></li>
+              <li><span class="acta__t">00:14</span><span class="acta__q">Agente</span><p>El viernes tengo 9:30 y 3:00. ¿Cuál le sirve?</p></li>
+            </ol>
+            <dl class="acta__salida">
+              <div><dt>Resultado</dt><dd>Cita movida al viernes 9:30</dd></div>
+              <div><dt>Duración</dt><dd>41 segundos</dd></div>
+              <div><dt>Queda</dt><dd>Resumen escrito y audio, en tu calendario</dd></div>
+            </dl>
+          </figure>
+        </div>
       </div>
 
       <div class="servicio">
@@ -151,7 +187,22 @@
           <p>Lo que hoy haces copiando y pegando entre el WhatsApp, el Excel y la pasarela de pagos, hecho solo. Sin cambiar de herramientas: conectamos las que ya usas.</p>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
-        <div class="servicio__arte"><img src="img/arte-auto.webp" alt="" width="1280" height="853" loading="lazy" decoding="async"></div>
+        <!-- Antes: un árbol de nodos abstracto, sin un solo nombre dentro. Un diagrama
+             sin rótulos no explica nada. Este es el flujo que de verdad se monta, con
+             las herramientas nombradas, que es lo que el comprador reconoce. -->
+        <div class="servicio__arte">
+          <figure class="pieza">
+            <figcaption class="pieza__rotulo">Demostración · un flujo de pedidos, nodo a nodo</figcaption>
+            <ol class="flujo">
+              <li><span class="flujo__n">WhatsApp</span><p>Entra un pedido por chat</p></li>
+              <li><span class="flujo__n">IA</span><p>Lee qué pidió y cuánto</p></li>
+              <li><span class="flujo__n">Sheets</span><p>Lo anota y descuenta inventario</p></li>
+              <li><span class="flujo__n">Wompi</span><p>Cobra y espera la confirmación</p></li>
+              <li><span class="flujo__n">WhatsApp</span><p>Avisa que va en camino</p></li>
+            </ol>
+            <p class="flujo__pie">Cinco pasos que hoy alguien hace a mano, copiando y pegando.</p>
+          </figure>
+        </div>
       </div>
 
       <div class="servicio servicio--volteado">
@@ -161,7 +212,21 @@
           <p>De una foto de producto a un video vertical con voz colombiana, listo para pautar en Meta y TikTok. Es el único servicio con precio público y compra directa.</p>
           <a class="servicio__etiqueta" href="https://phinodia.com/precios">Ver precios y comprar →</a>
         </div>
-        <div class="servicio__arte"><img src="img/arte-video.webp" alt="" width="1280" height="853" loading="lazy" decoding="async"></div>
+        <!-- Antes: un triángulo de «play» que no reproducía nada. El video de verdad ya
+             está arriba, en el héroe y en la tira de fotogramas; repetir un icono de play
+             era decorar. Aquí va lo que falta saber: qué pones tú y qué te llevas. -->
+        <div class="servicio__arte">
+          <figure class="pieza">
+            <figcaption class="pieza__rotulo">Qué pones y qué te llevas</figcaption>
+            <dl class="canje">
+              <div><dt>Pones</dt><dd>Una foto de tu producto</dd></div>
+              <div><dt>Te llevas</dt><dd>Un video vertical 9:16, con voz colombiana, listo para pautar</dd></div>
+              <div><dt>Dura</dt><dd>De 10 a 30 segundos, lo eliges tú</dd></div>
+              <div><dt>Cuesta</dt><dd>Desde $&nbsp;19.900 el paquete de prueba, aquí abajo</dd></div>
+            </dl>
+            <p class="flujo__pie">El video del principio de esta página salió así, de una sola foto.</p>
+          </figure>
+        </div>
       </div>
 
       <!-- Precios reales del único servicio con tienda. Los cuatro paquetes, los
@@ -295,7 +360,12 @@
       </div>
       <dl class="honesto__datos escalona">
         <div class="dato"><dt>Fundada</dt><dd>Julio 2025<small>Quince meses a octubre de 2026</small></dd></div>
-        <div class="dato"><dt>Constitución</dt><dd>Cámara de Comercio<small>Sin RUT. No somos entidad vigilada</small></dd></div>
+        <!-- «Sin RUT» es cierto —Sergio: «la empresa solo le saque cámara de comercio
+             pero no RUT»— pero aquí, al lado de un botón de compra, funcionaba como
+             anti-venta y dejaba sin responder lo que el comprador de empresa necesita
+             saber: si hay factura. El dato no se borra, se traslada a la pregunta
+             frecuente sobre facturación, que es donde se busca. -->
+        <div class="dato"><dt>Constitución</dt><dd>Cámara de Comercio<small>Agencia de tecnología, no entidad financiera</small></dd></div>
         <div class="dato"><dt>Clientes con proyecto</dt><dd>Dos<small>Más los compradores de la tienda de video. No publicamos nombres sin permiso</small></dd></div>
         <div class="dato"><dt>Dónde</dt><dd>Colombia<small>Trabajo remoto en todo el país</small></dd></div>
       </dl>
@@ -320,7 +390,10 @@
         <hr class="filete">
         <p><b>Chatbots, voz y automatización</b> — se cotizan según el alcance. Siempre por escrito antes de empezar.</p>
         <hr class="filete">
-        <p><b>Pagos</b> — Nequi, PSE o tarjeta. Sin suscripción obligatoria.</p>
+        <!-- Decía «sin suscripción obligatoria», que contradecía el «sin suscripción
+             ni permanencia» de la tabla de precios. Manda la tienda en vivo, que
+             publica literalmente «Sin suscripción ni permanencia». -->
+        <p><b>Pagos</b> — Nequi, PSE o tarjeta. Sin suscripción ni permanencia.</p>
         <hr class="filete">
       </div>
     </div>
@@ -355,6 +428,10 @@
         <details>
           <summary>¿Con qué herramientas se integra?</summary>
           <p>Con las que ya usas. Habitualmente la API de WhatsApp de Meta, Instagram, Google Workspace y Calendar, Shopify, HubSpot y lo que exponga una API. La plomería la hacemos con n8n.</p>
+        </details>
+        <details>
+          <summary>¿Me entregan factura electrónica?</summary>
+          <p>No. PhinodIA está constituida con Cámara de Comercio pero todavía no tiene RUT, así que hoy no emitimos factura electrónica: lo que queda del pago es el comprobante de Wompi. Si tu empresa necesita factura para poder contratar, dínoslo <em>antes</em> de pagar y te lo advertimos de frente, en vez de dejarte con el cargo hecho y el problema después.</p>
         </details>
         <details>
           <summary>¿Son una entidad vigilada?</summary>
@@ -400,9 +477,15 @@
         </ul>
       </div>
     </div>
+    <!-- Identificación del proveedor. Art. 50 de la Ley 1480 de 2011 (Estatuto del
+         Consumidor) para comercio electrónico. El texto es el que ya publica
+         phinodia.com hoy, copiado literal: no se inventa ni NIT ni matrícula.
+         PhinodIA tiene Cámara de Comercio y no tiene RUT, así que no hay NIT que poner. -->
     <div class="pie__fin">
-      <span>© 2026 PhinodIA</span>
-      <span>Constituida con Cámara de Comercio · Colombia</span>
+      <span class="pie__operador">PhinodIA es una marca operada por Sergio Alejandro Castellanos Castellanos · Carrera 95 # 147 A 51, Bogotá D.C., Colombia</span>
+      <span>© 2026 PhinodIA · Hecho en Colombia</span>
+      <span>Constituida con Cámara de Comercio</span>
+      <span>Pagos seguros procesados por Wompi</span>
       <span>Las marcas de terceros pertenecen a sus dueños</span>
     </div>
   </div>

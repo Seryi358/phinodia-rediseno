@@ -31,13 +31,26 @@
   function grupo(lista) {
     var g = document.createElement('div');
     g.className = 'pista__grupo';
+    // Cada marca va con su nombre escrito al lado, por tres razones que señaló
+    // la crítica de la ronda 9: el glifo de ElevenLabs son dos barras verticales,
+    // idénticas al icono de «pausar animaciones» de la cabecera, y se leía como un
+    // fallo de carga; los diez logos mezclan marcas de contorno con marcas
+    // rellenas, y el nombre les da un rasgo común; y un logotipo suelto no dice
+    // nada a quien no lo reconoce.
     lista.forEach(function (par) {
+      var marca = document.createElement('span');
+      marca.className = 'pista__marca';
       var img = document.createElement('img');
       img.src = 'logos/' + par[0];
-      img.alt = par[1];
+      img.alt = '';
       img.loading = 'lazy';
       img.decoding = 'async';
-      g.appendChild(img);
+      var nombre = document.createElement('span');
+      nombre.className = 'pista__nombre';
+      nombre.textContent = par[1];
+      marca.appendChild(img);
+      marca.appendChild(nombre);
+      g.appendChild(marca);
     });
     return g;
   }
