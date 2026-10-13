@@ -68,27 +68,64 @@
   }
 
   // La cinta son dos mitades idénticas y translate3d(-50%) cierra el bucle sin salto.
-  // Cada mitad repite la lista hasta juntar al menos 12 marcas: con las listas
-  // cortas de ahora (6 y 4) un solo pase no cubría 1920 px y se veía el hueco al
-  // final del ciclo. Lo que se repite es la cinta, no el inventario de la banda.
-  function grupoLargo(lista) {
-    var veces = Math.ceil(12 / lista.length);
-    var larga = [];
-    for (var v = 0; v < veces; v++) larga = larga.concat(lista);
-    return grupo(larga);
-  }
-
+  //
+  // Antes cada mitad repetía la lista hasta juntar 12 marcas, para que un pase
+  // cubriera 1920 px. Funcionaba, pero el crítico de la r13 vio lo que eso
+  // producía: con listas de 6 y 4, «Instagram dos veces y Meta dos veces» en la
+  // misma pantalla, y la fila de abajo tres veces. Delataba un inventario corto
+  // justo donde la página intenta no aparentarlo.
+  //
+  // Ahora la lista aparece UNA vez por mitad y lo que se estira es la separación,
+  // calculada para que ese único pase cubra exactamente la ventana. Así nunca se
+  // ve la misma marca dos veces y tampoco queda hueco al cerrar el ciclo.
   function poblar(id, lista) {
     var cinta = document.getElementById(id);
     if (!cinta) return;
     for (var mitad = 0; mitad < 2; mitad++) {
-      var g = grupoLargo(lista);
+      var g = grupo(lista);
       if (mitad > 0) g.setAttribute('aria-hidden', 'true');
       cinta.appendChild(g);
     }
+    return { cinta: cinta, n: lista.length };
   }
-  poblar('cinta-a', LOGOS_A);
-  poblar('cinta-b', LOGOS_B);
+
+  var pistas = [poblar('cinta-a', LOGOS_A), poblar('cinta-b', LOGOS_B)].filter(Boolean);
+
+  // Separación mínima: la que ya tenía el CSS. Por debajo de eso no se baja,
+  // porque en móvil las marcas ya desbordan la ventana de sobra y apretarlas
+  // más solo las pegaría.
+  function separar() {
+    pistas.forEach(function (p) {
+      var g = p.cinta.firstElementChild;
+      if (!g) return;
+      g.style.gap = ''; g.style.paddingRight = '';
+      var marcas = g.querySelectorAll('.pista__marca');
+      var suma = 0, mayor = 0;
+      for (var i = 0; i < marcas.length; i++) {
+        var a = marcas[i].getBoundingClientRect().width;
+        suma += a; if (a > mayor) mayor = a;
+      }
+      var minimo = parseFloat(getComputedStyle(g).gap) || 40;
+      // El pase tiene que medir la ventana MÁS la marca más ancha. Con un pase
+      // igual de ancho que la ventana, la misma marca puede asomar por los dos
+      // bordes a la vez —lo que se vio con «Google» en la fila de abajo—, que es
+      // exactamente el efecto que este arreglo viene a quitar.
+      var sep = Math.max(minimo, (window.innerWidth + mayor - suma) / p.n);
+      for (var m = 0; m < p.cinta.children.length; m++) {
+        p.cinta.children[m].style.gap = sep + 'px';
+        p.cinta.children[m].style.paddingRight = sep + 'px';
+      }
+    });
+  }
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(separar);
+  else window.addEventListener('load', separar);
+  separar();
+  var temporizador;
+  window.addEventListener('resize', function () {
+    clearTimeout(temporizador);
+    temporizador = setTimeout(separar, 150);
+  });
 
   /* ---------- 2 · animación de entrada al scroll ---------- */
 

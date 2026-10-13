@@ -355,7 +355,21 @@ a  { color: inherit; }
 }
 .prueba__pie { margin-top: 1rem; font-size: 0.875rem; color: var(--apagado); }
 .prueba__lista { margin: 2.25rem 0 0; padding: 0; list-style: none; }
-.prueba__lista li { padding-block: 1.1rem; border-top: 1px solid var(--filete); display: flex; gap: 1rem; align-items: baseline; }
+/* Era `display:flex` con la etiqueta de ancho automático: cuando pasaba a dos
+   líneas empujaba el valor a la izquierda, y las cuatro filas arrancaban en
+   x=280, 282, 217 y 171 — 111 px de dispersión que midió el crítico de la r13.
+   El mismo patrón ya estaba resuelto bien dos veces en la página (`.dato`), así
+   que convivían dos sistemas para el mismo objeto. Ahora es una rejilla con
+   columna de etiqueta fija: todos los valores arrancan en el mismo sitio.
+   Por debajo de 768 px la etiqueta va encima del valor, como en `.dato`. */
+.prueba__lista li { padding-block: 1.1rem; border-top: 1px solid var(--filete); display: grid; gap: 0.3rem; }
+/* A 900, no a 768: a 768 la columna de texto mide ~340 px y una etiqueta de 14rem
+   dejaba al valor menos que su palabra más larga, así que la rejilla desbordaba
+   10 px la ventana. `minmax(0, 1fr)` evita que el mínimo intrínseco del valor
+   vuelva a empujar nunca. Medido: 0 px de desborde en los seis anchos. */
+@media (min-width: 900px) {
+  .prueba__lista li { grid-template-columns: 14rem minmax(0, 1fr); column-gap: 1.5rem; row-gap: 0; align-items: baseline; }
+}
 .banda--tinta .prueba__lista li { border-color: rgba(169,184,255,0.2); }
 .prueba__lista li:last-child { border-bottom: 1px solid var(--filete); }
 .banda--tinta .prueba__lista li:last-child { border-bottom-color: rgba(169,184,255,0.2); }
@@ -373,6 +387,12 @@ a  { color: inherit; }
   .servicio__arte  { grid-column: 7 / -1; order: 0; }
   .servicio--volteado .servicio__texto { grid-column: 8 / -1; }
   .servicio--volteado .servicio__arte  { grid-column: 1 / span 6; order: -1; }
+  /* `align-items: center` centraba el texto contra un arte mucho más alto: en el
+     servicio del diagrama de n8n dejaba 465 px arriba y 468 px abajo —933 px de
+     columna vacía sobre 1.470, medidos por el crítico de la r13— y el texto solo
+     ocupaba el 27 % del alto de su propia columna. Alineados arriba, el bloque
+     arranca donde el lector lo busca y el aire sobrante queda todo al final. */
+  .servicio { align-items: start; }
 }
 /* El PNG/WebP lleva el fondo recortado a alfa (derivado de la luminancia),
    así que el dibujo flota sobre la banda en vez de quedar como un rectángulo
@@ -480,9 +500,12 @@ a  { color: inherit; }
 .pie { background: var(--tinta); color: var(--cobalto-claro); padding-block: clamp(3.5rem, 5vw, 5rem) 2.5rem; }
 .pie__fila { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
 .pie__marca { grid-column: 1 / -1; }
-@media (min-width: 768px) { .pie__marca { grid-column: 1 / span 5; } .pie__nav { grid-column: 7 / span 3; } .pie__legal { grid-column: 10 / -1; } }
 .pie__marca p { margin-top: 1rem; font-size: 0.9375rem; max-width: 34ch; color: var(--apagado); }
-.pie__nav, .pie__legal { grid-column: 1 / -1; }
+.pie__nav, .pie__legal, .pie__contacto { grid-column: 1 / -1; }
+.pie__contacto li { font-size: 0.9375rem; color: var(--apagado); }
+/* El correo no tiene espacios y no puede partir: en una columna estrecha era él,
+   y no la lista legal, quien desbordaba. Red de seguridad para cualquier ancho. */
+.pie__contacto a { overflow-wrap: anywhere; }
 .pie h4 { font: 600 0.8125rem/1 'Onest', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--apagado); margin: 0 0 1rem; }
 .pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
 .pie a { text-decoration: none; font-size: 0.9375rem; transition: color 0.2s; display: inline-block; padding-block: 0.15rem; }
@@ -684,6 +707,9 @@ a  { color: inherit; }
 .hero__pieMedia {
   margin-top: 0.85rem; font-size: 0.8125rem; color: var(--apagado-claro);
   max-width: 34ch;
+  /* Evita que la última línea quede con una sola palabra («foto.»), que es
+     como estaba y como lo cazó el crítico. */
+  text-wrap: pretty;
 }
 
 /* --- 5 · tira de fotogramas: tres imágenes reales en vez de repetir el reproductor --- */
@@ -696,10 +722,23 @@ a  { color: inherit; }
 /* --- 7 · pie: la regla de ancho completo iba DESPUÉS de la media query y la
        anulaba, así que las tres columnas se apilaban a la izquierda en
        escritorio y el 40 % derecho quedaba vacío. --- */
+/* Cuatro bloques, pero no cuatro en fila a cualquier ancho: a 768 cada columna
+   de 12 mide ~29 px y cuatro bloques en fila desbordaban la ventana 10 px.
+   Entre 768 y 1151 van en 2×2; de 1152 en adelante, los cuatro en fila, que es
+   donde la última columna llega al borde derecho y el pie deja de quedar
+   apelotonado a la izquierda (lo que midió el crítico de la r13: contenido
+   hasta x1179 y nada hasta x1440). */
 @media (min-width: 768px) {
-  .pie__marca { grid-column: 1 / span 4; }
-  .pie__nav   { grid-column: 6 / span 3; }
-  .pie__legal { grid-column: 9 / -1; }
+  .pie__marca    { grid-column: 1 / span 6; }
+  .pie__nav      { grid-column: 8 / -1; }
+  .pie__legal    { grid-column: 1 / span 6; }
+  .pie__contacto { grid-column: 8 / -1; }
+}
+@media (min-width: 1152px) {
+  .pie__marca    { grid-column: 1 / span 4; }
+  .pie__nav      { grid-column: 6 / span 2; }
+  .pie__legal    { grid-column: 8 / span 2; }
+  .pie__contacto { grid-column: 10 / -1; }
 }
 
 /* --- 8 · reequilibrio del hero tras meter el video ---
@@ -709,7 +748,11 @@ a  { color: inherit; }
   .hero__texto { grid-column: 1 / span 7; }
   .hero__media { grid-column: 9 / -1; }
   .hero h1 { font-size: clamp(2.8rem, 5.9vw, 5.25rem); max-width: 100%; }
-  .hero__video { margin-left: auto; }
+  /* El video llevaba `margin-left:auto` y el pie se quedaba en el borde de la
+     figura: 97 px de desfase, medidos por el crítico de la r13 en lo primero
+     que se ve de la página. Se desplaza la figura entera, no el video, y así
+     video y pie comparten el mismo borde izquierdo. */
+  .hero__media { width: min(100%, calc(62vh * 9 / 16)); margin-left: auto; }
   .hero { padding-block: clamp(6rem, 11vh, 8.5rem) var(--ritmo); }
 }
 
@@ -1248,13 +1291,16 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
    de cuando el arte eran ilustraciones apaisadas— y metía el mapa, que es vertical,
    dentro de una caja ancha dejándolo a un tercio de su tamaño. */
 .servicio__arte img.flujo__mapa {
-  display: block; width: 100%; max-width: 580px; height: auto;
+  display: block; width: 100%; max-width: 613px; height: auto;
   aspect-ratio: auto; object-fit: fill;
 }
 @media (max-width: 899px) { .servicio__arte img.flujo__mapa { max-width: 395px; margin-inline: auto; } }
-/* El texto del 03 se centra respecto al mapa: es la pieza más alta de los cuatro
-   servicios y, alineado arriba, dejaba media columna izquierda en blanco. */
-@media (min-width: 900px) { .servicio--mapa .servicio__texto { align-self: center; } }
+/* Aquí el texto del 03 se centraba respecto al mapa. El crítico de la r13 midió
+   lo que eso producía: 465 px vacíos encima del texto y 468 px debajo, 933 px de
+   los 1.470 del bloque, con el texto ocupando el 27 % del alto de su columna.
+   Centrar repartía el hueco en dos mitades igual de visibles. Alineado arriba
+   —que es lo que hace ya el resto de servicios— las dos columnas arrancan en la
+   misma línea y el aire queda junto, al final, donde no parte la lectura. */
 
 /* 23e · en móvil el arte ya no es decoración, es contenido: va DESPUÉS del
    texto que lo introduce, no antes. En escritorio sigue alternando lados. */

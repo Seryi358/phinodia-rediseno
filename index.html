@@ -231,7 +231,7 @@
             <figcaption class="pieza__rotulo">Un flujo nuestro, funcionando: el que atiende el formulario de esta web</figcaption>
             <picture>
               <source media="(max-width: 899px)" srcset="media/flujo-contacto-movil.svg" width="395" height="1298">
-              <img class="flujo__mapa" src="media/flujo-contacto.svg" width="580" height="1024"
+              <img class="flujo__mapa" src="media/flujo-contacto.svg" width="613" height="1024"
                    alt="Mapa del flujo: el formulario web entra por un webhook, se normaliza y valida, se comprueba si es un robot (si lo es, se descarta en silencio), se anota el intento, se cuentan los envíos recientes de esa IP, se decide, y según el caso se rechaza el envío o se guarda el contacto, se avisa al dueño por correo —marcando si salió o falló—, se responde al visitante y se limpian los intentos viejos."
                    decoding="async">
             </picture>
@@ -401,7 +401,7 @@
              saber: si hay factura. El dato no se borra, se traslada a la pregunta
              frecuente sobre facturación, que es donde se busca. -->
         <div class="dato"><dt>Constitución</dt><dd>Cámara de Comercio<small>Agencia de tecnología, no entidad financiera</small></dd></div>
-        <div class="dato"><dt>Clientes con proyecto</dt><dd>Dos<small>Más los compradores de la tienda de video, que sí firman sus opiniones. De los dos de chatbot y voz no damos el nombre: no nos han autorizado</small></dd></div>
+        <div class="dato"><dt>Clientes con proyecto</dt><dd>Dos<small>Más los compradores de la tienda de video, que sí firman sus opiniones. De los dos de chatbot y voz no damos el nombre: no nos han autorizado.</small></dd></div>
         <div class="dato"><dt>Dónde</dt><dd>Colombia<small>Trabajo remoto en todo el país</small></dd></div>
       </dl>
     </div>
@@ -501,14 +501,24 @@
         </ul>
       </div>
       <div class="pie__legal">
-        <h4>Legal y contacto</h4>
+        <h4>Legal</h4>
         <ul>
           <li><a href="https://phinodia.com/terminos">Términos</a></li>
           <li><a href="https://phinodia.com/privacidad">Privacidad</a></li>
           <li><a href="https://phinodia.com/cookies">Cookies</a></li>
           <li><a href="https://phinodia.com/reembolsos">Reembolsos</a></li>
           <li><a href="https://phinodia.com/pqr">PQR · Protección al consumidor</a></li>
+        </ul>
+      </div>
+      <!-- Cuarta columna. El crítico de la r13 midió que el pie tenía contenido
+           hasta x1179 y nada entre x1180 y x1440, con el filete llegando a x1379:
+           el borde derecho quedaba desnudo. No se inventa contenido para llenarlo;
+           se saca el contacto de la lista legal, que es donde se busca. -->
+      <div class="pie__contacto">
+        <h4>Contacto</h4>
+        <ul>
           <li><a href="mailto:scastellanos@phinodia.com">scastellanos@phinodia.com</a></li>
+          <li>Bogotá D.C., Colombia</li>
         </ul>
       </div>
     </div>
