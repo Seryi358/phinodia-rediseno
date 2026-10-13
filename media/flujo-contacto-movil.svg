@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 1298" width="326" height="1298" role="img" aria-label="Mapa del flujo phinodia-web-contacto, activo en nuestro n8n: 16 pasos y 20 conexiones, desde el formulario de la web hasta el aviso por correo, con las salidas de robot, de exceso de envíos y de error marcadas aparte.">
+<defs><marker id="p1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#a9b8ff"/></marker><marker id="p2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#ffb45c"/></marker></defs>
+<path d="M150.0,82 L150.0,96" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M150.0,162 L150.0,176" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M284,209.0 C318,209.0 8,289.0 42,289.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M150.0,242 L150.0,336" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M150.0,402 L150.0,496" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M284,369.0 C318,369.0 8,449.0 42,449.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M150.0,562 L150.0,576" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M284,529.0 C318,529.0 8,449.0 42,449.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M150.0,642 L150.0,656" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M284,689.0 C318,689.0 8,769.0 42,769.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M284,689.0 C318,689.0 8,769.0 42,769.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M150.0,722 L150.0,816" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M150.0,882 L150.0,896" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M284,849.0 C318,849.0 8,449.0 42,449.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M150.0,962 L150.0,1056" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M284,929.0 C318,929.0 8,1009.0 42,1009.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M150.0,1122 L150.0,1136" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M42,1009.0 C8,1009.0 318,1169.0 284,1169.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M150.0,1202 L150.0,1216" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
+<path d="M42,769.0 C8,769.0 318,1249.0 284,1249.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<rect x="16" y="16" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="16" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="45" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Formulario web</text>
+<text x="32" y="71" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">webhook</text>
+<rect x="16" y="96" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="96" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="125" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Normalizar y validar</text>
+<text x="32" y="151" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">código</text>
+<rect x="16" y="176" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="176" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="205" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Es un robot</text>
+<text x="32" y="231" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">condición</text>
+<rect x="42" y="256" width="268" height="66" fill="#0b1026" stroke="#ffb45c" stroke-width="1.2"/>
+<rect x="42" y="256" width="3.5" height="66" fill="#ffb45c"/>
+<text x="58" y="285" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Descartar en silencio</text>
+<text x="58" y="311" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">respuesta</text>
+<rect x="16" y="336" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="336" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="365" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Anotar el intento</text>
+<text x="32" y="391" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">tabla</text>
+<rect x="42" y="416" width="268" height="66" fill="#0b1026" stroke="#ffb45c" stroke-width="1.2"/>
+<rect x="42" y="416" width="3.5" height="66" fill="#ffb45c"/>
+<text x="58" y="445" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">No se pudo guardar</text>
+<text x="58" y="471" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">respuesta</text>
+<rect x="16" y="496" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="496" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="519" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Envíos recientes de esta</text>
+<text x="32" y="536" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">IP</text>
+<text x="32" y="551" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">tabla</text>
+<rect x="16" y="576" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="576" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="605" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Decidir</text>
+<text x="32" y="631" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">código</text>
+<rect x="16" y="656" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="656" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="685" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Qué hacer con el envío</text>
+<text x="32" y="711" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">bifurcación</text>
+<rect x="42" y="736" width="268" height="66" fill="#0b1026" stroke="#ffb45c" stroke-width="1.2"/>
+<rect x="42" y="736" width="3.5" height="66" fill="#ffb45c"/>
+<text x="58" y="765" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Rechazar el envío</text>
+<text x="58" y="791" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">respuesta</text>
+<rect x="16" y="816" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="816" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="845" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Guardar el contacto</text>
+<text x="32" y="871" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">tabla</text>
+<rect x="16" y="896" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="896" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="925" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Avisar al dueño</text>
+<text x="32" y="951" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">correo</text>
+<rect x="42" y="976" width="268" height="66" fill="#0b1026" stroke="#ffb45c" stroke-width="1.2"/>
+<rect x="42" y="976" width="3.5" height="66" fill="#ffb45c"/>
+<text x="58" y="1005" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Marcar correo fallido</text>
+<text x="58" y="1031" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">tabla</text>
+<rect x="16" y="1056" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="1056" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="1085" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Marcar correo enviado</text>
+<text x="32" y="1111" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">tabla</text>
+<rect x="16" y="1136" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="1136" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="1165" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Responder recibido</text>
+<text x="32" y="1191" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">respuesta</text>
+<rect x="16" y="1216" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
+<rect x="16" y="1216" width="3.5" height="66" fill="#d4ff3a"/>
+<text x="32" y="1245" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Limpiar intentos viejos</text>
+<text x="32" y="1271" font-family="Onest, system-ui, sans-serif" font-size="11.5" fill="#a9b8ff" opacity="0.9">tabla</text>
+</svg>

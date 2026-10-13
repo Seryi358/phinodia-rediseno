@@ -289,9 +289,23 @@ a  { color: inherit; }
 /* ---------- marquesina ---------- */
 
 .tec { background: var(--tinta); color: var(--bruma); padding-block: clamp(3rem, 5vw, 5rem); overflow: hidden; }
-.tec__rotulo { margin-bottom: 2rem; }
-.pista { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); }
-.pista + .pista { margin-top: clamp(1rem, 2vw, 1.75rem); }
+.tec__rotulo { margin-bottom: 1.6rem; }
+/* Rótulo de cada cinta: la de arriba son canales, la de abajo motores. Antes las
+   dos filas llevaban el mismo inventario y no se entendía por qué eran dos. */
+.tec__fila {
+  font-size: clamp(0.78rem, 0.95vw, 0.9rem); font-weight: 600;
+  color: var(--cobalto-claro); margin-bottom: 0.7rem;
+}
+.pista + .tec__fila { margin-top: clamp(1.6rem, 2.4vw, 2.2rem); }
+/* El fundido pasa de 9 % a 15 %: con 9 % los nombres se cortaban a media palabra
+   en los bordes y en una captura fija parecía un fallo de maquetación. */
+.pista { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
+.tec__aviso {
+  margin-top: clamp(1.4rem, 2.2vw, 2rem);
+  font-size: clamp(0.78rem, 0.95vw, 0.88rem); line-height: 1.55;
+  color: var(--bruma); opacity: 0.72; max-width: 62ch;
+}
+.tec__aviso b { font-weight: 600; opacity: 1; }
 .pista__cinta { display: flex; width: max-content; will-change: transform; }
 .pista--a .pista__cinta { animation: desliza-izq var(--marquesina-a) linear infinite; }
 .pista--b .pista__cinta { animation: desliza-der var(--marquesina-b) linear infinite; }
@@ -307,6 +321,10 @@ a  { color: inherit; }
 /* El nombre al lado del logo: ver el comentario de `grupo()` en guion.js. Todos
    los logos quedan monocromos y el nombre aporta el rasgo común que no tenían. */
 .pista__marca { display: inline-flex; align-items: center; gap: 0.7rem; white-space: nowrap; }
+.pista__uso {
+  font-size: clamp(0.75rem, 0.92vw, 0.88rem); color: var(--cobalto-claro);
+  opacity: 0.72; white-space: nowrap;
+}
 .pista__nombre {
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: clamp(0.8rem, 1vw, 0.95rem); font-weight: 600;
@@ -1220,6 +1238,19 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
 }
 .flujo li p { margin: 0; color: var(--bruma); }
 .flujo__pie { margin: 0; color: var(--apagado-claro); font-size: 0.85rem; }
+/* El mapa del flujo real. Va a hueso, sin marco ni radio ni sombra: la caja la
+   dibuja el propio SVG por dentro, que es un diagrama, no una tarjeta.
+   El `aspect-ratio: auto` es obligatorio: `.servicio__arte img` impone 3/2 —venía
+   de cuando el arte eran ilustraciones apaisadas— y metía el mapa, que es vertical,
+   dentro de una caja ancha dejándolo a un tercio de su tamaño. */
+.servicio__arte img.flujo__mapa {
+  display: block; width: 100%; max-width: 580px; height: auto;
+  aspect-ratio: auto; object-fit: fill;
+}
+@media (max-width: 899px) { .servicio__arte img.flujo__mapa { max-width: 326px; margin-inline: auto; } }
+/* El texto del 03 se centra respecto al mapa: es la pieza más alta de los cuatro
+   servicios y, alineado arriba, dejaba media columna izquierda en blanco. */
+@media (min-width: 900px) { .servicio--mapa .servicio__texto { align-self: center; } }
 
 /* 23e · en móvil el arte ya no es decoración, es contenido: va DESPUÉS del
    texto que lo introduce, no antes. En escritorio sigue alternando lados. */
@@ -1252,3 +1283,13 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
 @media (min-width: 1024px) {
   .paso-visual img { width: min(100%, 236px); }
 }
+
+/* 33 · El ejemplo de flujo baja a la columna de texto del servicio 03 (ronda 11).
+   El mapa de al lado es la prueba —un flujo real, leído de la API de n8n—; esto es
+   un ejemplo y se presenta como tal. Mismos filetes, ninguna caja. */
+.servicio__ejemplo { margin: 1.4rem 0 0.2rem; color: var(--apagado-claro); font-size: 0.9rem; }
+.flujo--texto { padding-left: 0; margin-bottom: 1.4rem; }
+.flujo--texto::before { display: none; }
+.flujo--texto li { padding: 0.5rem 0; font-size: 0.9rem; }
+.flujo--texto li::before { display: none; }
+.flujo--texto li p { color: var(--apagado-claro); }

@@ -78,13 +78,15 @@
   <!-- 2 · MARQUESINA DE TECNOLOGÍAS -->
   <section class="tec revela" id="tecnologias" aria-label="Tecnologías con las que trabajamos">
     <div class="eje tec__rotulo"><p class="rotulo">Tecnologías con las que trabajamos</p></div>
+    <p class="eje tec__fila">Dónde atendemos a tus clientes</p>
     <div class="pista pista--a">
       <div class="pista__cinta" id="cinta-a"></div>
     </div>
+    <p class="eje tec__fila">Con qué lo construimos</p>
     <div class="pista pista--b">
       <div class="pista__cinta" id="cinta-b"></div>
     </div>
-    <p class="oculto-visual">Meta, WhatsApp, Instagram, Google, OpenAI, n8n, ElevenLabs, Shopify, HubSpot y Google Calendar son herramientas y plataformas sobre las que construimos. No son clientes nuestros ni nos patrocinan.</p>
+    <div class="eje"><p class="tec__aviso">Son herramientas y plataformas sobre las que construimos: <b>no son clientes nuestros, no nos patrocinan y no hay alianza</b>. Cada marca pertenece a su dueño.</p></div>
   </section>
 
   <!-- 3 · LA PRUEBA -->
@@ -199,27 +201,41 @@
         </div>
       </div>
 
-      <div class="servicio">
+      <div class="servicio servicio--mapa">
         <div class="servicio__texto">
           <p class="servicio__indice">03 — Automatización</p>
           <h3>Procesos conectados con n8n</h3>
           <p>Lo que hoy haces copiando y pegando entre el WhatsApp, el Excel y la pasarela de pagos, hecho solo. Sin cambiar de herramientas: conectamos las que ya usas.</p>
+          <!-- Esta lista estuvo antes en el lugar del mapa, presentada como
+               «demostración». Es un ejemplo, no un flujo que esté corriendo, así
+               que baja a texto de apoyo y lo dice: la prueba es el mapa de al lado. -->
+          <p class="servicio__ejemplo">Un pedido por chat, por ejemplo, suele quedar así:</p>
+          <ol class="flujo flujo--texto">
+            <li><span class="flujo__n">WhatsApp</span><p>entra el pedido</p></li>
+            <li><span class="flujo__n">IA</span><p>lee qué pidió y cuánto</p></li>
+            <li><span class="flujo__n">Sheets</span><p>lo anota y descuenta inventario</p></li>
+            <li><span class="flujo__n">Wompi</span><p>cobra y espera la confirmación</p></li>
+            <li><span class="flujo__n">WhatsApp</span><p>avisa que va en camino</p></li>
+          </ol>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
-        <!-- Antes: un árbol de nodos abstracto, sin un solo nombre dentro. Un diagrama
-             sin rótulos no explica nada. Este es el flujo que de verdad se monta, con
-             las herramientas nombradas, que es lo que el comprador reconoce. -->
+        <!-- Tres versiones de esta pieza. La primera era un árbol de nodos sin un solo
+             rótulo dentro; la segunda, una lista de cinco pasos de un pedido inventado
+             —cierta como ejemplo, pero inventada—. Esta es el mapa de un flujo **real y
+             activo** de nuestro n8n, leído de su API y dibujado con sus nodos y sus
+             conexiones: `scripts/dibujar-flujo.py`. Lo que se recoloca es la posición,
+             porque el lienzo del editor mide 2.668 px de ancho y aquí el rótulo bajaría
+             a 6 px; los 16 nodos y las 20 conexiones son los que tiene el flujo. -->
         <div class="servicio__arte">
           <figure class="pieza">
-            <figcaption class="pieza__rotulo">Demostración · un flujo de pedidos, nodo a nodo</figcaption>
-            <ol class="flujo">
-              <li><span class="flujo__n">WhatsApp</span><p>Entra un pedido por chat</p></li>
-              <li><span class="flujo__n">IA</span><p>Lee qué pidió y cuánto</p></li>
-              <li><span class="flujo__n">Sheets</span><p>Lo anota y descuenta inventario</p></li>
-              <li><span class="flujo__n">Wompi</span><p>Cobra y espera la confirmación</p></li>
-              <li><span class="flujo__n">WhatsApp</span><p>Avisa que va en camino</p></li>
-            </ol>
-            <p class="flujo__pie">Cinco pasos que hoy alguien hace a mano, copiando y pegando.</p>
+            <figcaption class="pieza__rotulo">Un flujo nuestro, funcionando: el que atiende el formulario de esta web</figcaption>
+            <picture>
+              <source media="(max-width: 899px)" srcset="media/flujo-contacto-movil.svg" width="326" height="1298">
+              <img class="flujo__mapa" src="media/flujo-contacto.svg" width="580" height="1024"
+                   alt="Mapa del flujo: el formulario web entra por un webhook, se normaliza y valida, se comprueba si es un robot (si lo es, se descarta en silencio), se anota el intento, se cuentan los envíos recientes de esa IP, se decide, y según el caso se rechaza el envío o se guarda el contacto, se avisa al dueño por correo —marcando si salió o falló—, se responde al visitante y se limpian los intentos viejos."
+                   decoding="async">
+            </picture>
+            <p class="flujo__pie">Dieciséis pasos y veinte conexiones, activo desde agosto. Las cajas naranjas son lo que puede salir mal —un robot, demasiados envíos de la misma IP, un correo que no sale— y está contemplado. Lo que montamos para un negocio tiene esta forma: el disparador cambia, la fontanería no.</p>
           </figure>
         </div>
       </div>
@@ -385,7 +401,7 @@
              saber: si hay factura. El dato no se borra, se traslada a la pregunta
              frecuente sobre facturación, que es donde se busca. -->
         <div class="dato"><dt>Constitución</dt><dd>Cámara de Comercio<small>Agencia de tecnología, no entidad financiera</small></dd></div>
-        <div class="dato"><dt>Clientes con proyecto</dt><dd>Dos<small>Más los compradores de la tienda de video. No publicamos nombres sin permiso</small></dd></div>
+        <div class="dato"><dt>Clientes con proyecto</dt><dd>Dos<small>Más los compradores de la tienda de video, que sí firman sus opiniones. De los dos de chatbot y voz no damos el nombre: no nos han autorizado</small></dd></div>
         <div class="dato"><dt>Dónde</dt><dd>Colombia<small>Trabajo remoto en todo el país</small></dd></div>
       </dl>
     </div>

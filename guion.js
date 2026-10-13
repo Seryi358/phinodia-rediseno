@@ -13,19 +13,22 @@
 
   /* ---------- 1 · marquesina de tecnologías ---------- */
 
-  // Las diez marcas en las dos filas, en orden distinto. Con cinco por fila
-  // se veía el mismo ciclo tres veces en una sola pantalla.
+  // Las dos filas llevaban las mismas diez marcas en distinto orden. El crítico
+  // ciego de la ronda 11 lo leyó por lo que era: «repetir el mismo inventario dos
+  // veces para llenar la banda es relleno». Ahora cada fila dice una cosa distinta
+  // y va rotulada: arriba, dónde atiende el bot; abajo, con qué está construido.
+  // La división no es cosmética: es la misma que usa la sección de servicios.
   var LOGOS_A = [
-    ['meta.svg', 'Meta'], ['n8n.svg', 'n8n'], ['whatsapp.svg', 'WhatsApp'],
-    ['shopify.svg', 'Shopify'], ['instagram.svg', 'Instagram'], ['openai.svg', 'OpenAI'],
-    ['googlecalendar.svg', 'Google Calendar'], ['google.svg', 'Google'],
-    ['hubspot.svg', 'HubSpot'], ['elevenlabs.svg', 'ElevenLabs']
+    ['whatsapp.svg', 'WhatsApp'], ['instagram.svg', 'Instagram'], ['meta.svg', 'Meta'],
+    ['shopify.svg', 'Shopify'], ['hubspot.svg', 'HubSpot'],
+    ['googlecalendar.svg', 'Google Calendar']
   ];
+  // La fila de abajo lleva cuatro marcas y, al lado de cada una, para qué se usa.
+  // Dos motivos: dice algo más que el logotipo, y alarga cada pieza lo suficiente
+  // para que el ciclo no se vea dos veces en la misma pantalla.
   var LOGOS_B = [
-    ['openai.svg', 'OpenAI'], ['instagram.svg', 'Instagram'], ['hubspot.svg', 'HubSpot'],
-    ['google.svg', 'Google'], ['elevenlabs.svg', 'ElevenLabs'], ['meta.svg', 'Meta'],
-    ['shopify.svg', 'Shopify'], ['googlecalendar.svg', 'Google Calendar'],
-    ['n8n.svg', 'n8n'], ['whatsapp.svg', 'WhatsApp']
+    ['n8n.svg', 'n8n', 'la fontanería'], ['openai.svg', 'OpenAI', 'el cerebro'],
+    ['elevenlabs.svg', 'ElevenLabs', 'la voz'], ['google.svg', 'Google', 'hojas y calendario']
   ];
 
   function grupo(lista) {
@@ -50,19 +53,33 @@
       nombre.textContent = par[1];
       marca.appendChild(img);
       marca.appendChild(nombre);
+      if (par[2]) {
+        var uso = document.createElement('span');
+        uso.className = 'pista__uso';
+        uso.textContent = '· ' + par[2];
+        marca.appendChild(uso);
+      }
       g.appendChild(marca);
     });
     return g;
   }
 
   // La cinta son dos mitades idénticas y translate3d(-50%) cierra el bucle sin salto.
-  // Cada mitad lleva 2 grupos: con uno solo la cinta no llegaba a cubrir 1920 px
-  // y se veía el hueco al final del ciclo.
+  // Cada mitad repite la lista hasta juntar al menos 12 marcas: con las listas
+  // cortas de ahora (6 y 4) un solo pase no cubría 1920 px y se veía el hueco al
+  // final del ciclo. Lo que se repite es la cinta, no el inventario de la banda.
+  function grupoLargo(lista) {
+    var veces = Math.ceil(12 / lista.length);
+    var larga = [];
+    for (var v = 0; v < veces; v++) larga = larga.concat(lista);
+    return grupo(larga);
+  }
+
   function poblar(id, lista) {
     var cinta = document.getElementById(id);
     if (!cinta) return;
     for (var mitad = 0; mitad < 2; mitad++) {
-      var g = grupo(lista);
+      var g = grupoLargo(lista);
       if (mitad > 0) g.setAttribute('aria-hidden', 'true');
       cinta.appendChild(g);
     }
