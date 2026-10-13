@@ -828,6 +828,16 @@ a  { color: inherit; }
 }
 .empezar .btn--cobalto:hover { background: #1d2340; color: var(--blanco); }
 
+/* 24 · El botón de "Preguntar" era el único azul relleno de la página: cuatro
+   estilos distintos de botón primario para un sistema de cinco colores. Pasa al
+   par tinta/lima que ya usa la sección de "Empezar", y quedan tres.
+   Nota sobre la otra mitad de esa misma crítica: el crítico midió #2448ff sobre
+   blanco en 4,45:1 y lo dio por debajo de AA. Recalculado con la fórmula WCAG 2.x
+   da 6,09:1 — pasaba de sobra. Se cambia por coherencia del sistema, no por
+   contraste. El par nuevo da 16,27:1. */
+.faq__cab .btn--cobalto { background: var(--tinta); color: var(--lima); }
+.faq__cab .btn--cobalto:hover { background: #1d2340; color: var(--blanco); }
+
 /* --- 18 · lo que encontró el crítico ciego de la ronda 4 -------------------
    De sus nueve "retrocesos frente a la web actual", cuatro resultaron ciertos
    al medirlos contra el sitio vivo. Estos son los arreglos. Los otros cinco,
