@@ -1058,3 +1058,46 @@ a  { color: inherit; }
   .opiniones blockquote cite { margin-top: 0; padding-top: 0.3rem; text-align: right; }
   .opiniones__pie { max-width: 72ch; }
 }
+
+/* --- 22 · lo que encontró el crítico ciego de la ronda 8 ------------------
+   Octavo crítico, contexto limpio. Dijo **SÍ** a la pregunta binaria y puso
+   el rediseño **1.º de los tres**, por delante de la propia vara. Pero trajo
+   cuatro defectos que, medidos, resultaron ciertos. Estos son los arreglos.
+   Su hallazgo nº 1 —"1.136 px de vacío y la sección de preguntas no existe"—
+   era un fallo de MI evidencia, no del sitio: ver el informe §22. */
+
+/* 22a · "la barra de % se sale de su columna y queda a 18 px de $ 339.900".
+   Medido: la barra más larga ocupaba 174 px de una celda de 191 y empezaba
+   en x=1000, justo donde acaba la columna de precio (x=999). No la invadía
+   —por un píxel— pero no dejaba ni un respiro entre el precio y la barra, y
+   de lejos se leen como una sola cosa. La escala se queda en el 72 % de la
+   celda: la escalera sigue viéndose y aparecen 54 px de aire. */
+.tabla-precio td .barra { width: calc(var(--p) * 0.72); }
+
+/* 22b · "el subrayado del enlace de 02 — Voz invade texto que no es enlace".
+   Cierto, y la causa es peor que el síntoma: `Se cotiza según alcance` es un
+   <span> NO clicable que llevaba la MISMA clase, el mismo color de enlace y
+   la misma caja de 44 px que `Ver precios y comprar →`, que sí es un <a>.
+   Tres de los cuatro servicios tenían una etiqueta que parecía pulsable y no
+   lo era. Se separan: el <a> conserva el color de enlace y gana subrayado;
+   el <span> pasa a gris de dato y pierde la caja de 44 px, que no tiene
+   sentido en algo que no se pulsa. */
+span.servicio__etiqueta {
+  color: var(--apagado-claro); min-height: 0; margin-top: 0.9rem;
+  display: block; letter-spacing: 0.1em;
+}
+.banda--tinta span.servicio__etiqueta { color: var(--apagado-claro); }
+a.servicio__etiqueta { box-shadow: inset 0 -1px 0 0 currentColor; }
+a.servicio__etiqueta:hover { color: var(--blanco); }
+
+/* 22c · "rejilla de garantías: 5 ítems en 2 columnas; la tercera regla se
+   corta a media página y no continúa". Cierto: al añadir la quinta garantía
+   en la ronda 7 quedó una celda huérfana. La quinta cruza las dos columnas y
+   la rejilla vuelve a cerrar. */
+@media (min-width: 900px) { .garantias__ancha { grid-column: 1 / -1; } }
+
+/* 22d · "3 erratas RAE: el punto queda dentro de las comillas de cierre, en
+   los tres testimonios". Cierto. En español el punto va SIEMPRE después de
+   las comillas de cierre. El punto se quita del texto y lo pone el pseudo-
+   elemento, detrás del ». */
+.opiniones blockquote p::after { content: '».'; }
