@@ -1227,3 +1227,28 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
   .servicio__arte { order: 0; margin-top: 1.75rem; }
   .flujo li { grid-template-columns: 5.5rem 1fr; }
 }
+
+/* --- 25 · el paso visual de "La prueba": la foto que entró ------------------
+   La sección promete «de una sola foto de producto» y enseñaba sólo la salida.
+   El crítico ciego de la ronda 9 puso el déficit de material visual real como la
+   ÚNICA cosa en que el rediseño pierde contra la vara; esta es la mitad barata de
+   cerrarlo: enseñar la entrada, que es el argumento entero del servicio.
+   Sin caja: la foto va suelta sobre la banda, con filete sólo bajo el rótulo. */
+.paso-visual { margin: 0 0 1.5rem; display: grid; gap: 0.75rem; }
+.paso-visual img { width: min(100%, 300px); height: auto; display: block; }
+.paso-visual__rotulo {
+  display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.75rem;
+  font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.75rem;
+  font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--pizarra);
+}
+.paso-visual__rotulo--salida { margin-top: 1.75rem; }
+.paso-visual__n {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.4rem; height: 1.4rem; background: var(--tinta); color: var(--lima);
+  font-size: 0.75rem; flex: none;
+}
+/* en pantallas anchas la foto y la tira comparten riel, no se apilan a lo tonto */
+@media (min-width: 1024px) {
+  .paso-visual img { width: min(100%, 236px); }
+}
