@@ -226,6 +226,15 @@
           <!-- Esta lista estuvo antes en el lugar del mapa, presentada como
                «demostración». Es un ejemplo, no un flujo que esté corriendo, así
                que baja a texto de apoyo y lo dice: la prueba es el mapa de al lado. -->
+          <span class="servicio__etiqueta">Se cotiza según alcance</span>
+        </div>
+        <!-- r19 · el ejemplo sale de la columna del texto y pasa a ocupar la mitad
+             derecha de la primera fila. No es un capricho de maquetación: con el mapa
+             bajando a una figura a todo el ancho, si esta columna se quedara vacía la
+             sección volvería a tener media página muerta, que es justo el defecto
+             🟠-1 que se está cerrando. Aquí el reparto dice además algo cierto: a la
+             izquierda qué es el servicio, a la derecha cómo se ve un caso. -->
+        <div class="servicio__ejemplo-col">
           <p class="servicio__ejemplo">Un pedido por chat, por ejemplo, suele quedar así:</p>
           <ol class="flujo flujo--texto">
             <li><span class="flujo__n">WhatsApp</span><p>entra el pedido</p></li>
@@ -234,7 +243,6 @@
             <li><span class="flujo__n">Wompi</span><p>cobra y espera la confirmación</p></li>
             <li><span class="flujo__n">WhatsApp</span><p>avisa que va en camino</p></li>
           </ol>
-          <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
         <!-- Tres versiones de esta pieza. La primera era un árbol de nodos sin un solo
              rótulo dentro; la segunda, una lista de cinco pasos de un pedido inventado
@@ -243,12 +251,24 @@
              conexiones: `scripts/dibujar-flujo.py`. Lo que se recoloca es la posición,
              porque el lienzo del editor mide 2.668 px de ancho y aquí el rótulo bajaría
              a 6 px; los 16 nodos y las 20 conexiones son los que tiene el flujo. -->
-        <div class="servicio__arte">
+        <div class="servicio__arte servicio__arte--ancho">
           <figure class="pieza">
             <figcaption class="pieza__rotulo">Un flujo nuestro, dibujado con sus nodos y sus conexiones reales</figcaption>
+            <!-- r19 · tercera forma del mapa, apaisada (1.278 × 556, proporción 2,30),
+                 generada por el mismo script con `--apaisado`: el CAMINO de 12 nodos
+                 partido en dos columnas de 6, con sus desvíos. Entra a partir de
+                 1.024 px, donde la figura pasa a ocupar el eje entero.
+                 Por qué mejora y no solo cambia: el rótulo de tipo de nodo, que es el
+                 más pequeño del dibujo, se renderizaba a 10,4 px a 1.440 y a 6,3 px a
+                 1.024 con la forma vertical metida en su columna. Con la apaisada a
+                 todo el ancho son 11,9 px a 1.440 y 8,4 px a 1.024. Es mejor en los
+                 dos, y de paso cierra el hueco de media página de esta sección.
+                 El `width` de la forma vertical decía 613 y el SVG mide 676: el
+                 atributo estaba desfasado y reservaba mal el sitio. Corregido. -->
             <picture>
               <source media="(max-width: 899px)" srcset="media/flujo-contacto-movil.svg" width="351" height="1298">
-              <img class="flujo__mapa" src="media/flujo-contacto.svg" width="613" height="1024"
+              <source media="(min-width: 1024px)" srcset="media/flujo-contacto-apaisado.svg" width="1278" height="556">
+              <img class="flujo__mapa" src="media/flujo-contacto.svg" width="676" height="1024"
                    alt="Mapa del flujo: el formulario web entra por un webhook, se normaliza y valida, se comprueba si es un robot (si lo es, se descarta en silencio), se anota el intento, se cuentan los envíos recientes de esa IP, se decide, y según el caso se rechaza el envío o se guarda el contacto, se avisa al dueño por correo —marcando si salió o falló—, se responde al visitante y se limpian los intentos viejos."
                    decoding="async">
             </picture>

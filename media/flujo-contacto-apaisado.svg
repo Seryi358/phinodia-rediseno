@@ -1,25 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1278 556" width="1278" height="556" role="img" aria-label="Mapa del flujo phinodia-web-contacto, activo en nuestro n8n: 16 pasos y 20 conexiones, desde el formulario de la web hasta el aviso por correo, con las salidas de robot, de exceso de envíos y de error marcadas aparte.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1278 556" width="1278" height="556" role="img" aria-label="Mapa de phinodia-web-contacto, un flujo real de nuestro n8n: 16 pasos y 20 conexiones, desde el formulario de la web hasta la limpieza de los intentos viejos, con las salidas de robot, de exceso de envíos y de error marcadas aparte.">
 <defs><marker id="p1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#a9b8ff"/></marker><marker id="p2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#ffb45c"/></marker></defs>
 <path d="M162.0,102 L162.0,118" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M162.0,186 L162.0,202" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M286,236.0 C320,236.0 304,278.0 338,278.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M162.0,270 L162.0,286" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M162.0,354 L162.0,370" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M286,320.0 C320,320.0 304,352.0 338,352.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M286,315.0 C320,315.0 304,352.0 338,352.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M162.0,438 L162.0,454" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M286,404.0 C320,404.0 304,372.0 338,372.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M286,409.0 C320,409.0 304,372.0 338,372.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M162.0,522 L162.0,542 L639,542 L639,14 L790.0,14 L790.0,34" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M914,68.0 C948,68.0 932,100.0 966,100.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
-<path d="M914,68.0 C948,68.0 932,120.0 966,120.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M914,63.0 C948,63.0 932,100.0 966,100.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M914,73.0 C948,73.0 932,120.0 966,120.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M790.0,102 L790.0,118" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M790.0,186 L790.0,202" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M666.0,152.0 L643.5,152.0 A4.5,4.5 0 0 0 634.5,152.0 L612.0,152.0 L612.0,362.0 L593.0,362.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M666.0,152.0 L643.5,152.0 A4.5,4.5 0 0 0 634.5,152.0 L612.0,152.0 L612.0,362.0 L587.0,362.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M790.0,270 L790.0,286" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M914,236.0 C948,236.0 932,278.0 966,278.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M790.0,354 L790.0,370" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M1214,278.0 L1236,278.0 L1236,404.0 L921,404.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M1214,278.0 L1236,278.0 L1236,404.0 L915,404.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M790.0,438 L790.0,454" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M1214,110.0 L1249,110.0 L1249,488.0 L921,488.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M1214,110.0 L1249,110.0 L1249,488.0 L915,488.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <rect x="38" y="34" width="248" height="68" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
 <rect x="38" y="34" width="3.5" height="68" fill="#d4ff3a"/>
 <text x="54" y="63" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Formulario web</text>

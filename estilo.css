@@ -1625,3 +1625,43 @@ span.servicio__etiqueta {
 .flujo__n {
   font-family: 'Onest', sans-serif;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   r19 🟠-1 y 🟠-5 · El servicio 03 se remaqueta: el mapa baja a una figura a todo
+   el ancho y el ejemplo sube a la mitad derecha de la primera fila.
+
+   🟠-1 era «839 px con media página vacía» (533 px medidos sobre el DOM), y es el
+   defecto que el crítico puso el primero de la lista: el texto de la izquierda
+   acababa y el diagrama de la derecha seguía bajando 600 px más. Las dos salidas
+   que él proponía eran partir el diagrama en dos columnas o repartir el texto;
+   esto hace las dos. El mapa tiene ahora una tercera forma, apaisada —12 nodos en
+   dos columnas de 6, proporción 2,30—, que a lo ancho del eje mide ~574 px de
+   alto en vez de 929, y la fila de arriba deja de tener una mitad muerta porque
+   el ejemplo del pedido ocupa la derecha.
+
+   🟠-5 era «el diagrama va a la deriva: 57 px de aire a la izquierda, 50 a la
+   derecha, ni alineado al filete ni centrado». Se cae solo: la figura ocupa el eje
+   entero y el SVG se pinta a su ancho, así que sus bordes son los del eje.
+
+   Y de regalo, lo que el crítico llamaba «la mayor diferencia» —el silencio
+   visual— mejora donde se podía mejorar sin inventar nada: la única pieza gráfica
+   grande de la mitad de la página pasa de 613 px de ancho a 1.319.
+
+   El sticky del texto deja de aplicarse aquí: existía para acompañar a un
+   diagrama de 1.024 px de alto en la columna de al lado, y ese diagrama ya no
+   está al lado. De 900 a 1.023 px sigue valiendo, y por eso la regla es de 1.024. */
+@media (min-width: 1024px) {
+  .servicio--mapa .servicio__texto       { grid-column: 1 / span 6; position: static; }
+  .servicio--mapa .servicio__ejemplo-col { grid-column: 8 / -1; }
+  .servicio--mapa .servicio__arte--ancho { grid-column: 1 / -1; margin-top: clamp(1.5rem, 2.4vw, 2.75rem); }
+  /* sin el tope de 613 px, que era el ancho de la forma vertical en su columna */
+  .servicio--mapa .servicio__arte img.flujo__mapa { max-width: none; }
+}
+/* De 900 a 1.023 px la sección sigue siendo texto | mapa vertical, y el ejemplo
+   va debajo del texto, en su misma columna. */
+@media (min-width: 900px) and (max-width: 1023px) {
+  .servicio--mapa .servicio__ejemplo-col { grid-column: 1 / span 5; }
+}
+@media (max-width: 899px) {
+  .servicio--mapa .servicio__ejemplo-col { grid-column: 1 / -1; }
+}
