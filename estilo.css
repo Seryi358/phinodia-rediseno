@@ -61,6 +61,17 @@
   /* Mismo problema sobre la banda oscura: rgba(…,0.2) componía (43,50,81) sobre
      (11,16,38) = 1,50:1. Con alfa 0.5 compone (90,100,146) = 3,29:1. */
   --filete-tinta: rgba(169, 184, 255, 0.5);
+  /* r22 🟠 5.5 · «el filete de 1 px vale cuatro cosas distintas según la
+     sección … y el que separa los cuatro paquetes —lo único que separa un
+     precio de otro— es el peor de los cuatro». Medido: 3,30:1 en las bandas
+     oscuras, 3,52:1 en el FAQ sobre blanco, 1,48:1 sobre la lavanda de precios
+     y 1,62:1 sobre el lima. Los dos primeros ya cumplen WCAG 1.4.11; los dos
+     últimos iban con alfa 0,18 y 0,22 heredados de cuando esas superficies eran
+     oscuras. Un solo token para los dos: navy al 46 %, que da 3,04:1 sobre
+     lavanda Y 3,03:1 sobre lima —la misma recta corta las dos superficies casi
+     en el mismo alfa, así que no hacen falta dos valores—. Con esto los cuatro
+     filetes de la página caen en la banda 3,0-3,5:1. */
+  --filete-tinta-claro: rgba(11, 16, 38, 0.46);
   --apagado: #6b7394;
   --pizarra: #4a5070;
   --blanco: #fff;
@@ -325,7 +336,17 @@ a  { color: inherit; }
 
 /* ---------- marquesina ---------- */
 
-.tec { background: var(--tinta); color: var(--bruma); padding-block: clamp(3rem, 5vw, 5rem); overflow: hidden; }
+/* r22 🟡 5.6 (primera excepción) · «y1357 → 75 px de padding inferior (−41 %
+   frente al estándar) al terminar la franja de logos». Cierto: la franja iba con
+   un `clamp` propio —72 px a 1.440— mientras las siete bandas de debajo usan
+   `--ritmo` (128). El de abajo pasa a `--ritmo` y el límite deja de ser la
+   excepción que era.
+   El de ARRIBA se queda corto a propósito y conviene decir por qué, porque es la
+   clase de cosa que un crítico futuro leerá como el mismo descuido: encima no hay
+   una sección, está el héroe, cuyo borde inferior lo fija el pliegue de la
+   ventana y no el token de ritmo. No es uno de los siete límites entre secciones
+   que se midieron; separarlo como si lo fuera sería alinear dos cosas distintas. */
+.tec { background: var(--tinta); color: var(--bruma); padding-block: clamp(3rem, 5vw, 5rem) var(--ritmo); overflow: hidden; }
 .tec__rotulo { margin-bottom: 1.6rem; }
 /* Rótulo de cada cinta: la de arriba son canales, la de abajo motores. Antes las
    dos filas llevaban el mismo inventario y no se entendía por qué eran dos. */
@@ -578,7 +599,7 @@ a  { color: inherit; }
 .empezar .btn--fantasma:hover { background: var(--tinta); color: var(--lima); }
 .empezar__precio { grid-column: 1 / -1; margin-top: 2.5rem; }
 @media (min-width: 1024px) { .empezar__precio { grid-column: 9 / -1; margin-top: 0; } }
-.empezar__precio .filete { background: rgba(11,16,38,0.22); }
+.empezar__precio .filete { background: var(--filete-tinta-claro); }
 .empezar__precio p { padding-block: 1rem; font-size: 0.9375rem; color: #1d2340; }
 
 /* ---------- preguntas ---------- */
@@ -639,14 +660,20 @@ a  { color: inherit; }
 .pie__fila { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--canal-col); }
 .pie__marca { grid-column: 1 / -1; }
 .pie__marca p { margin-top: 1rem; font-size: 0.9375rem; max-width: 34ch; color: var(--apagado); }
-.pie__nav, .pie__legal, .pie__contacto { grid-column: 1 / -1; }
+.pie__nav, .pie__legal, .pie__recursos { grid-column: 1 / -1; }
 /* `--apagado` da 4,04:1 sobre la tinta del pie y no llega a AA: lo midió el
    medidor en cuanto entró esta columna. El resto del pie ya usa la variante
    clara por el mismo motivo (ver la regla de `.pie__marca p`). */
-.pie__contacto li { font-size: 0.9375rem; color: var(--apagado-claro); }
+.pie__recursos li { font-size: 0.9375rem; color: var(--apagado-claro); }
 /* El correo no tiene espacios y no puede partir: en una columna estrecha era él,
    y no la lista legal, quien desbordaba. Red de seguridad para cualquier ancho. */
-.pie__contacto a { overflow-wrap: anywhere; }
+/* r22 🟡 5.11 · el correo se ha mudado al bloque de marca, que es donde se
+   busca a quién escribir, y la cuarta columna pasa a ser RECURSOS para
+   recuperar los cuatro destinos que el pie perdía (ver el HTML). El
+   `overflow-wrap` se va con el correo. */
+.pie__marca a[href^="mailto"] { overflow-wrap: anywhere; }
+.pie__contacto { margin-top: 1.25rem; }
+.pie__contacto li { font-size: 0.9375rem; color: var(--apagado-claro); }
 .pie h4 { font: 600 0.8125rem/1 'Onest', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--apagado); margin: 0 0 1rem; }
 .pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
 .pie a { text-decoration: none; font-size: 0.9375rem; transition: color 0.2s; display: inline-block; padding-block: 0.15rem; }
@@ -915,7 +942,7 @@ a  { color: inherit; }
   .pie__marca    { grid-column: 1 / span 6; }
   .pie__nav      { grid-column: 8 / -1; }
   .pie__legal    { grid-column: 1 / span 6; }
-  .pie__contacto { grid-column: 8 / -1; }
+  .pie__recursos { grid-column: 8 / -1; }
 }
 /* r15 · «el pie deja una columna desnuda de 112 px: su tinta acaba en x1.267 y su
    propio filete llega a x1.379, así que el margen derecho del pie es de 173 px
@@ -947,7 +974,7 @@ a  { color: inherit; }
      composición a bandera izquierda, y mezclar dos banderas en la misma fila
      no lo es. Si un crítico futuro vuelve a pedir el cierre a ras, la decisión
      a revisar es esta, no un olvido. */
-  .pie__contacto { grid-column: 10 / -1; }
+  .pie__recursos { grid-column: 10 / -1; }
 }
 
 /* --- 8 · reequilibrio del hero tras meter el video ---
@@ -1040,14 +1067,26 @@ a  { color: inherit; }
 }
 
 /* --- 15 · a 768 px la foto ocupaba 290 de 616 px y dejaba la derecha vacía. --- */
+/* r22 🟡 5.10 · «a 768 el vídeo del héroe está centrado y todo lo demás no:
+   texto, filete y botones alinean a x32; el vídeo ocupa x155-613, centrado en
+   el eje de los 768. 123 px de desfase». Cierto, y venía de la r15, que lo
+   centró para tapar el hueco que dejaba a su derecha.
+   Centrar tapa el hueco rompiendo el eje; se puede hacer mejor: el vídeo vuelve
+   al eje de la página y el pie de foto se pone A SU DERECHA, que es justo el
+   hueco que sobraba. Se cierran las dos cosas con la misma regla en vez de
+   cambiar una por la otra. */
 @media (min-width: 560px) and (max-width: 1023px) {
-  .hero__media { display: flex; flex-direction: column; align-items: center; }
-  .hero__video { max-width: min(100%, 460px); }
+  .hero__media {
+    display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    gap: 0 1.5rem; align-items: end; justify-items: start;
+  }
+  .hero__video { max-width: 100%; }
   /* r15 · «el pie de foto cambia de regla según el ancho: a bandera izquierda a
      1440 y a 360, centrado a 768. Correcto como centrado, pero es OTRA regla
-     para el mismo elemento». Se unifica a bandera izquierda, y para que siga
-     arrancando donde arranca la foto, toma su mismo ancho en vez de los 46ch. */
-  .hero__pieMedia { max-width: min(100%, 460px); text-align: left; }
+     para el mismo elemento». Sigue a bandera izquierda, como en los otros dos
+     anchos; lo que cambia en la r22 es que ya no va debajo del vídeo sino en la
+     columna de al lado, pegado a su línea base. */
+  .hero__pieMedia { max-width: 28ch; text-align: left; margin: 0 0 0.35rem; }
 }
 
 /* --- 16 · Precios reales del servicio de video -----------------------------
@@ -1390,7 +1429,11 @@ a  { color: inherit; }
      muñón". Cierto — el acento solo cubría el encabezado de la tarjeta.
      Ahora corre la tarjeta entera, y el margen negativo lo saca del flujo
      para que el contenido siga alineado con las otras tres. */
-  .tabla-precio tbody tr.es-elegido { position: relative; padding-left: 0.9rem; margin-left: -0.9rem; }
+  /* r22 🟠 5.2 (segunda mitad) · «haya uno o dos, dejar como mínimo 12-16 px
+     entre el riel y la “C”. Hoy hay 0». Con el riel duplicado muerto quedaban
+     11,4 px (0,9rem menos los 3 px del propio riel), que sigue por debajo del
+     mínimo que pidió. Sube a 1,15rem → 15,4 px limpios. */
+  .tabla-precio tbody tr.es-elegido { position: relative; padding-left: 1.15rem; margin-left: -1.15rem; }
   .tabla-precio tbody tr.es-elegido::before {
     content: ''; position: absolute; left: 0; top: 1.3rem; bottom: 1.5rem;
     width: 3px; background: var(--lima);
@@ -1659,14 +1702,28 @@ span.servicio__etiqueta {
    más que la izquierda; en fila se cierran los dos defectos de una vez. */
 @media (min-width: 768px) {
   .prueba__media {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    /* r22 🟡 5.7 · «la foto de entrada mide 126 px y los tres fotogramas 121 px
+       cada uno … 4,1 % de diferencia entre piezas que el ojo lee como una misma
+       serie». Cierto, y la causa es aritmética: con `1fr 3fr` la segunda columna
+       vale exactamente el triple de la primera, pero dentro lleva DOS canales de
+       tira que se comen 16 px, así que cada fotograma sale 5,3 px más estrecho
+       que la foto. Para que las cuatro piezas midan lo mismo, la primera columna
+       tiene que valer (ancho − canal externo − 2 canales de tira) / 4, que es
+       justo lo que dice este `calc`. Los dos canales se declaran como variables
+       para que la tira use el mismo número que entra en la cuenta: si se tocan
+       por separado, vuelve a descuadrar. */
+    --canal-pasos: 1.25rem;
+    --canal-tira: 0.5rem;
+    display: grid;
+    grid-template-columns: calc((100% - var(--canal-pasos) - 2 * var(--canal-tira)) / 4) minmax(0, 1fr);
     /* dos filas explícitas —rótulo e imagen— para que las dos columnas las
        compartan con `subgrid`. Sin esto, «LA FOTO QUE ENTRÓ» rompe en dos líneas
        en su columna estrecha, «EL VIDEO QUE SALIÓ» cabe en una, y las imágenes
        quedan a distinta altura: 16 px de desnivel en una composición cuyo único
        trabajo es que se comparen. */
-    grid-template-rows: auto auto; gap: 0 1.25rem; align-items: start;
+    grid-template-rows: auto auto; gap: 0 var(--canal-pasos); align-items: start;
   }
+  .prueba__media .tira { gap: var(--canal-tira); }
   .paso-visual { margin-bottom: 0; grid-row: span 2; grid-template-rows: subgrid; }
   .paso-visual img { width: 100%; }
   .paso-visual--salida .paso-visual__rotulo--salida { margin-top: 0; }
@@ -1830,10 +1887,27 @@ span.servicio__etiqueta {
      navy al 18 %, que es su equivalente invertido.
 
    Los testimonios viven dentro de esta sección y van con ella. */
-.precios-banda .precios { margin-top: 0; }
+/* r22 🟡 5.6 · «el token de separación entre secciones se rompe dos veces de
+   siete … y5754 → 212 px abajo y 191 px arriba (+66 % y +49 %) entre “04 —
+   Video” y “Precios”. Esa última es la banda vacía de 404 px, la mayor de A».
+   Cierto, y desglosado vale 402 px de los que 146 son herencia:
+
+   · arriba (187 px) = los 128 de la banda + 57,6 de `padding-top` + 1 de
+     `border-top` que `.precios` llevaba de cuando vivía DENTRO de la banda de
+     servicios y necesitaba separarse ella sola. Desde la r21 tiene banda propia:
+     el cambio de fondo ya hace ese trabajo, y el filete y el relleno son un
+     separador de más encima de otro separador;
+   · abajo (207 px) = los 128 de la banda + los 79,2 de `padding-block` del
+     último `.servicio`, que existe para separarlo del SIGUIENTE servicio. Al
+     último no le sigue ninguno.
+
+   Quitando las dos herencias el límite queda en 128 + 128, que es lo que miden
+   los otros cinco. No se toca el token: se deja de sumarle cosas. */
+.precios-banda .precios { margin-top: 0; border-top: 0; padding-top: 0; }
+.banda .servicio:last-child { padding-bottom: 0; }
 .precios-banda .tabla-precio thead th { color: var(--pizarra); }
 .precios-banda .tabla-precio thead tr,
-.precios-banda .tabla-precio tbody tr { border-bottom-color: rgba(11, 16, 38, 0.18); }
+.precios-banda .tabla-precio tbody tr { border-bottom-color: var(--filete-tinta-claro); }
 .precios-banda .tabla-precio tbody th[scope="row"] { color: var(--tinta); }
 .precios-banda .tabla-precio tbody th em { color: var(--cobalto); }
 .precios-banda .tabla-precio td { color: var(--pizarra); }
@@ -1845,15 +1919,31 @@ span.servicio__etiqueta {
   background: var(--lima); border-color: var(--lima); color: var(--tinta);
 }
 .precios-banda .tabla-precio a.comprar-destacado:hover { background: var(--lima-honda); color: var(--tinta); }
-.precios-banda .tabla-precio tbody tr.es-elegido th[scope="row"] { box-shadow: inset 3px 0 0 0 var(--cobalto); }
+/* r22 🔴 5.1 · «las etiquetas de la tabla de precios caen a 2,16:1 en cuanto
+   bajas de 1024 px … son 16 rótulos … es la tabla con la que se cobra».
+   Cierto y medido: por debajo de 900 px cada celda saca su rótulo de `data-r`
+   con `--apagado-claro` (#9AA5CF), que es un gris pensado para fondo OSCURO y
+   que sobre la lavanda de esta banda da 2,16:1 — menos de la mitad del 4,5:1
+   que pide AA. El valor que va en la misma línea ya está en `--pizarra`
+   (#4A5070 = 6,98:1). El rótulo pasa al mismo token: no hace falta inventar un
+   color, hacía falta no heredar el de la otra banda. */
+.precios-banda .tabla-precio tbody td::before { color: var(--pizarra); }
+
+/* r22 🟠 5.2 · «a 768 y 360 el riel del paquete recomendado se dibuja dos veces,
+   y el segundo toca la letra». Cierto, y el culpable estaba aquí: la línea 1377
+   mata el `box-shadow` del `th` precisamente porque el riel lo dibujan los
+   pseudo-elementos, y este bloque lo resucitaba con más especificidad. Al
+   apilar, el `th` pierde su `padding-left`, así que el riel reaparecía ENCIMA
+   de la «C» de «Crecimiento». Se borra: `::after` y `::before` ya van a cobalto
+   nueve líneas más abajo, que es donde debe decidirse el color. */
 .precios-banda .precios__nota,
 .precios-banda .precios__pie { color: var(--pizarra); }
-.precios-banda .garantias li { color: var(--pizarra); border-top-color: rgba(11, 16, 38, 0.18); }
+.precios-banda .garantias li { color: var(--pizarra); border-top-color: var(--filete-tinta-claro); }
 .precios-banda .garantias li b { color: var(--tinta); }
 .precios-banda .precios__enlace { color: var(--cobalto); border-bottom-color: var(--cobalto); }
 .precios-banda .precios__enlace:hover { color: var(--tinta); border-bottom-color: var(--tinta); }
-.precios-banda .opiniones { border-top-color: rgba(11, 16, 38, 0.18); }
-.precios-banda .opiniones blockquote { border-top-color: rgba(11, 16, 38, 0.18); }
+.precios-banda .opiniones { border-top-color: var(--filete-tinta-claro); }
+.precios-banda .opiniones blockquote { border-top-color: var(--filete-tinta-claro); }
 .precios-banda .opiniones blockquote p { color: var(--tinta); }
 .precios-banda .opiniones blockquote p::before,
 .precios-banda .opiniones blockquote p::after { color: var(--cobalto); }

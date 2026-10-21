@@ -154,7 +154,13 @@
              las dos puntas: la foto se ha regenerado desde un fotograma del propio
              video, así que el envase coincide, y la frase dice ahora lo que de
              verdad ocurrió en vez de dar a entender una cadena que no existió. -->
-        <p class="prueba__pie">«Montaña Alta» es un producto de muestra que usamos para demostrar, no un cliente: <b>las dos imágenes están generadas con IA</b>. La de arriba es la foto de catálogo que recibiríamos como entrada, del mismo envase que sale en el video. Los tres fotogramas son del video que se reproduce al principio de la página.</p>
+        <!-- r22 🟠 5.4 · «“La de arriba” no es verdad a 1440: las cuatro
+             miniaturas están en una sola fila; la foto no está arriba, está a la
+             izquierda. A 360 sí se apila, que es para donde está escrita la
+             frase. Es copia atada a un breakpoint». Cierto. La frase pasa a
+             nombrar el paso —que va rotulado «1» y «2» en la propia imagen y no
+             se mueve con el ancho— en vez de una posición que cambia. -->
+        <p class="prueba__pie">«Montaña Alta» es un producto de muestra que usamos para demostrar, no un cliente: <b>las dos imágenes están generadas con IA</b>. La del paso 1 es la foto de catálogo que recibiríamos como entrada, del mismo envase que sale en el video. Los tres fotogramas del paso 2 son del video que se reproduce al principio de la página.</p>
       </div>
     </div>
   </section>
@@ -229,12 +235,29 @@
               <li><span class="acta__t">00:02</span><span class="acta__q">Agente</span><p>Buenas, le llamo de la clínica para confirmar su cita del jueves a las 10.</p></li>
               <li><span class="acta__t">00:09</span><span class="acta__q">Paciente</span><p>Ay, el jueves no puedo. ¿Habrá algo el viernes?</p></li>
               <li><span class="acta__t">00:14</span><span class="acta__q">Agente</span><p>El viernes tengo 9:30 y 3:00. ¿Cuál le sirve?</p></li>
+              <!-- r22 🟠 5.3 · «la demo de voz afirma un resultado que no está en
+                   la transcripción: el último turno es el agente PREGUNTANDO y
+                   justo debajo pone “Resultado: cita movida al viernes 9:30” y
+                   “Duración: 41 segundos”. Faltan 27 de los 41 segundos y falta
+                   justo el turno que justifica el resultado». Cierto, y es el
+                   reproche que peor le sienta a una página que se desvive por
+                   declarar lo que enseña. Se cierra la llamada: entran los dos
+                   turnos que faltaban —la respuesta del paciente y la
+                   confirmación del agente— y la duración deja de ser una cifra
+                   que no se puede seguir. -->
+              <li><span class="acta__t">00:21</span><span class="acta__q">Paciente</span><p>A las 9:30 me queda bien.</p></li>
+              <li><span class="acta__t">00:33</span><span class="acta__q">Agente</span><p>Listo: viernes 9:30. Le mando la confirmación por WhatsApp. Que esté muy bien.</p></li>
             </ol>
             <dl class="acta__salida">
               <div><dt>Resultado</dt><dd>Cita movida al viernes 9:30</dd></div>
               <div><dt>Duración</dt><dd>41 segundos</dd></div>
               <div><dt>Queda</dt><dd>Resumen escrito y audio, en tu calendario</dd></div>
             </dl>
+            <!-- …y el descargo que faltaba. La página declara el origen de todo lo
+                 demás que enseña (las imágenes con IA, los logos que no son
+                 clientes, los testimonios sin nombre); esta acta no lo declaraba,
+                 y es un guion de muestra, no la llamada de nadie. -->
+            <p class="flujo__pie">Acta de una llamada de muestra, escrita para enseñar el formato del resumen: no es la llamada de ningún cliente ni una transcripción grabada.</p>
           </figure>
         </div>
       </div>
@@ -297,7 +320,10 @@
                  del móvil baja a 639 px y la franja 640-899 usa la vertical, que es
                  la que cabe entera en esa columna. -->
             <picture>
-              <source media="(max-width: 639px)" srcset="media/flujo-contacto-movil.svg" width="351" height="1298">
+              <!-- r22 · el `width` decía 351 y el SVG mide 396 (viewBox="0 0 396 1298"):
+                   el mismo desajuste que la r19 corrigió en la forma vertical, que aquí
+                   había quedado. Reserva mal el sitio mientras carga. -->
+              <source media="(max-width: 639px)" srcset="media/flujo-contacto-movil.svg" width="396" height="1298">
               <source media="(min-width: 900px)" srcset="media/flujo-contacto-apaisado.svg" width="1278" height="556">
               <img class="flujo__mapa" src="media/flujo-contacto.svg" width="676" height="1024"
                    alt="Mapa del flujo: el formulario web entra por un webhook, se normaliza y valida, se comprueba si es un robot (si lo es, se descarta en silencio), se anota el intento, se cuentan los envíos recientes de esa IP, se decide, y según el caso se rechaza el envío o se guarda el contacto, se avisa al dueño por correo —marcando si salió o falló—, se responde al visitante y se limpian los intentos viejos."
@@ -615,6 +641,15 @@
           <span>PhinodIA</span>
         </a>
         <p>Agencia de IA colombiana. Chatbots de WhatsApp, agentes de voz, automatización y video con IA.</p>
+        <!-- r22 · el contacto sube al bloque de marca: es la misma pregunta
+             («quién sois y cómo os escribo») y deja libre la cuarta columna para
+             los destinos de contenido que el pie estaba perdiendo. De paso
+             iguala las alturas: la columna de marca era la más corta de las
+             cuatro y la que dejaba 214 px de desnivel. -->
+        <ul class="pie__contacto">
+          <li><a href="mailto:scastellanos@phinodia.com">scastellanos@phinodia.com</a></li>
+          <li>Bogotá D.C., Colombia</li>
+        </ul>
       </div>
       <div class="pie__nav">
         <h4>Navegar</h4>
@@ -642,11 +677,19 @@
            hasta x1179 y nada entre x1180 y x1440, con el filete llegando a x1379:
            el borde derecho quedaba desnudo. No se inventa contenido para llenarlo;
            se saca el contacto de la lista legal, que es donde se busca. -->
-      <div class="pie__contacto">
-        <h4>Contacto</h4>
+      <!-- r22 🟡 5.11 · «el pie pierde dos destinos que la web actual sí tiene:
+           Guía: costos y ROAS y Blog … si el rediseño sustituye a la home, se
+           pierden dos entradas de contenido ya publicado». Cierto, y al ir a
+           comprobarlo eran cuatro, no dos: el pie de phinodia.com enlaza además
+           /ejemplos y /como-funciona. Los cuatro responden 200, comprobado uno a
+           uno antes de escribirlos aquí; ninguno es una URL inventada. -->
+      <div class="pie__recursos">
+        <h4>Recursos</h4>
         <ul>
-          <li><a href="mailto:scastellanos@phinodia.com">scastellanos@phinodia.com</a></li>
-          <li>Bogotá D.C., Colombia</li>
+          <li><a href="https://phinodia.com/ejemplos">Ejemplos</a></li>
+          <li><a href="https://phinodia.com/blog">Blog</a></li>
+          <li><a href="https://phinodia.com/guias/costos-anuncios-video-ugc">Guía: costos y ROAS</a></li>
+          <li><a href="https://phinodia.com/como-funciona">Cómo funciona</a></li>
         </ul>
       </div>
     </div>
