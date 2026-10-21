@@ -568,7 +568,7 @@ a  { color: inherit; }
 .empezar__cab { grid-column: 1 / -1; }
 @media (min-width: 1024px) { .empezar__cab { grid-column: 1 / span 7; } }
 /* r20 🟡 C-9 · «es el único azul saturado sobre amarillo saturado de toda la
-   página, y vibra». Pasa de 7,57:1 a 15,6:1 y, sobre todo, deja de ser la
+   página, y vibra». Pasa de 7,57:1 a 16,27:1 y, sobre todo, deja de ser la
    excepción: en el resto la regla es lima sobre oscuro y azul sobre claro. */
 .empezar .rotulo { color: var(--tinta); }
 .empezar h2 { margin-top: 1.2rem; }
