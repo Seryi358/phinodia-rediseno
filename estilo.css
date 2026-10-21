@@ -760,9 +760,13 @@ a  { color: inherit; }
    tinta del pie llegue al mismo borde que el filete que tiene encima. */
 @media (min-width: 1152px) {
   .pie__marca    { grid-column: 1 / span 4; }
-  .pie__nav      { grid-column: 5 / span 2; }
-  .pie__legal    { grid-column: 7 / span 2; }
-  .pie__contacto { grid-column: 9 / -1; text-align: right; }
+  /* r16 · «canales de 134, 103 y 318 px: el tercero es tres veces el segundo».
+     Con la última columna cerrando contra el margen, el hueco se acumulaba antes
+     de ella. Las tres columnas de enlaces se corren una posición a la derecha
+     (6, 8, 10 — sigue siendo regular) y el canal mayor baja a ~205 px. */
+  .pie__nav      { grid-column: 6 / span 2; }
+  .pie__legal    { grid-column: 8 / span 2; }
+  .pie__contacto { grid-column: 10 / -1; text-align: right; }
   .pie__contacto ul { justify-items: end; }
 }
 
@@ -1130,6 +1134,12 @@ a  { color: inherit; }
    así que la moneda entra también en la cabecera de la columna. */
 .cab-moneda { opacity: 0.7; font-weight: 400; }
 
+/* r16 · «la cabecera PAQUETE empieza en x=61 y las cuatro etiquetas de fila en
+   x=76: 15 px de desfase, y se nota porque el resto de la tabla está cuadrado al
+   píxel». Cierto: el sangrado se le dio a las filas para dejarle sitio al acento
+   de la recomendada, y la cabecera se quedó fuera. Va con ellas. */
+.tabla-precio thead th:first-child { padding-left: 0.9rem; }
+
 /* 21e · "Crecimiento no alinea con los otros tres nombres". Cierto: su texto
    arranca en x=34,4 y los demás en x=21 — 13,4 px, porque el acento de la
    fila recomendada se metía en el flujo con un padding-left. El acento sale
@@ -1183,8 +1193,13 @@ a  { color: inherit; }
     align-items: start; height: auto; padding-block: 1.7rem;
     border-top: 1px solid rgba(169, 184, 255, 0.14);
   }
-  .opiniones blockquote p { max-width: 58ch; }
-  .opiniones blockquote cite { margin-top: 0; padding-top: 0.3rem; text-align: right; }
+  /* r16 · «la cita 3 termina en x=446 y "Leonardo" empieza en x=1.312: 866 px de
+     vacío entre una frase y quien la dijo». La firma estaba en una segunda columna
+     fija de 14rem alineada a la derecha, así que cuanto más corta la cita, más
+     lejos quedaba su autor. Baja debajo de su cita, que es donde se lee. */
+  .opiniones blockquote { display: block; }
+  .opiniones blockquote p { max-width: 68ch; }
+  .opiniones blockquote cite { margin-top: 0.9rem; padding-top: 0; text-align: left; }
   .opiniones__pie { max-width: 72ch; }
 }
 
@@ -1223,7 +1238,11 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
    corta a media página y no continúa". Cierto: al añadir la quinta garantía
    en la ronda 7 quedó una celda huérfana. La quinta cruza las dos columnas y
    la rejilla vuelve a cerrar. */
-@media (min-width: 900px) { .garantias__ancha { grid-column: 1 / -1; } }
+/* r16 · «tres filas de la misma retícula, dos estilos de filete; y la tercera
+   solo tiene contenido a la izquierda: la celda derecha, 639x72 px, está vacía
+   bajo un filete de 639 px que encabeza la nada». La causa era esta regla, que
+   estiraba la quinta garantía a las dos columnas. Sin ella las cinco miden lo
+   mismo y todos los filetes son de media columna. */
 
 /* 22d · "3 erratas RAE: el punto queda dentro de las comillas de cierre, en
    los tres testimonios". Cierto. En español el punto va SIEMPRE después de
