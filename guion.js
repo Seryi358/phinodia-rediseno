@@ -301,6 +301,11 @@
       boton.setAttribute('title', rotulo);
       var icono = boton.querySelector('.pausa__icono');
       if (icono) icono.textContent = pausado ? '▶' : '❚❚';
+      /* r19 · el rótulo visible vuelve a partir de 1.280 px, y tiene que seguir al
+         estado como ya lo hacía el `aria-label`: un botón que dice «Pausar»
+         mientras las animaciones están paradas miente a quien lo lee. */
+      var texto = boton.querySelector('.pausa__texto');
+      if (texto) texto.textContent = pausado ? 'Reanudar' : 'Pausar';
     }
     if (pausado) detener(); else arrancar();
   }

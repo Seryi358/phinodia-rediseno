@@ -68,6 +68,13 @@
   /* --- ritmo: 72 @360 · 93 @768 · 128 @1440 (recta ajustada, luego tope) --- */
   --ritmo: clamp(4.5rem, 3.33rem + 5.19vw, 8rem);
   --canal: clamp(1.25rem, 4.2vw, 5rem);
+  /* Canal ENTRE columnas de las rejillas de 12. Es un token y no un valor suelto
+     porque el mismo fallo —una rejilla con su propio canal, que cae 4 o 5 px al
+     lado de la de arriba— lo han encontrado tres críticos ciegos distintos en
+     tres sitios distintos: «garantías» en la r17, «las notas de precios» y «el
+     pie» en la r19. Mientras cada rejilla escriba su número, vuelve. A 1.440 px
+     vale 43,2 px. Si cambia, cambia en todas a la vez. */
+  --canal-col: clamp(1.5rem, 3vw, 3rem);
   --ancho: 1320px;
 
   /* --- escala tipográfica fluida --- */
@@ -132,7 +139,7 @@ a  { color: inherit; }
   margin-inline: auto;
 }
 
-.rejilla { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(1.5rem, 3vw, 3rem); }
+.rejilla { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--canal-col); }
 
 /* ---------- rótulos y filetes ---------- */
 
@@ -234,13 +241,24 @@ a  { color: inherit; }
   display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
   min-height: 44px; min-width: 44px; padding: 0.55rem 0.9rem;
   background: transparent; color: var(--cobalto-claro);
-  box-shadow: inset 0 0 0 1.5px rgba(169, 184, 255, 0.35);
+  /* r19 · «el control de pausa tiene un borde de 1,49:1 — es invisible». El aro
+     era `rgba(169,184,255,0.35)`, que sobre la tinta compone (66,75,120) = 2,21:1
+     en teoría y el crítico muestreó 1,49:1 sobre el píxel, porque un trazo curvo
+     de 1,5 px pierde contraste con el antialias. WCAG 1.4.11 pide 3:1 al límite
+     visual de un COMPONENTE, no solo a su icono. Color sólido, no alfa, y 2 px
+     para que el suavizado no se coma el margen: #6b77a8 da 4,26:1 teóricos, que
+     aguantan el antialias por encima de 3:1. */
+  box-shadow: inset 0 0 0 2px #6b77a8;
   border: 0; border-radius: 999px; cursor: pointer;
   font: 500 0.85rem/1 'Onest', sans-serif;
 }
-.pausa:hover { color: var(--lima); box-shadow: inset 0 0 0 1.5px var(--lima); }
+.pausa:hover { color: var(--lima); box-shadow: inset 0 0 0 2px var(--lima); }
+/* El rótulo se enciende en una sola regla, la de 1.280 px de más abajo. Aquí
+   había un `@media (min-width: 640px)` que lo ponía `inline` desde la tableta,
+   heredado de cuando el botón era una pastilla ancha; con el botón ya reducido a
+   44 × 44 px y `padding: 0`, el texto se salía de su propio aro entre 640 y
+   1.279 px. Medido: el botón daba 44 px de ancho con un rótulo de 51 px dentro. */
 .pausa__texto { display: none; }
-@media (min-width: 640px) { .pausa__texto { display: inline; } }
 
 /* ---------- hero ---------- */
 
@@ -451,7 +469,7 @@ a  { color: inherit; }
 
 /* ---------- proceso: numerales grandes, filetes ---------- */
 
-.paso { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(1rem, 2.5vw, 2.5rem); padding-block: clamp(2rem, 3.4vw, 3.2rem); border-top: 1px solid var(--filete); align-items: start; }
+.paso { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--canal-col); padding-block: clamp(2rem, 3.4vw, 3.2rem); border-top: 1px solid var(--filete); align-items: start; }
 .banda--tinta .paso { border-top-color: var(--filete-tinta); }
 .paso:last-child { border-bottom: 1px solid var(--filete); }
 .banda--tinta .paso:last-child { border-bottom-color: var(--filete-tinta); }
@@ -537,7 +555,14 @@ a  { color: inherit; }
 /* ---------- pie ---------- */
 
 .pie { background: var(--tinta); color: var(--cobalto-claro); padding-block: clamp(3.5rem, 5vw, 5rem) 2.5rem; }
-.pie__fila { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
+/* r19 · «la columna de preguntas del FAQ arranca en x 628 y, 200 px más abajo,
+   la del pie en x 623: 5 px, justo a la distancia a la que el ojo los compara».
+   No era una desviación: el pie tenía su propia retícula. Las doce columnas sí
+   coincidían, pero el canal no —aquí 2rem fijos, en `.rejilla` el token
+   `clamp(1.5rem, 3vw, 3rem)`, que a 1.440 px da 43,2—, y doce columnas con otro
+   canal caen en otro sitio. Se usa el token, y el pie pasa a estar en la misma
+   retícula que el resto de la página en todos los anchos, no solo en uno. */
+.pie__fila { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--canal-col); }
 .pie__marca { grid-column: 1 / -1; }
 .pie__marca p { margin-top: 1rem; font-size: 0.9375rem; max-width: 34ch; color: var(--apagado); }
 .pie__nav, .pie__legal, .pie__contacto { grid-column: 1 / -1; }
@@ -605,7 +630,7 @@ a  { color: inherit; }
 @media (min-width: 1024px) {
   .cab:has(.entradilla) {
     max-width: none; display: grid; align-items: end;
-    grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 2.5rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 var(--canal-col);
   }
   .cab:has(.entradilla) .rotulo { grid-column: 1 / -1; }
   .cab:has(.entradilla) h2 { grid-column: 1 / span 6; max-width: none; }
@@ -744,6 +769,19 @@ a  { color: inherit; }
 
 /* --- 3 · pausa en icono: pesaba el doble que la llamada principal --- */
 .pausa { width: 44px; height: 44px; min-height: 44px; padding: 0; flex: none; }
+
+/* r19 · «el botón de pausa no está rotulado y la web actual sí lo rotula … el
+   usuario ve un botón y un símbolo suelto». Tiene `aria-label` y `title` desde
+   que se escribió, así que para un lector de pantalla siempre dijo lo que hace;
+   lo que faltaba era la palabra para quien ve. Vuelve a partir de 1.280 px, que
+   es donde sobra sitio en la barra: por debajo, la cabecera va justa —a 1.024 px
+   se salía 10 px del eje hasta hace un rato— y el icono con su `title` es el mal
+   menor. Dicho, porque es un cumplimiento parcial: de 1.024 a 1.279 sigue siendo
+   solo icono. */
+@media (min-width: 1280px) {
+  .pausa { width: auto; padding: 0 0.95rem; gap: 0.45rem; }
+  .pausa__texto { display: inline; font-size: 0.85rem; white-space: nowrap; }
+}
 .pausa__icono { font-size: 0.8rem; line-height: 1; }
 
 /* --- 4 · el hero enseña el producto, no solo lo cuenta --- */
@@ -810,22 +848,43 @@ a  { color: inherit; }
      (6, 8, 10 — sigue siendo regular) y el canal mayor baja a ~205 px. */
   .pie__nav      { grid-column: 6 / span 2; }
   .pie__legal    { grid-column: 8 / span 2; }
-  .pie__contacto { grid-column: 10 / -1; text-align: right; }
-  .pie__contacto ul { justify-items: end; }
+  /* r19 · «el pie pone las columnas 1, 2 y 3 a bandera izquierda y la cuarta a
+     bandera derecha: tres a la izquierda y una a la derecha en la misma fila».
+     Se quita la bandera derecha: una fila con una sola bandera vale más que un
+     borde derecho recto.
+
+     Hay que decir qué se pierde, porque la bandera derecha no era un descuido:
+     la puso la r16 para que la tinta del pie cerrase contra el mismo borde que
+     el filete de encima. Medido después del cambio, a 1.440 px: la tinta de
+     esta columna llega a x 1.276 y la de `.pie__fin` a x 1.183, contra un
+     margen en x 1.380. **El pie ya no cierra a ras por la derecha.** Se acepta
+     a conciencia: un borde desigual en la última columna de un pie es normal en
+     composición a bandera izquierda, y mezclar dos banderas en la misma fila
+     no lo es. Si un crítico futuro vuelve a pedir el cierre a ras, la decisión
+     a revisar es esta, no un olvido. */
+  .pie__contacto { grid-column: 10 / -1; }
 }
 
 /* --- 8 · reequilibrio del hero tras meter el video ---
    Con el texto en 6 columnas el titular pasaba a 4 líneas y los botones caían
    bajo el pliegue. La vara resuelve su titular en 3 líneas; este también. */
 @media (min-width: 1024px) {
-  .hero__texto { grid-column: 1 / span 7; }
-  .hero__media { grid-column: 9 / -1; }
+  .hero__texto { grid-column: 1 / span 8; }
+  .hero__media { grid-column: 10 / -1; }
   .hero h1 { font-size: clamp(2.8rem, 5.9vw, 5.25rem); max-width: 100%; }
-  /* El video llevaba `margin-left:auto` y el pie se quedaba en el borde de la
-     figura: 97 px de desfase, medidos por el crítico de la r13 en lo primero
-     que se ve de la página. Se desplaza la figura entera, no el video, y así
-     video y pie comparten el mismo borde izquierdo. */
-  .hero__media { width: min(100%, calc(62vh * 9 / 16)); margin-left: auto; }
+  /* r19 · «el héroe tiene un canalón muerto de 254 px en la pantalla más
+     importante de la página … 254 × 613 px con el 0,02 % de tinta». Era la suma
+     de dos cosas: la columna 8 vacía por retícula (157 px, deliberada) y otros
+     97 px de la figura, que se quedaba más estrecha que su propio hueco y se
+     pegaba a la derecha con `margin-left:auto`. El video es 9:16 y su altura
+     está topada a 62vh para que los botones no caigan bajo el pliegue, así que
+     ensancharlo no era opción: lo que se hace es darle un hueco de su tamaño.
+     Texto 7 → 8 columnas, figura 9/-1 → 10/-1 (298 px, que es lo que mide), y
+     el `min()` deja de hacer falta porque la columna ya no le sobra.
+     Queda un canalón de 157 px = una columna con sus dos canales: separación de
+     retícula, no un agujero. Medido después: texto hasta x 925, figura desde
+     x 1.082. */
+  .hero__media { width: 100%; margin-left: 0; }
   .hero { padding-block: clamp(6rem, 11vh, 8.5rem) var(--ritmo); }
 }
 
@@ -873,8 +932,13 @@ a  { color: inherit; }
 .hamburguesa { box-shadow: inset 0 0 0 1.5px rgba(169, 184, 255, 0.45); }
 .hamburguesa:hover { box-shadow: inset 0 0 0 1.5px var(--lima); }
 .menu-abierto .hamburguesa { box-shadow: inset 0 0 0 1.5px var(--lima); }
-.pausa { box-shadow: inset 0 0 0 1px rgba(169, 184, 255, 0.22); }
-.pausa:hover { box-shadow: inset 0 0 0 1px var(--lima); }
+/* Esta pareja bajaba el aro del botón de pausa a 1 px y alfa 0.22 para que no
+   compitiera con la hamburguesa. Conseguía eso y además lo hacía invisible: el
+   crítico de la r19 lo muestreó en 1,49:1 y yo reprodujo 1,50:1 sobre el píxel.
+   El equilibrio entre los dos controles se mantiene por otro lado —la
+   hamburguesa sigue con su aro de 1,5 px—, pero el límite de un componente no
+   puede bajar de los 3:1 de WCAG 1.4.11. Se queda el valor de la regla base. */
+.pausa:hover { box-shadow: inset 0 0 0 2px var(--lima); }
 
 /* --- 14 · el CTA desaparecía en toda la franja móvil. Cabe desde 480 px;
        por debajo sigue dentro del menú, que es donde hay sitio. --- */
@@ -1103,7 +1167,7 @@ a  { color: inherit; }
 .opiniones cite small { display: block; font-weight: 400; color: var(--apagado-claro); margin-top: 0.15rem; }
 .opiniones__pie { margin-top: 1.8rem; color: var(--apagado-claro); font-size: 0.9375rem; max-width: 60ch; }
 @media (min-width: 900px) {
-  .opiniones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 2.5rem; }
+  .opiniones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 var(--canal-col); }
   .opiniones .rotulo, .opiniones__pie { grid-column: 1 / -1; }
   .opiniones blockquote { border-top: 1px solid rgba(169, 184, 255, 0.22); padding-top: 1.6rem; }
   .opiniones blockquote:first-of-type { border-top: 1px solid rgba(169, 184, 255, 0.22); }
@@ -1264,7 +1328,7 @@ a  { color: inherit; }
    son estas opiniones y por qué no hay de los otros dos servicios. Cuerpo a la
    izquierda, nota al margen: es la maqueta de cualquier libro, y no es una caja. */
 @media (min-width: 1024px) {
-  .opiniones { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 2.5rem; }
+  .opiniones { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 var(--canal-col); }
   .opiniones .rotulo { grid-column: 1 / -1; }
   .opiniones blockquote { grid-column: 1 / span 7; }
   /* `grid-row: 2 / span 3` la hace abarcar las tres citas y `center` la pone a su
