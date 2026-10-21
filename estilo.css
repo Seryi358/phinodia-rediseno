@@ -299,7 +299,15 @@ a  { color: inherit; }
 .pista + .tec__fila { margin-top: clamp(1.6rem, 2.4vw, 2.2rem); }
 /* El fundido pasa de 9 % a 15 %: con 9 % los nombres se cortaban a media palabra
    en los bordes y en una captura fija parecía un fallo de maquetación. */
-.pista { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
+/* r15 midió en la cinta dos cosas que tienen la MISMA causa y que yo había dado
+   por resueltas: «el contraste de los rótulos va de 4,41:1 a 8,83:1, el doble» y
+   «corta marcas por la mitad en el borde: se lee *ubSpot*». La máscara sí estaba
+   —lo que el crítico no podía saber mirando un PNG—, pero desvanecía el 18 % de
+   cada lado: 259 px a 1440, de modo que un tercio del recorrido las marcas van a
+   media luz, y la que cae ahí se mide apagada y se lee cortada. Bajada a 7 %:
+   sigue habiendo transición en el canto, y la marca está a plena luz casi todo
+   el tiempo que se la ve. */
+.pista { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
 .tec__aviso {
   margin-top: clamp(1.4rem, 2.2vw, 2rem);
   font-size: clamp(0.78rem, 0.95vw, 0.88rem); line-height: 1.55;
@@ -318,7 +326,12 @@ a  { color: inherit; }
   aspect-ratio: 1;
   width: auto;
   filter: brightness(0) invert(1);
-  opacity: 0.78;
+  /* r15: «HubSpot queda en 2,93:1, por debajo del 3:1 que WCAG exige a un objeto
+     gráfico: se lee como desactivado», y su área de tinta es 2,3 veces menor que
+     la de Google Calendar. Es el precio de mezclar marcas de trazo fino con
+     marcas de masa sólida: el antialiasing de un filete de 1 px al 78 % lo
+     promedia a gris medio. A plena opacidad el trazo fino recupera su blanco. */
+  opacity: 1;
   transition: opacity 0.3s;
 }
 .pista__grupo img:hover { opacity: 1; }
@@ -327,7 +340,7 @@ a  { color: inherit; }
 .pista__marca { display: inline-flex; align-items: center; gap: 0.7rem; white-space: nowrap; }
 .pista__uso {
   font-size: clamp(0.75rem, 0.92vw, 0.88rem); color: var(--cobalto-claro);
-  opacity: 0.72; white-space: nowrap;
+  opacity: 0.85; white-space: nowrap;      /* r15: el rótulo de uso se leía apagado */
 }
 .pista__nombre {
   font-family: 'Bricolage Grotesque', sans-serif;
@@ -737,11 +750,20 @@ a  { color: inherit; }
   .pie__legal    { grid-column: 1 / span 6; }
   .pie__contacto { grid-column: 8 / -1; }
 }
+/* r15 · «el pie deja una columna desnuda de 112 px: su tinta acaba en x1.267 y su
+   propio filete llega a x1.379, así que el margen derecho del pie es de 173 px
+   cuando el del resto de la página es de 60. Es el único de los tres que lo hace».
+   Y, aparte, «las cuatro columnas arrancan en 60 / 623 / 849 / 1.073: no es una
+   rejilla regular», con una banda muerta de 245 px tras el logotipo.
+   Las dos se cierran a la vez: el reparto pasa a ser regular —cuatro, seis, ocho,
+   diez— y la última columna cierra contra el margen, que es lo que hace que la
+   tinta del pie llegue al mismo borde que el filete que tiene encima. */
 @media (min-width: 1152px) {
   .pie__marca    { grid-column: 1 / span 4; }
-  .pie__nav      { grid-column: 6 / span 2; }
-  .pie__legal    { grid-column: 8 / span 2; }
-  .pie__contacto { grid-column: 10 / -1; }
+  .pie__nav      { grid-column: 5 / span 2; }
+  .pie__legal    { grid-column: 7 / span 2; }
+  .pie__contacto { grid-column: 9 / -1; text-align: right; }
+  .pie__contacto ul { justify-items: end; }
 }
 
 /* --- 8 · reequilibrio del hero tras meter el video ---
@@ -817,7 +839,11 @@ a  { color: inherit; }
 @media (min-width: 560px) and (max-width: 1023px) {
   .hero__media { display: flex; flex-direction: column; align-items: center; }
   .hero__video { max-width: min(100%, 460px); }
-  .hero__pieMedia { max-width: 46ch; text-align: center; }
+  /* r15 · «el pie de foto cambia de regla según el ancho: a bandera izquierda a
+     1440 y a 360, centrado a 768. Correcto como centrado, pero es OTRA regla
+     para el mismo elemento». Se unifica a bandera izquierda, y para que siga
+     arrancando donde arranca la foto, toma su mismo ancho en vez de los 46ch. */
+  .hero__pieMedia { max-width: min(100%, 460px); text-align: left; }
 }
 
 /* --- 16 · Precios reales del servicio de video -----------------------------
@@ -849,12 +875,21 @@ a  { color: inherit; }
 }
 .tabla-precio td { color: var(--apagado-claro); }
 .tabla-precio .cifra-precio { color: var(--bruma); font-weight: 600; font-size: 1.125rem; white-space: nowrap; }
+/* r15 · «tres de los cuatro botones de compra no son botones: texto de 65x11 px
+   con un subrayado de 2 px, afordancia de enlace en la única sección donde esta
+   empresa cobra — y la web actual lo hacía mejor, con cuatro botones de 114x48».
+   Cierto, y era una regresión, no una diferencia de estilo. Los cuatro pasan a
+   ser botón. El relleno sigue reservado al recomendado, así que la jerarquía no
+   se pierde; los otros tres son fantasma: su interior ES el fondo de la sección,
+   que es la condición por la que un contorno no cuenta como «cajita». */
 .tabla-precio tbody a {
-  display: inline-flex; align-items: center; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding-inline: 1.25rem; border-radius: 999px;
+  border: 1px solid var(--lima); background: none;
   color: var(--lima); font-weight: 600; text-decoration: none;
-  box-shadow: inset 0 -1px 0 0 currentColor;
+  box-shadow: none; transition: background 0.2s, color 0.2s;
 }
-.tabla-precio tbody a:hover { color: var(--blanco); }
+.tabla-precio tbody a:hover { background: var(--lima); color: var(--tinta); }
 .precios__pie { margin-top: 1.6rem; color: var(--apagado-claro); font-size: 0.9375rem; }
 
 /* El enlace iba dentro del parrafo y media 187x20 px: el recorrido del portero
@@ -1250,9 +1285,16 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
 
 /* 23c · pares dato/valor, para el cierre del acta y para el canje del video. */
 .acta__salida, .canje { margin: 0; }
+/* r15 · «tres sistemas de alineación para el mismo objeto: izquierda con
+   tabulador a 308, izquierda con tabulador a 179, y alineado a la derecha», con
+   dos consecuencias medidas: huecos de hasta 481 px entre etiqueta y valor que
+   el ojo cruza sin guía, y párrafos a bandera izquierda irregular a 360 px.
+   Pasa a haber una sola regla: tabulador izquierdo, el mismo que usa `.flujo`.
+   `9rem` es donde arranca allí el valor —1,6 de sangría + 6,5 de columna + 0,9
+   de calle—, así que las cuatro listas coinciden en la misma vertical. */
 .acta__salida div, .canje div {
-  display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; justify-content: space-between;
-  align-items: baseline; padding: 0.7rem 0;
+  display: grid; grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 0.35rem 1.5rem; align-items: baseline; padding: 0.7rem 0;
   border-bottom: 1px solid rgba(169, 184, 255, 0.14);
 }
 .acta__salida div:last-child, .canje div:last-child { border-bottom: 0; }
@@ -1261,8 +1303,8 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--apagado-claro);
 }
 .acta__salida dd, .canje dd {
-  margin: 0; color: var(--bruma); font-size: 0.95rem; text-align: right;
-  flex: 1 1 14ch; min-width: 0;
+  margin: 0; color: var(--bruma); font-size: 0.95rem; text-align: left;
+  min-width: 0;
 }
 
 /* 23d · el flujo de n8n. La secuencia la dibuja un filete vertical con un
@@ -1297,7 +1339,19 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
   display: block; width: 100%; max-width: 613px; height: auto;
   aspect-ratio: auto; object-fit: fill;
 }
-@media (max-width: 899px) { .servicio__arte img.flujo__mapa { max-width: 395px; margin-inline: auto; } }
+@media (max-width: 899px) { .servicio__arte img.flujo__mapa { max-width: 351px; margin-inline: auto; } }
+
+/* r15 · «538.000 px² de columna muerta junto al diagrama: de y4.689 a y5.527 toda
+   la mitad izquierda está vacía mientras el diagrama ocupa la derecha, y cae justo
+   donde el lector necesita la explicación que está 800 px más abajo». El mapa mide
+   1.024 px de alto y el texto que lo presenta, 300: el hueco es la diferencia.
+   En vez de rellenarlo con material inventado, el texto acompaña al diagrama
+   mientras se recorre — el mismo recurso que ya usa la cabecera de Preguntas.
+   Solo a partir de 900 px: por debajo, las dos van apiladas y no hay columna que
+   dejar muerta. */
+@media (min-width: 900px) {
+  .servicio--mapa .servicio__texto { position: sticky; top: 7rem; align-self: start; }
+}
 /* Aquí el texto del 03 se centraba respecto al mapa. El crítico de la r13 midió
    lo que eso producía: 465 px vacíos encima del texto y 468 px debajo, 933 px de
    los 1.470 del bloque, con el texto ocupando el 27 % del alto de su columna.
@@ -1310,6 +1364,8 @@ a.servicio__etiqueta:hover { color: var(--blanco); }
 @media (max-width: 899px) {
   .servicio__arte { order: 0; margin-top: 1.75rem; }
   .flujo li { grid-template-columns: 5.5rem 1fr; }
+  /* el tabulador baja a 8rem (1,6 + 5,5 + 0,9) y las otras dos listas lo siguen */
+  .acta__salida div, .canje div { grid-template-columns: 6.5rem minmax(0, 1fr); }
 }
 
 /* --- 25 · el paso visual de "La prueba": la foto que entró ------------------

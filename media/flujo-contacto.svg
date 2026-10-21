@@ -5,21 +5,21 @@
 <path d="M270,218.0 C304,218.0 288,260.0 322,260.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M146.0,252 L146.0,268" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M146.0,336 L146.0,352" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M270,302.0 C304,302.0 288,338.5 322,338.5" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M270,302.0 C304,302.0 288,334.0 322,334.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M146.0,420 L146.0,436" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M270,386.0 C304,386.0 288,349.5 322,349.5" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M270,386.0 C304,386.0 288,354.0 322,354.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M146.0,504 L146.0,520" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M270,554.0 C304,554.0 288,590.5 322,590.5" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
-<path d="M270,554.0 C304,554.0 288,601.5 322,601.5" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M270,554.0 C304,554.0 288,586.0 322,586.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M270,554.0 C304,554.0 288,606.0 322,606.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M146.0,588 L146.0,604" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M146.0,672 L146.0,688" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M270,638.0 L585,638.0 L585,344.0 L577,344.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M270,638.0 L576,638.0 L576,344.0 L577,344.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M146.0,756 L146.0,772" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M270,722.0 C304,722.0 288,764.0 322,764.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M146.0,840 L146.0,856" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M570,764.0 L585,764.0 L585,890.0 L277,890.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M570,764.0 L576,764.0 L576,890.0 L277,890.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M146.0,924 L146.0,940" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
-<path d="M570,596.0 L576,596.0 L576,974.0 L277,974.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<path d="M570.0,596.0 L571.5,596.0 A4.5,4.5 0 0 1 580.5,596.0 L585.0,596.0 L585.0,974.0 L277.0,974.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <rect x="22" y="16" width="248" height="68" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
 <rect x="22" y="16" width="3.5" height="68" fill="#d4ff3a"/>
 <text x="38" y="45" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Formulario web</text>
