@@ -517,14 +517,45 @@ a  { color: inherit; }
 /* ---------- quién está detrás ---------- */
 
 .honesto__cab { grid-column: 1 / -1; }
-@media (min-width: 1024px) { .honesto__cab { grid-column: 1 / span 7; } }
+/* r20 · con entradilla, esta cabecera usa la misma regla que las demás
+   (`.cab:has(.entradilla)`: titular a la izquierda, entradilla a la derecha),
+   y para eso necesita las doce columnas, no siete. Sin esto la entradilla se
+   apilaba bajo el titular y el hueco de la derecha crecía de 328 a 375 px —
+   medido, fue el primer intento y salió peor. */
+@media (min-width: 1024px) { .honesto__cab { grid-column: 1 / -1; } }
 .honesto h2 em { font-style: normal; color: var(--lima); }
 .honesto__cuerpo { grid-column: 1 / -1; margin-top: 2rem; }
-@media (min-width: 1024px) { .honesto__cuerpo { grid-column: 1 / span 6; margin-top: 2.5rem; } }
 .honesto__cuerpo p + p { margin-top: 1.1rem; }
+/* r20 🟠 C-2, segundo intento · el primero (datos en 2 x 2 a la derecha) bajó el
+   tramo muerto de 632 a 521 px, o sea no lo resolvió: mientras el texto viva en
+   media columna y la ficha en la otra, la más corta de las dos deja hueco.
+   Se deja de repartir izquierda/derecha y se apila a ancho completo: los dos
+   párrafos del cuerpo en dos columnas, y los cuatro datos debajo en cuatro.
+   Las dos mitades del eje tienen tinta a la vez en toda la sección. */
+@media (min-width: 1024px) {
+  .honesto__cuerpo {
+    grid-column: 1 / -1; margin-top: 2.5rem;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--canal-col); align-items: start;
+  }
+  .honesto__cuerpo p + p { margin-top: 0; }
+}
 .honesto__cuerpo p { color: var(--cobalto-claro); font-size: clamp(1.0625rem, 1.3vw, 1.25rem); }
 .honesto__datos { grid-column: 1 / -1; margin-top: 2.5rem; display: grid; gap: 0; }
-@media (min-width: 1024px) { .honesto__datos { grid-column: 8 / -1; margin-top: 2.5rem; } }
+/* …y la ficha de datos, que era la otra mitad de ese reparto, pasa a una fila
+   de cuatro bajo el cuerpo. Mismo contenido, cuatro veces menos alto: el
+   desnivel que medía el crítico deja de poder existir.
+   El cuerpo del valor baja de 2,1rem a 1,6rem porque «Cámara de Comercio» tiene
+   que caber en una columna de un cuarto de eje. */
+@media (min-width: 1024px) {
+  .honesto__datos {
+    grid-column: 1 / -1; margin-top: 2.5rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--canal-col);
+  }
+  .honesto__datos .dato dd { font-size: clamp(1.25rem, 1.8vw, 1.6rem); }
+  /* en una sola fila, los cuatro cierran el bloque y los cuatro llevan filete. */
+  .honesto__datos .dato { border-bottom: 1px solid var(--filete-tinta); }
+}
 .dato { padding-block: 1.25rem; border-top: 1px solid var(--filete-tinta); }
 .dato:last-child { border-bottom: 1px solid var(--filete-tinta); }
 .dato dt { font-size: 0.8125rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--apagado); margin-bottom: 0.35rem; }
@@ -536,7 +567,10 @@ a  { color: inherit; }
 .empezar { background: var(--lima); color: var(--tinta); }
 .empezar__cab { grid-column: 1 / -1; }
 @media (min-width: 1024px) { .empezar__cab { grid-column: 1 / span 7; } }
-.empezar .rotulo { color: var(--cobalto-hondo); }
+/* r20 🟡 C-9 · «es el único azul saturado sobre amarillo saturado de toda la
+   página, y vibra». Pasa de 7,57:1 a 15,6:1 y, sobre todo, deja de ser la
+   excepción: en el resto la regla es lima sobre oscuro y azul sobre claro. */
+.empezar .rotulo { color: var(--tinta); }
 .empezar h2 { margin-top: 1.2rem; }
 .empezar__sub { margin-top: 1.4rem; font-size: clamp(1.0625rem, 1.4vw, 1.3rem); max-width: 50ch; color: #1d2340; }
 .empezar__acciones { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2.2rem; }
@@ -564,13 +598,31 @@ a  { color: inherit; }
 .faq summary {
   list-style: none; cursor: pointer;
   padding-block: 1.3rem;
-  display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: clamp(1.0625rem, 1.5vw, 1.3rem); font-weight: 600; letter-spacing: -0.015em;
   min-height: 44px;
 }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: '+'; font-size: 1.5rem; line-height: 1; color: var(--cobalto); flex: none; transition: transform 0.3s var(--curva); }
+/* r20 🟠 · «la única señal de que las preguntas se abren es un “+” de 10 x 10 px».
+   Medido por el crítico sobre el píxel, y es cierto aunque el `font-size` dijera
+   24: el glifo «+» pinta una cruz pequeña dentro de su caja de texto, así que la
+   tinta real eran 10 px al final de una fila de 752. El mismo control mide 18 px
+   en la vara y 32 en la web actual.
+   Se deja de confiar en el glifo y se dibuja: una cruz de 14 px dentro de un aro
+   de 32, que es lo que convierte el final de la fila en algo que parece pulsable.
+   El aro no es una «cajita» ni con el criterio laxo del crítico —no tiene relleno,
+   solo un filete— y además es un control, que su propio criterio excluye. */
+.faq summary::after {
+  content: ''; flex: none; width: 32px; height: 32px; border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px var(--filete);
+  background:
+    linear-gradient(var(--cobalto), var(--cobalto)) center / 14px 2px no-repeat,
+    linear-gradient(var(--cobalto), var(--cobalto)) center / 2px 14px no-repeat;
+  transition: transform 0.3s var(--curva), box-shadow 0.2s var(--curva);
+}
+.faq summary:hover::after,
+.faq summary:focus-visible::after { box-shadow: inset 0 0 0 1.5px var(--cobalto); }
 .faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { padding-bottom: 1.4rem; color: var(--pizarra); max-width: 62ch; }
 
@@ -649,14 +701,25 @@ a  { color: inherit; }
    apertura de sección de cualquier revista y no añade ni una caja.
    El `:has()` es deliberado — la cabecera de «Cómo trabajamos» no lleva
    entradilla, y sin ella esta rejilla dejaría el titular en media columna. */
+/* r20 🟠 C-2 · dos de los cuatro tramos de media columna muerta que midió el
+   crítico ciego —442 px antes de «Cuatro cosas» y 455 px antes de «Quiénes
+   somos»— nacían aquí, de este `align-items: end`. Alineando por la BASE, la
+   entradilla no aparece hasta que el titular termina, así que la mitad derecha
+   se queda esperando toda la altura de un titular de tres líneas: 130 px por
+   cabecera, más el aire de transición entre bandas.
+   Alineadas por arriba, las dos columnas entran a la vez. Se pierde la línea
+   base compartida, que era más fina; se gana que la página no tenga medio eje
+   en blanco cada vez que abre una sección. */
 @media (min-width: 1024px) {
   .cab:has(.entradilla) {
-    max-width: none; display: grid; align-items: end;
+    max-width: none; display: grid; align-items: start;
     grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 var(--canal-col);
   }
   .cab:has(.entradilla) .rotulo { grid-column: 1 / -1; }
   .cab:has(.entradilla) h2 { grid-column: 1 / span 6; max-width: none; }
-  .cab:has(.entradilla) .entradilla { grid-column: 8 / -1; margin-top: 0; max-width: none; }
+  /* alineada por arriba queda ópticamente alta si se pega al borde de la caja
+     del titular: `1.9rem` la baja a la altura de su primera línea de texto. */
+  .cab:has(.entradilla) .entradilla { grid-column: 8 / -1; margin-top: 1.9rem; max-width: none; }
 }
 .entradilla { margin-top: 1.4rem; color: var(--pizarra); max-width: 46ch; }
 .banda--tinta .entradilla { color: var(--cobalto-claro); }
@@ -1098,6 +1161,19 @@ a  { color: inherit; }
 }
 .tabla-precio th:last-child, .tabla-precio td:last-child { text-align: right; }
 
+/* r20 🟡 C-10 · «entre el número de CRÉDITOS, alineado a la derecha, y el texto
+   de TE ALCANZA PARA, alineado a la izquierda, hay 19-20 px; el espacio entre
+   palabras dentro de esa misma celda es de 6 px: "400  20 videos de 20 s" se
+   puede leer de un vistazo como un solo número».
+   Es el único sitio de la tabla donde una columna numérica alineada a la derecha
+   choca con una de texto alineada a la izquierda; en las demás, o el vecino es
+   texto por la izquierda, o hay una cifra con su símbolo. El canal sube a 40 px
+   repartido: 1 rem más de aire por cada lado. */
+@media (min-width: 900px) {
+  .tabla-precio th:nth-child(2), .tabla-precio td:nth-child(2) { padding-right: 2rem; }
+  .tabla-precio th:nth-child(3), .tabla-precio td:nth-child(3) { padding-left: 0.75rem; }
+}
+
 /* 18b · "El más elegido" se quedó en 12 px, el único texto de la página por
    debajo de 13. Sube al mismo cuerpo que el resto de rótulos. */
 .tabla-precio tbody th em { font-size: var(--t-rotulo); }
@@ -1364,7 +1440,10 @@ a  { color: inherit; }
   /* `grid-row: 2 / span 3` la hace abarcar las tres citas y `center` la pone a su
      media altura: así el aire que sobra en la columna del margen se parte en dos
      mitades de ~200 px en vez de quedar en un solo bloque de 400 al final. */
-  .opiniones__pie { grid-column: 9 / -1; grid-row: 2 / span 3; margin-top: 0; align-self: center; }
+  /* r20 · ya no es una nota centrada que abarca las tres citas, sino dos notas
+     ancladas a los extremos del riel: ver el comentario del HTML. */
+  .opiniones__pie { grid-column: 9 / -1; grid-row: 2; margin-top: 0; align-self: start; }
+  .opiniones__pie--fin { grid-row: 4; align-self: end; }
 }
 
 /* --- 22 · lo que encontró el crítico ciego de la ronda 8 ------------------
@@ -1595,6 +1674,19 @@ span.servicio__etiqueta {
   .paso-visual img { width: min(100%, 236px); }
 }
 
+/* r20 🟡 C-6 · «la tira de cuatro imágenes remata en escalón de 25 px». Medido:
+   la foto de entrada acababa en y 1.815 y los tres fotogramas en y 1.840, porque
+   la foto es 2:3 (640 × 960) y los fotogramas 9:16 (440 × 782), y las cuatro
+   iban con la altura que les tocaba por su proporción.
+   Se leen como una sola tira, así que comparten borde inferior: `stretch` en vez
+   de `start` y la foto rellena la altura de la fila con `cover`. Lo que se pierde
+   son 15 px de los lados de la foto; lo que se gana es que el «antes y después»
+   se compare sobre una línea, que es su único trabajo. */
+@media (min-width: 768px) {
+  .prueba__media { align-items: stretch; }
+  .paso-visual img { height: 100%; object-fit: cover; }
+}
+
 /* 33 · El ejemplo de flujo baja a la columna de texto del servicio 03 (ronda 11).
    El mapa de al lado es la prueba —un flujo real, leído de la API de n8n—; esto es
    un ejemplo y se presenta como tal. Mismos filetes, ninguna caja. */
@@ -1668,3 +1760,35 @@ span.servicio__etiqueta {
 @media (max-width: 899px) {
   .servicio--mapa .servicio__ejemplo-col { grid-column: 1 / -1; }
 }
+
+/* ---------------------------------------------------------------------------
+   r20 🟡 C-7 · corrección óptica del borde izquierdo de los titulares
+
+   «El margen de la columna es x = 60-61. Los titulares empiezan donde les deja
+   su prosa lateral, y como esta crece con el cuerpo, el desfase crece con el
+   tamaño … seis píxeles de dientes en el borde izquierdo».
+
+   Medido con `scripts/optica-titulares.py`, que lee la TINTA del glifo sobre la
+   captura —el DOM no sirve: `getBoundingClientRect()` da la caja de la línea, que
+   incluye el bearing, y por eso los siete titulares salían todos en x = 60,5
+   mientras el ojo veía el diente.
+
+       Que la IA conteste…   65 px   +5
+       No te pedimos…        64 px   +4
+       Cuatro cosas…         63 px   +3
+       Cuatro pasos…         63 px   +3
+       No vas a ver aquí…    64 px   +4
+       Cuéntanos qué…        61 px   +1
+       Lo que suelen…        61 px   +1
+
+   La corrección va en `em`, no en px, porque el bearing escala con el cuerpo y
+   los titulares usan `clamp()`: en píxeles habría que rehacerla en cada ancho.
+   Va por letra inicial y no por titular medido: parte de la diferencia entre el
+   +3 de «Cuatro cosas» (texto claro sobre navy) y el +1 de «Cuéntanos» (texto
+   navy sobre lima) es del antialiasing, que engorda el glifo oscuro sobre claro
+   y adelgaza el claro sobre oscuro. El bearing de una «C» es el mismo en los
+   dos sitios, y es lo que hay que corregir. */
+.optica-q { margin-left: -0.060em; }
+.optica-n { margin-left: -0.062em; }
+.optica-c { margin-left: -0.042em; }
+.optica-l { margin-left: -0.016em; }

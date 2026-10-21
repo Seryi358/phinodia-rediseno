@@ -305,7 +305,7 @@
          estado como ya lo hacía el `aria-label`: un botón que dice «Pausar»
          mientras las animaciones están paradas miente a quien lo lee. */
       var texto = boton.querySelector('.pausa__texto');
-      if (texto) texto.textContent = pausado ? 'Reanudar' : 'Pausar';
+      if (texto) texto.textContent = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
     }
     if (pausado) detener(); else arrancar();
   }

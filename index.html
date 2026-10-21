@@ -39,7 +39,11 @@
       <button class="pausa" id="pausa" type="button" aria-pressed="false"
               aria-label="Pausar animaciones" title="Pausar animaciones">
         <span class="pausa__icono" aria-hidden="true">❚❚</span>
-        <span class="pausa__texto" aria-hidden="true">Pausar</span>
+        <!-- r20 🟡 C-11 · «"Pausar", a secas, en la barra de navegación. No dice
+             qué pausa». El `aria-label` siempre dijo «Pausar animaciones»: quien
+             no lo tenía era el que ve. La palabra entera sólo aparece a partir de
+             1.280 px, que es donde la barra tiene sitio (ver el CSS). -->
+        <span class="pausa__texto" aria-hidden="true">Pausar animaciones</span>
       </button>
       <a class="btn btn--lima" href="#empezar">Empezar</a>
     </div>
@@ -55,7 +59,7 @@
     <div class="eje rejilla">
       <div class="hero__texto escalona">
         <p class="rotulo">Agencia de IA · Colombia</p>
-        <h1>Que la IA conteste, llame y <em>grabe</em> por ti.</h1>
+        <h1 class="optica-q">Que la IA conteste, llame y <em>grabe</em> por ti.</h1>
         <p class="hero__sub">Chatbots de WhatsApp, agentes de voz, automatización con n8n y videos UGC. Construidos aquí, para negocios que&nbsp;venden&nbsp;aquí.</p>
         <div class="hero__acciones">
           <a class="btn btn--lima" href="#empezar">Cuéntanos qué necesitas</a>
@@ -95,7 +99,7 @@
     <div class="eje rejilla">
       <div class="prueba__cab escalona">
         <p class="rotulo">La prueba</p>
-        <h2>No te pedimos que nos creas. Míralo.</h2>
+        <h2 class="optica-n">No te pedimos que nos creas. Míralo.</h2>
         <p class="entradilla">
           Esto salió de una sola foto de producto. Sin set, sin cámara, sin actriz, sin edición.
           Diez segundos, voz colombiana, listo para pautar.
@@ -152,7 +156,7 @@
     <div class="eje">
       <div class="escalona cab">
         <p class="rotulo">Qué hacemos</p>
-        <h2>Cuatro cosas, y las cuatro de verdad.</h2>
+        <h2 class="optica-c">Cuatro cosas, y las cuatro de verdad.</h2>
         <!-- El crítico de la ronda 9 midió aquí 1.320 x 275 px de nada entre el
              titular y el primer servicio. Se rellena con lo que el comprador
              necesita saber para seguir leyendo, no con aire. -->
@@ -164,6 +168,15 @@
           <p class="servicio__indice">01 — Conversación</p>
           <h3>Chatbots de WhatsApp con IA</h3>
           <p>Atienden, responden dudas, toman pedidos y pasan a una persona cuando toca. Sobre la API oficial de WhatsApp, con el historial y las reglas de tu negocio.</p>
+          <!-- r20 · el crítico ciego marcó esto en ROJO y tenía razón: este bloque
+               acababa en «SE COTIZA SEGÚN ALCANCE», que no es un enlace, y quien se
+               convencía aquí tenía que bajar 7.500 px hasta el CTA del final para
+               poder hacer algo. Se usa el MISMO rótulo que el servicio 02, no uno
+               nuevo: la r17 ya había avisado de que la página tenía ocho rótulos
+               distintos para dos destinos. Lo que cambia es el asunto del correo,
+               para que se sepa de qué servicio viene la consulta. -->
+          <p class="servicio__demo">¿Lo quieres ver con tus productos y tus respuestas? Te lo montamos de muestra.</p>
+          <a class="servicio__demo-enlace" href="mailto:scastellanos@phinodia.com?subject=Quiero%20un%20chatbot%20de%20WhatsApp">Pídenos una demostración →</a>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
         <!-- Antes aquí había dos bocadillos vacíos en WebP: decoración sin información.
@@ -223,9 +236,10 @@
           <p class="servicio__indice">03 — Automatización</p>
           <h3>Procesos conectados con n8n</h3>
           <p>Lo que hoy haces copiando y pegando entre el WhatsApp, el Excel y la pasarela de pagos, hecho solo. Sin cambiar de herramientas: conectamos las que ya usas.</p>
-          <!-- Esta lista estuvo antes en el lugar del mapa, presentada como
-               «demostración». Es un ejemplo, no un flujo que esté corriendo, así
-               que baja a texto de apoyo y lo dice: la prueba es el mapa de al lado. -->
+          <!-- r20 🔴 · mismo caso que el servicio 01: el bloque moría en la etiqueta
+               de precio, que no es un enlace. Mismo rótulo que 01 y 02, asunto propio. -->
+          <p class="servicio__demo">Cuéntanos qué proceso te come el día y te decimos si se puede automatizar.</p>
+          <a class="servicio__demo-enlace" href="mailto:scastellanos@phinodia.com?subject=Quiero%20automatizar%20un%20proceso">Pídenos una demostración →</a>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
         <!-- r19 · el ejemplo sale de la columna del texto y pasa a ocupar la mitad
@@ -392,7 +406,17 @@
             <p>¡Quedó súper! Es muy agradable</p>
             <cite>Leonardo<small>Tienda Clio 333</small></cite>
           </blockquote>
-          <p class="opiniones__pie">Son opiniones de clientes del servicio de video, el único de los cuatro con tienda y compra directa. De los chatbots y los agentes de voz no publicamos opiniones: esos clientes no nos han autorizado a nombrarlos.</p>
+          <!-- r20 🟠 C-2 · «la columna derecha muere al acabar la nota de los
+               testimonios y no vuelve hasta las filas de "Cuatro pasos"»: 772 px.
+               La nota era un solo párrafo de cuatro líneas centrado en un riel de
+               700 px de alto, así que dejaba ~300 px arriba y ~500 abajo.
+               No se añade ni se quita una palabra: el párrafo ya eran dos frases
+               independientes —de quiénes son estas opiniones, y por qué no hay de
+               los otros dos servicios— y pasan a ser dos notas al margen, una
+               arriba y otra abajo. El riel tiene tinta en los dos extremos y el
+               tramo muerto deja de existir. -->
+          <p class="opiniones__pie">Son opiniones de clientes del servicio de video, el único de los cuatro con tienda y compra directa.</p>
+          <p class="opiniones__pie opiniones__pie--fin">De los chatbots y los agentes de voz no publicamos opiniones: esos clientes no nos han autorizado a nombrarlos.</p>
         </div>
       </div>
     </div>
@@ -401,9 +425,16 @@
   <!-- 5 · CÓMO TRABAJAMOS -->
   <section class="banda banda--bruma revela" id="proceso">
     <div class="eje">
+      <!-- r20 🟠 C-2 · esta cabecera dejaba la mitad derecha vacía 259 px: la regla
+           `.cab:has(.entradilla)` reparte titular a la izquierda y entradilla a la
+           derecha, y sin entradilla el titular se queda solo en media fila. La
+           entradilla no inventa nada: dice lo que ya afirman el paso 02 («alcance,
+           fecha y precio por escrito, antes de empezar, no después») y la cabecera
+           de «Qué hacemos» («la cotización va por escrito antes de empezar»). -->
       <div class="escalona cab">
         <p class="rotulo">Cómo trabajamos</p>
-        <h2>Cuatro pasos, en este orden.</h2>
+        <h2 class="optica-c">Cuatro pasos, en este orden.</h2>
+        <p class="entradilla">Es el mismo recorrido para un chatbot que para un flujo de n8n: cambia lo que se construye, no cómo se trabaja. Y el precio se cierra por escrito antes de empezar, no al final.</p>
       </div>
       <div class="lista-pasos">
         <div class="paso">
@@ -441,16 +472,20 @@
   <!-- 6 · QUIÉN ESTÁ DETRÁS -->
   <section class="banda banda--tinta revela honesto" id="nosotros">
     <div class="eje rejilla">
-      <div class="honesto__cab escalona">
+      <div class="honesto__cab cab escalona">
         <p class="rotulo">Quiénes somos</p>
-        <h2>No vas a ver aquí un muro de <em>cuarenta logos de clientes</em>.</h2>
+        <h2 class="optica-n">No vas a ver aquí un muro de <em>cuarenta logos de clientes</em>.</h2>
+        <!-- r20 🟠 C-2 · esta cabecera dejaba 328 px de mitad derecha vacía. Aquí NO
+             se escribe copy nuevo: sube el primer párrafo del cuerpo, que es el que
+             da el dato y encaja como entradilla. El cuerpo se queda con los otros
+             dos, que son el argumento.
+             Decía «un puñado de clientes que caben en una mano». El crítico ciego de
+             la r17 lo cazó contra el dato de la derecha, que dice «Dos»: un puñado
+             promete cinco, y esta es justo la sección cuya función es la precisión
+             literal. Se puso el número, que además es más fuerte. -->
+        <p class="entradilla">PhinodIA nació en julio de 2025. A octubre de 2026 son quince meses, una empresa con Cámara de Comercio y dos clientes con proyecto.</p>
       </div>
       <div class="honesto__cuerpo escalona">
-        <!-- Decía «un puñado de clientes que caben en una mano». El crítico ciego de
-             la r17 lo cazó contra el dato de dos columnas a la derecha, que dice
-             «Dos»: un puñado promete cinco, y esta es justo la sección cuya función
-             es la precisión literal. Se pone el número, que además es más fuerte. -->
-        <p>PhinodIA nació en julio de 2025. A octubre de 2026 son quince meses, una empresa con Cámara de Comercio y dos clientes con proyecto.</p>
         <p>Podríamos llenar esta página de logos grises y de cifras redondas. Casi todas las agencias lo hacen, y casi ninguna te deja llamar a los clientes que enseña.</p>
         <p>Preferimos decirlo como es: somos pequeños, llevamos poco, y por eso cada proyecto lo lleva quien lo construye. Si quieres hablar con alguno de nuestros clientes antes de decidir, te lo presentamos.</p>
       </div>
@@ -473,7 +508,7 @@
     <div class="eje rejilla">
       <div class="empezar__cab escalona">
         <p class="rotulo">Empezar</p>
-        <h2>Cuéntanos qué te está quitando el día.</h2>
+        <h2 class="optica-c">Cuéntanos qué te está quitando el día.</h2>
         <p class="empezar__sub">Escríbenos con una frase sobre tu negocio y qué quisieras automatizar. Te respondemos con una hora para hablar, no con un catálogo.</p>
         <div class="empezar__acciones">
           <a class="btn btn--cobalto" href="mailto:scastellanos@phinodia.com?subject=Quiero%20automatizar%20algo%20en%20mi%20negocio">Escríbenos</a>
@@ -500,7 +535,7 @@
     <div class="eje rejilla">
       <div class="faq__cab escalona">
         <p class="rotulo">Preguntas</p>
-        <h2>Lo que suelen preguntarnos.</h2>
+        <h2 class="optica-l">Lo que suelen preguntarnos.</h2>
         <p class="faq__nota">¿La tuya no está? Escríbenos y te respondemos con una persona, no con un formulario.</p>
         <a class="btn btn--cobalto" href="mailto:scastellanos@phinodia.com?subject=Una%20pregunta%20sobre%20PhinodIA">Preguntar</a>
       </div>

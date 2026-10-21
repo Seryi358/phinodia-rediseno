@@ -20,6 +20,8 @@
 <path d="M332,1009.0 L354,1009.0 L354,1169.0 L339,1169.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
 <path d="M198.0,1202 L198.0,1216" fill="none" stroke="#a9b8ff" stroke-width="1.6" opacity="0.8" marker-end="url(#p1)"/>
 <path d="M332.0,769.0 L349.5,769.0 A4.5,4.5 0 0 1 358.5,769.0 L367.0,769.0 L367.0,1249.0 L339.0,1249.0" fill="none" stroke="#ffb45c" stroke-width="1.6" opacity="0.6" marker-end="url(#p2)"/>
+<text x="105" y="753.0" text-anchor="end" font-family="Onest, system-ui, sans-serif" font-size="9.5" fill="#ffb45c">limitado</text>
+<text x="105" y="773.0" text-anchor="end" font-family="Onest, system-ui, sans-serif" font-size="9.5" fill="#ffb45c">inválido</text>
 <rect x="64" y="16" width="268" height="66" fill="#0b1026" stroke="#eef1ff" stroke-width="1.2"/>
 <rect x="64" y="16" width="3.5" height="66" fill="#d4ff3a"/>
 <text x="80" y="45" font-family="Onest, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#eef1ff">Formulario web</text>
