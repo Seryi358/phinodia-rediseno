@@ -116,11 +116,19 @@
           <p class="paso-visual__rotulo"><span class="paso-visual__n">1</span> La foto que entró</p>
           <img src="media/foto-entrada.webp" alt="Foto de catálogo de una bolsa de café Montaña Alta sobre una mesa de madera, junto a una ventana" width="640" height="960" loading="lazy" decoding="async">
         </figure>
-        <p class="paso-visual__rotulo paso-visual__rotulo--salida"><span class="paso-visual__n">2</span> El video que salió</p>
-        <div class="tira">
-          <img src="media/fotograma-1.jpg" alt="Fotograma del video: la presentadora muestra el producto" width="440" height="782" loading="lazy" decoding="async">
-          <img src="media/fotograma-2.jpg" alt="Fotograma del video: plano del empaque en primer plano" width="440" height="782" loading="lazy" decoding="async">
-          <img src="media/fotograma-3.jpg" alt="Fotograma del video: cierre con la marca visible" width="440" height="782" loading="lazy" decoding="async">
+        <!-- Este envoltorio existe para poder poner los dos pasos EN LA MISMA FILA
+             en escritorio: una foto entra, tres fotogramas salen. Antes iban uno
+             debajo del otro, y el crítico ciego de la r17 midió la factura: 289 ×
+             354 px vacíos a la derecha de la foto, y la columna derecha 250 px más
+             larga que la izquierda. En fila se cierran las dos cosas a la vez, y la
+             composición dice lo que dice el texto. -->
+        <div class="paso-visual paso-visual--salida">
+          <p class="paso-visual__rotulo paso-visual__rotulo--salida"><span class="paso-visual__n">2</span> El video que salió</p>
+          <div class="tira">
+            <img src="media/fotograma-1.jpg" alt="Fotograma del video: la presentadora muestra el producto" width="440" height="782" loading="lazy" decoding="async">
+            <img src="media/fotograma-2.jpg" alt="Fotograma del video: plano del empaque en primer plano" width="440" height="782" loading="lazy" decoding="async">
+            <img src="media/fotograma-3.jpg" alt="Fotograma del video: cierre con la marca visible" width="440" height="782" loading="lazy" decoding="async">
+          </div>
         </div>
         <!-- Honestidad sobre el origen del material: las dos imágenes están
              generadas con IA. Decirlo cuesta una línea y evita que parezca que hay
@@ -260,7 +268,12 @@
           <p class="servicio__indice">04 — Video</p>
           <h3>Videos UGC con IA</h3>
           <p>De una foto de producto a un video vertical con voz colombiana, listo para pautar en Meta y TikTok. Es el único servicio con precio público y compra directa.</p>
-          <a class="servicio__etiqueta" href="https://phinodia.com/precios">Ver precios y comprar →</a>
+          <!-- r17 · «el mismo enlace, con dos tipografías»: este decía VER PRECIOS Y COMPRAR
+               en versalitas de 9 px con letter-spacing y doble subrayado, y el de la
+               sección de precios lo dice en caja baja de 15 px. Mismo texto, mismo
+               destino, dos estilos. Pasa a `servicio__demo-enlace`, que es el estilo
+               que ya usan los enlaces de acción de los otros servicios. -->
+          <a class="servicio__demo-enlace" href="https://phinodia.com/precios">Ver precios y comprar →</a>
         </div>
         <!-- Antes: un triángulo de «play» que no reproducía nada. El video de verdad ya
              está arriba, en el héroe y en la tira de fotogramas; repetir un icono de play
@@ -308,7 +321,15 @@
               <td><a href="https://phinodia.com/precios">Comprar</a></td>
             </tr>
             <tr class="es-elegido">
-              <th scope="row">Crecimiento <em>El más elegido</em></th>
+              <!-- Decía «El más elegido», que es lo que publica hoy phinodia.com/precios
+                   y por tanto NO es un invento de este rediseño. Pero el crítico ciego de
+                   la r17 tiene razón en lo otro: es una afirmación sobre la conducta de
+                   los compradores que nadie puede respaldar, en una página cuyo argumento
+                   entero es «no hacemos afirmaciones que no podamos sostener» y que dos
+                   mil píxeles más abajo publica «CLIENTES CON PROYECTO: Dos». Se cambia
+                   por una opinión declarada —que la empresa sí puede sostener— sin mover
+                   de fila el destacado, que es decisión comercial de Sergio, no mía. -->
+              <th scope="row">Crecimiento <em>Nuestra recomendación</em></th>
               <td data-r="Créditos">150</td><td data-r="Te alcanza para">7 videos de 20 s</td>
               <td data-r="Precio (COP)" class="cifra-precio">$ 134.900</td><td data-r="Por segundo"><span class="ps-grupo"><span class="ps">$ 899/s</span><span class="ahorro">−9,6 %</span><span class="barra" style="--p:65.9%" aria-hidden="true"></span></span></td>
               <td><a class="comprar-destacado" href="https://phinodia.com/precios">Comprar</a></td>
@@ -404,7 +425,11 @@
         <h2>No vas a ver aquí un muro de <em>cuarenta logos de clientes</em>.</h2>
       </div>
       <div class="honesto__cuerpo escalona">
-        <p>PhinodIA nació en julio de 2025. A octubre de 2026 son quince meses, una empresa con Cámara de Comercio y un puñado de clientes que caben en una mano.</p>
+        <!-- Decía «un puñado de clientes que caben en una mano». El crítico ciego de
+             la r17 lo cazó contra el dato de dos columnas a la derecha, que dice
+             «Dos»: un puñado promete cinco, y esta es justo la sección cuya función
+             es la precisión literal. Se pone el número, que además es más fuerte. -->
+        <p>PhinodIA nació en julio de 2025. A octubre de 2026 son quince meses, una empresa con Cámara de Comercio y dos clientes con proyecto.</p>
         <p>Podríamos llenar esta página de logos grises y de cifras redondas. Casi todas las agencias lo hacen, y casi ninguna te deja llamar a los clientes que enseña.</p>
         <p>Preferimos decirlo como es: somos pequeños, llevamos poco, y por eso cada proyecto lo lleva quien lo construye. Si quieres hablar con alguno de nuestros clientes antes de decidir, te lo presentamos.</p>
       </div>
