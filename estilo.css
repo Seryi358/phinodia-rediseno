@@ -344,7 +344,29 @@ a  { color: inherit; }
    media luz, y la que cae ahí se mide apagada y se lee cortada. Bajada a 7 %:
    sigue habiendo transición en el canto, y la marca está a plena luz casi todo
    el tiempo que se la ve. */
-.pista { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+/* r19 🟡-3 · «la marquesina parte las marcas: se lee "ubSpot", y el primero de
+   la fila 2 se queda en "· la fontanería" SIN la marca a la que se refiere».
+
+   Lo primero que hay que descartar es la causa que parece: marca y cualificador
+   NO son piezas sueltas, van los dos dentro del mismo `.pista__marca` desde que
+   se escribió. Que un elemento que cruza el borde salga cortado es inherente a
+   cualquier marquesina — el propio crítico comprueba que la vara hace lo mismo.
+
+   Lo que sí es arreglable es lo otro que midió: «la máscara existe … el problema
+   es que no llega a cero: a 0,207 todavía se lee, y lo que se lee es un
+   fragmento que parece una errata». El degradado iba de transparente a opaco en
+   un 7 %, así que un glifo a 40 px del borde conservaba el 40 % de su tinta:
+   suficiente para leerlo y confundirlo con un error de texto.
+
+   Ahora el desvanecido es más largo y, sobre todo, arranca mucho más abajo: a un
+   3,5 % del ancho la máscara va al 8 %, de modo que lo cortado se apaga antes de
+   poder leerse. Se pierden ~230 px de banda a plena opacidad a 1.440, que es
+   justo para lo que sirve una máscara. */
+.pista {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,0.08) 3.5%, rgba(0,0,0,0.38) 7.5%, #000 12%, #000 88%, rgba(0,0,0,0.38) 92.5%, rgba(0,0,0,0.08) 96.5%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,0.08) 3.5%, rgba(0,0,0,0.38) 7.5%, #000 12%, #000 88%, rgba(0,0,0,0.38) 92.5%, rgba(0,0,0,0.08) 96.5%, transparent 100%);
+}
 .tec__aviso {
   margin-top: clamp(1.4rem, 2.2vw, 2rem);
   font-size: clamp(0.78rem, 0.95vw, 0.88rem); line-height: 1.55;
@@ -1574,3 +1596,32 @@ span.servicio__etiqueta {
 .flujo--texto li { padding: 0.5rem 0; font-size: 0.9rem; }
 .flujo--texto li::before { display: none; }
 .flujo--texto li p { color: var(--apagado-claro); }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   r19 🟡-2 · «la Q de caja alta se lee como un subrayado sucio a 11 px».
+
+   Es cierto y no es un fallo de render: Bricolage Grotesque resuelve la cola de
+   la «Q» con una BARRA HORIZONTAL recta bajo la línea de base, no con el rabo
+   diagonal habitual. A cuerpo de titular tiene carácter; a 11-12 px con el
+   tracking de la caja alta, lo que el ojo lee es «QUÉ» con una errata.
+
+   El crítico proponía tres salidas —subir el cuerpo, versalita real, o no
+   empezar rótulos por Q—. La primera se probó y NO funciona: a 13 px la barra
+   sigue ahí (comparativa en `/tmp/probar-q.png`, cuatro variantes a 6 aumentos).
+   La tercera es escribir el copy para esquivar una letra, que es la cola
+   moviendo al perro. Se aplica la que sí resuelve: estos rótulos micro pasan a
+   Onest, que ya es la tipografía del cuerpo de la página y dibuja la Q con rabo
+   normal. Bricolage se queda donde se le ve, que es en los titulares.
+
+   Van los SEIS de la familia, no solo los cuatro que hoy llevan una Q: si solo
+   cambiaran esos, el conjunto de rótulos quedaría partido en dos tipografías,
+   que es un defecto más difícil de ver y peor. */
+.pieza__rotulo,
+.paso-visual__rotulo,
+.hilo__quien,
+.acta__q,
+.acta__salida dt,
+.canje dt,
+.flujo__n {
+  font-family: 'Onest', sans-serif;
+}
