@@ -1892,3 +1892,21 @@ span.servicio__etiqueta {
   .pie__marca p { max-width: 42ch; }
 }
 .pie { padding-block: var(--ritmo) 2.5rem; }
+
+/* r21 · la factura de sacar «Precios» a su propia banda, que el medidor de
+   medias columnas cazó al reverificar contra lo publicado: 719 px de columna
+   derecha muerta en y5.467-6.186, donde antes había 0. Al abrir banda, la
+   cabecera de precios —rótulo, titular y nota, las tres cosas a la izquierda—
+   dejó de tener encima el servicio 04, que llenaba el eje entero.
+   Se reparte como todas las demás cabeceras de la página: titular a la
+   izquierda, nota a la derecha. Es la misma regla de `.cab:has(.entradilla)`,
+   escrita aquí porque este bloque no usa esa clase. */
+@media (min-width: 1024px) {
+  .precios__cab {
+    max-width: none; display: grid; align-items: start;
+    grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 var(--canal-col);
+  }
+  .precios__cab .rotulo { grid-column: 1 / -1; }
+  .precios__cab h3 { grid-column: 1 / span 6; }
+  .precios__cab .precios__nota { grid-column: 8 / -1; max-width: none; margin-top: 0.75rem; }
+}
