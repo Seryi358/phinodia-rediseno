@@ -1165,7 +1165,15 @@ a  { color: inherit; }
 /* r17 · «el único bloque fuera de retícula de toda la página»: columnas de 640 px
    y canal de 40, contra las 638 y 44 de todas las demás dos-columnas. La culpa
    era el `2.5rem` fijo; con el token de la rejilla, el canal es el mismo. */
-@media (min-width: 900px) { .garantias { grid-template-columns: 1fr 1fr; column-gap: clamp(1.5rem, 3vw, 3rem); } }
+@media (min-width: 900px) { .garantias { grid-template-columns: 1fr 1fr; column-gap: var(--canal-col); } }
+/* La clase `garantias__ancha` llevaba desde que se escribió el bloque puesta en
+   el `<li>` del precio total **sin ninguna regla CSS detrás**. La intención se ve
+   en el nombre y en la aritmética: son cinco notas en dos columnas, así que sin
+   esto la quinta cae en la columna izquierda y deja la celda de su derecha vacía
+   —un hueco de 638 × 54 px abajo a la derecha del bloque, visible en la captura
+   de la franja de precios—. Haciéndola ancha el reparto cierra: dos filas de dos
+   y una a todo el ancho, con su filete llegando al mismo borde que los de arriba. */
+@media (min-width: 900px) { .garantias__ancha { grid-column: 1 / -1; } }
 .garantias li {
   padding-block: 0.85rem; color: var(--apagado-claro); font-size: 0.9375rem;
   border-top: 1px solid rgba(169, 184, 255, 0.22);
