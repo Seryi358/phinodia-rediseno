@@ -490,9 +490,16 @@ a  { color: inherit; }
 
 /* ---------- preguntas ---------- */
 
+/* El orden de estas tres líneas no es cosmético, y costó once rondas de crítica
+   descubrirlo: la regla de `.faq__cab` sin consulta de medios estaba ESCRITA
+   DESPUÉS del `@media`, y con la misma especificidad gana la última. Resultado:
+   el `grid-column` de la cabecera nunca llegó a aplicarse, la cabecera ocupaba
+   las doce columnas en una fila propia y la lista se iba sola a la derecha,
+   dejando un tercio de la banda en blanco bajo el botón. Medido: 494 px de media
+   pantalla vacía en `scrollY 11100`. La base va primero; el `@media` manda. */
 .faq { grid-column: 1 / -1; }
-@media (min-width: 1024px) { .faq { grid-column: 4 / -1; } .faq__cab { grid-column: 1 / span 3; } }
 .faq__cab { grid-column: 1 / -1; margin-bottom: 1.5rem; }
+@media (min-width: 1024px) { .faq { grid-column: 6 / -1; } .faq__cab { grid-column: 1 / span 5; } }
 .faq details { border-top: 1px solid var(--filete); }
 .faq details:last-of-type { border-bottom: 1px solid var(--filete); }
 .faq summary {
