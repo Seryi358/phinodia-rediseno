@@ -997,13 +997,20 @@ a  { color: inherit; }
 /* --- 11 · «Cuatro pasos»: el texto moría a 442 px del borde y dejaba
        un tercio del ancho vacío a la derecha de cada filete. --- */
 @media (min-width: 900px) {
+  /* r21 🟡 B-4 · «el x750-751 de los pasos está 10 px a la derecha del x740-743
+     que usan la tabla de 01 y el párrafo de "Quiénes somos": no es una columna,
+     es un desvío». Cierto, y la causa está aquí: este bloque abría su PROPIA
+     rejilla de `4fr 6fr` dentro de la de 12, así que su segunda columna caía
+     donde la aritmética de las fracciones la dejara y no en un eje real.
+     Con `subgrid` hereda las columnas de la madre: el párrafo arranca en la 7,
+     que es x740, el mismo eje que usan las otras dos secciones. */
   .paso__texto {
     grid-column: 3 / -1;
-    display: grid; grid-template-columns: 4fr 6fr;
-    gap: clamp(1.5rem, 3vw, 3.5rem); align-items: start;
+    display: grid; grid-template-columns: subgrid;
+    align-items: start;
   }
-  .paso__texto h3 { margin-bottom: 0; }
-  .paso__texto p { max-width: 54ch; }
+  .paso__texto h3 { grid-column: span 4; margin-bottom: 0; }
+  .paso__texto p { grid-column: span 6; max-width: 54ch; }
 }
 
 /* --- 12 · Preguntas: la columna izquierda quedaba en blanco bajo el botón.
@@ -1599,7 +1606,15 @@ span.servicio__etiqueta {
   display: block; width: 100%; max-width: 613px; height: auto;
   aspect-ratio: auto; object-fit: fill;
 }
-@media (max-width: 899px) { .servicio__arte img.flujo__mapa { max-width: 351px; margin-inline: auto; } }
+/* r21 🟠 B-5 · el tope de 351 px es el ancho de la forma ESTRECHA, y se aplicaba
+   hasta 899 px aunque a partir de 640 ya se sirve la vertical, de 676 px: por eso
+   el crítico midió el diagrama «a 768 ocupando 300 px dentro de una columna de
+   703, con los títulos de las cajas a 9 px de glifo mientras el cuerpo que los
+   rodea tiene 14-16». El tope ahora acompaña a la forma que de verdad se sirve. */
+@media (max-width: 639px) { .servicio__arte img.flujo__mapa { max-width: 351px; margin-inline: auto; } }
+@media (min-width: 640px) and (max-width: 899px) {
+  .servicio__arte img.flujo__mapa { max-width: 676px; margin-inline: auto; }
+}
 
 /* r15 · «538.000 px² de columna muerta junto al diagrama: de y4.689 a y5.527 toda
    la mitad izquierda está vacía mientras el diagrama ocupa la derecha, y cae justo
@@ -1792,3 +1807,88 @@ span.servicio__etiqueta {
 .optica-n { margin-left: -0.062em; }
 .optica-c { margin-left: -0.042em; }
 .optica-l { margin-left: -0.016em; }
+
+/* ---------------------------------------------------------------------------
+   r21 🟠 B-2 · «Precios» pasa a banda clara
+
+   «Un solo campo marino de 5.290 px sin respiro … ese bloque es el 45 % de la
+   página y contiene tres secciones distintas sin un solo cambio de fondo; el
+   siguiente tramo monocromo más largo mide 1.357 px, cuatro veces menos. El
+   propio sistema de B demuestra que sabe cortar y aquí no lo hace.»
+
+   Lo que sigue es lo que cuesta ese corte, y es más que cambiar el fondo: la
+   tabla estaba escrita entera para fondo oscuro. Regla por regla:
+
+   · los textos claros (`--bruma`, `--apagado-claro`) no se leen sobre lavanda y
+     pasan a `--tinta` y `--pizarra`;
+   · el LIMA se queda SOLO donde va relleno. Lima sobre lavanda da 1,2:1 como
+     texto o como filete —sería la «cajita» de 1,03:1 que la r20 denunció, en
+     otra forma—, así que la barra de la fila recomendada y el borde de los
+     botones fantasma pasan a cobalto, y el botón relleno del recomendado se
+     queda lima con texto navy, que da 16,27:1 y es la señal que más pesa;
+   · los filetes pasan del `--filete-tinta` (lavanda al 50 % sobre oscuro) a un
+     navy al 18 %, que es su equivalente invertido.
+
+   Los testimonios viven dentro de esta sección y van con ella. */
+.precios-banda .precios { margin-top: 0; }
+.precios-banda .tabla-precio thead th { color: var(--pizarra); }
+.precios-banda .tabla-precio thead tr,
+.precios-banda .tabla-precio tbody tr { border-bottom-color: rgba(11, 16, 38, 0.18); }
+.precios-banda .tabla-precio tbody th[scope="row"] { color: var(--tinta); }
+.precios-banda .tabla-precio tbody th em { color: var(--cobalto); }
+.precios-banda .tabla-precio td { color: var(--pizarra); }
+.precios-banda .tabla-precio .cifra-precio { color: var(--tinta); }
+.precios-banda .tabla-precio tbody a { border-color: var(--cobalto); color: var(--cobalto); }
+.precios-banda .tabla-precio tbody a:hover { background: var(--cobalto); color: var(--blanco); }
+/* el recomendado conserva el relleno lima: navy sobre lima son 16,27:1 */
+.precios-banda .tabla-precio a.comprar-destacado {
+  background: var(--lima); border-color: var(--lima); color: var(--tinta);
+}
+.precios-banda .tabla-precio a.comprar-destacado:hover { background: var(--lima-honda); color: var(--tinta); }
+.precios-banda .tabla-precio tbody tr.es-elegido th[scope="row"] { box-shadow: inset 3px 0 0 0 var(--cobalto); }
+.precios-banda .precios__nota,
+.precios-banda .precios__pie { color: var(--pizarra); }
+.precios-banda .garantias li { color: var(--pizarra); border-top-color: rgba(11, 16, 38, 0.18); }
+.precios-banda .garantias li b { color: var(--tinta); }
+.precios-banda .precios__enlace { color: var(--cobalto); border-bottom-color: var(--cobalto); }
+.precios-banda .precios__enlace:hover { color: var(--tinta); border-bottom-color: var(--tinta); }
+.precios-banda .opiniones { border-top-color: rgba(11, 16, 38, 0.18); }
+.precios-banda .opiniones blockquote { border-top-color: rgba(11, 16, 38, 0.18); }
+.precios-banda .opiniones blockquote p { color: var(--tinta); }
+.precios-banda .opiniones blockquote p::before,
+.precios-banda .opiniones blockquote p::after { color: var(--cobalto); }
+.precios-banda .opiniones cite { color: var(--tinta); }
+.precios-banda .opiniones cite small { color: var(--pizarra); }
+.precios-banda .opiniones__pie { color: var(--pizarra); }
+/* …y los cuatro textos que el medidor cazó al cambiar la banda: el porcentaje
+   de ahorro iba en lima (1,03:1 sobre lavanda — literalmente el defecto que la
+   r20 denunció en la fila recomendada) y «precio base» en el gris claro
+   (2,16:1). Van a cobalto y a pizarra, que es el par que esta página ya usa
+   sobre claro: 6,95:1 y 7,43:1. La barra proporcional pasa de `--cobalto-claro`
+   a `--cobalto`, porque el lavanda claro sobre lavanda tampoco se veía. */
+.precios-banda .ahorro { color: var(--cobalto); }
+.precios-banda .ahorro--base { color: var(--pizarra); }
+.precios-banda .tabla-precio td .barra { background: var(--cobalto); opacity: 0.85; }
+/* El acento de la fila recomendada se pinta con `::after` (y con `::before` en
+   móvil), no con el `box-shadow` que la regla de arriba anulaba: por eso seguía
+   saliendo lima sobre lavanda —1,2:1, invisible— después del cambio de banda.
+   Los dos pasan a cobalto. */
+.precios-banda .tabla-precio tbody tr.es-elegido th[scope="row"]::after,
+.precios-banda .tabla-precio tbody tr.es-elegido::before { background: var(--cobalto); }
+
+/* r21 🟡 B-8 · «el pie deja 220 px muertos en mitad de la fila … entre el final
+   del texto de marca (x378) y "NAVEGAR" (x628) hay 250 px vacíos … y el pie es
+   la única zona cuyo padding se sale de la norma de la página (73 px arriba /
+   49 abajo frente a 128-144 en las seis secciones anteriores)».
+
+   Las dos cosas son ciertas y las dos tienen arreglo barato:
+
+   · el párrafo de marca llevaba `max-width: 34ch` —una medida de lectura de
+     columna estrecha— dentro de una columna de cuatro que mide 453 px. Sube a
+     42ch, que es lo que esa columna da de sí sin pasarse de medida;
+   · el padding superior pasa a `--ritmo`, el mismo que usan todas las bandas.
+     El inferior se queda más corto a propósito: debajo no hay nada que separar. */
+@media (min-width: 1152px) {
+  .pie__marca p { max-width: 42ch; }
+}
+.pie { padding-block: var(--ritmo) 2.5rem; }

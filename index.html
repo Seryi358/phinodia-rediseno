@@ -33,7 +33,15 @@
       <a href="#nosotros">Quiénes somos</a>
       <a href="#preguntas">Preguntas</a>
       <a class="menu__sesion" href="https://app.phinodia.com/ingresar">Iniciar sesión</a>
-      <a class="btn btn--lima menu__cta" href="#empezar">Empezar</a>
+      <!-- r21 🟠 B-3 · «son cinco maneras de decir "háblanos" y tres de decir
+           "compra" … La vara repite "Prueba Darwin" cuatro veces y por eso se le
+           queda a uno en la cabeza. Aquí no hay verbo que se repita». Cierto: la
+           r17 ya había reducido los DESTINOS de ocho a dos, pero los RÓTULOS
+           seguían siendo ocho. Ahora son dos verbos: «Cuéntanos» para hablar
+           —siete veces, en la frase larga donde cabe y en corto en la barra— y
+           «Comprar» para comprar, seis. Los destinos no cambian, ni los asuntos
+           del correo, que siguen diciendo de qué servicio viene cada consulta. -->
+      <a class="btn btn--lima menu__cta" href="#empezar">Cuéntanos</a>
     </nav>
     <div class="cabecera__acciones">
       <button class="pausa" id="pausa" type="button" aria-pressed="false"
@@ -45,7 +53,7 @@
              1.280 px, que es donde la barra tiene sitio (ver el CSS). -->
         <span class="pausa__texto" aria-hidden="true">Pausar animaciones</span>
       </button>
-      <a class="btn btn--lima" href="#empezar">Empezar</a>
+      <a class="btn btn--lima" href="#empezar">Cuéntanos</a>
     </div>
   </div>
 </header>
@@ -176,7 +184,7 @@
                distintos para dos destinos. Lo que cambia es el asunto del correo,
                para que se sepa de qué servicio viene la consulta. -->
           <p class="servicio__demo">¿Lo quieres ver con tus productos y tus respuestas? Te lo montamos de muestra.</p>
-          <a class="servicio__demo-enlace" href="mailto:scastellanos@phinodia.com?subject=Quiero%20un%20chatbot%20de%20WhatsApp">Pídenos una demostración →</a>
+          <a class="servicio__demo-enlace" href="mailto:scastellanos@phinodia.com?subject=Quiero%20un%20chatbot%20de%20WhatsApp">Cuéntanos qué necesitas →</a>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
         <!-- Antes aquí había dos bocadillos vacíos en WebP: decoración sin información.
@@ -208,7 +216,7 @@
                frase invitaba a hablar con algo que no está publicado. Se sustituye por
                una oferta que sí se puede cumplir, en vez de por una promesa que no. -->
           <p class="servicio__demo">¿Quieres oír uno antes de decidir? Te lo enseñamos funcionando, con tu caso.</p>
-          <a class="servicio__demo-enlace" href="mailto:scastellanos@phinodia.com?subject=Quiero%20o%C3%ADr%20un%20agente%20de%20voz">Pídenos una demostración →</a>
+          <a class="servicio__demo-enlace" href="mailto:scastellanos@phinodia.com?subject=Quiero%20o%C3%ADr%20un%20agente%20de%20voz">Cuéntanos qué necesitas →</a>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
         <!-- Antes: un ecualizador dibujado que invitaba a pulsar y no se podía pulsar.
@@ -239,7 +247,7 @@
           <!-- r20 🔴 · mismo caso que el servicio 01: el bloque moría en la etiqueta
                de precio, que no es un enlace. Mismo rótulo que 01 y 02, asunto propio. -->
           <p class="servicio__demo">Cuéntanos qué proceso te come el día y te decimos si se puede automatizar.</p>
-          <a class="servicio__demo-enlace" href="mailto:scastellanos@phinodia.com?subject=Quiero%20automatizar%20un%20proceso">Pídenos una demostración →</a>
+          <a class="servicio__demo-enlace" href="mailto:scastellanos@phinodia.com?subject=Quiero%20automatizar%20un%20proceso">Cuéntanos qué necesitas →</a>
           <span class="servicio__etiqueta">Se cotiza según alcance</span>
         </div>
         <!-- r19 · el ejemplo sale de la columna del texto y pasa a ocupar la mitad
@@ -279,8 +287,17 @@
                  dos, y de paso cierra el hueco de media página de esta sección.
                  El `width` de la forma vertical decía 613 y el SVG mide 676: el
                  atributo estaba desfasado y reservaba mal el sitio. Corregido. -->
+            <!-- r21 🟠 B-5 · «a 768 px el diagrama se dibuja al tamaño de 360: ocupa
+                 300 px dentro de una columna de 703, y los títulos de las cajas
+                 tienen 9 px de glifo mientras el cuerpo que los rodea tiene 14-16.
+                 El componente solo tiene dos estados, ancho y móvil, y a 768 elige
+                 el equivocado». Tenía razón y el tercer estado ya existía: la forma
+                 VERTICAL, de 676 px de ancho, que estaba de fallback y no la veía
+                 nadie porque el `source` de móvil se la comía hasta 899 px. El corte
+                 del móvil baja a 639 px y la franja 640-899 usa la vertical, que es
+                 la que cabe entera en esa columna. -->
             <picture>
-              <source media="(max-width: 899px)" srcset="media/flujo-contacto-movil.svg" width="351" height="1298">
+              <source media="(max-width: 639px)" srcset="media/flujo-contacto-movil.svg" width="351" height="1298">
               <source media="(min-width: 900px)" srcset="media/flujo-contacto-apaisado.svg" width="1278" height="556">
               <img class="flujo__mapa" src="media/flujo-contacto.svg" width="676" height="1024"
                    alt="Mapa del flujo: el formulario web entra por un webhook, se normaliza y valida, se comprueba si es un robot (si lo es, se descarta en silencio), se anota el intento, se cuentan los envíos recientes de esa IP, se decide, y según el caso se rechaza el envío o se guarda el contacto, se avisa al dueño por correo —marcando si salió o falló—, se responde al visitante y se limpian los intentos viejos."
@@ -327,9 +344,24 @@
         </div>
       </div>
 
-      <!-- Precios reales del único servicio con tienda. Los cuatro paquetes, los
-           precios y el precio por segundo son los que publica phinodia.com/precios;
-           no se calcula ni se redondea nada aquí. El botón lleva a esa tienda. -->
+    </div>
+  </section>
+
+  <!-- 4b · PRECIOS
+       r21 🟠 B-2 · «un solo campo marino de 5.290 px sin respiro … el 45 % de la
+       página, tres secciones distintas sin un solo cambio de fondo». Reproducido
+       con `scripts/mapa-bandas.py`: marino de y2.230 a y7.519, 44,9 %.
+       La causa era estructural y no de color: «Precios» no era una sección, era un
+       `<div>` dentro de «Qué hacemos», así que no podía tener banda propia por
+       mucho que se quisiera. Ahora lo es, y va en claro. Como «Cómo trabajamos»
+       —la siguiente— también era clara, esa pasa a marino: así la página alterna
+       de verdad en vez de juntar dos claras seguidas.
+
+       Precios reales del único servicio con tienda. Los cuatro paquetes, los
+       precios y el precio por segundo son los que publica phinodia.com/precios;
+       no se calcula ni se redondea nada aquí. El botón lleva a esa tienda. -->
+  <section class="banda banda--bruma revela precios-banda">
+    <div class="eje">
       <div class="precios" id="precios">
         <div class="precios__cab">
           <p class="rotulo">Precios</p>
@@ -422,8 +454,8 @@
     </div>
   </section>
 
-  <!-- 5 · CÓMO TRABAJAMOS -->
-  <section class="banda banda--bruma revela" id="proceso">
+  <!-- 5 · CÓMO TRABAJAMOS — en marino desde la r21: ver el comentario de Precios. -->
+  <section class="banda banda--tinta revela" id="proceso">
     <div class="eje">
       <!-- r20 🟠 C-2 · esta cabecera dejaba la mitad derecha vacía 259 px: la regla
            `.cab:has(.entradilla)` reparte titular a la izquierda y entradilla a la
@@ -511,8 +543,8 @@
         <h2 class="optica-c">Cuéntanos qué te está quitando el día.</h2>
         <p class="empezar__sub">Escríbenos con una frase sobre tu negocio y qué quisieras automatizar. Te respondemos con una hora para hablar, no con un catálogo.</p>
         <div class="empezar__acciones">
-          <a class="btn btn--cobalto" href="mailto:scastellanos@phinodia.com?subject=Quiero%20automatizar%20algo%20en%20mi%20negocio">Escríbenos</a>
-          <a class="btn btn--fantasma" href="https://phinodia.com/precios">Ver precios de video</a>
+          <a class="btn btn--cobalto" href="mailto:scastellanos@phinodia.com?subject=Quiero%20automatizar%20algo%20en%20mi%20negocio">Cuéntanos qué necesitas</a>
+          <a class="btn btn--fantasma" href="https://phinodia.com/precios">Ver precios y comprar</a>
         </div>
       </div>
       <div class="empezar__precio escalona">
@@ -537,7 +569,7 @@
         <p class="rotulo">Preguntas</p>
         <h2 class="optica-l">Lo que suelen preguntarnos.</h2>
         <p class="faq__nota">¿La tuya no está? Escríbenos y te respondemos con una persona, no con un formulario.</p>
-        <a class="btn btn--cobalto" href="mailto:scastellanos@phinodia.com?subject=Una%20pregunta%20sobre%20PhinodIA">Preguntar</a>
+        <a class="btn btn--cobalto" href="mailto:scastellanos@phinodia.com?subject=Una%20pregunta%20sobre%20PhinodIA">Cuéntanos qué necesitas</a>
       </div>
       <div class="faq escalona">
         <details>
