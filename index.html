@@ -236,14 +236,21 @@
              a 6 px; los 16 nodos y las 20 conexiones son los que tiene el flujo. -->
         <div class="servicio__arte">
           <figure class="pieza">
-            <figcaption class="pieza__rotulo">Un flujo nuestro, funcionando: el que atiende el formulario de esta web</figcaption>
+            <figcaption class="pieza__rotulo">Un flujo nuestro, dibujado con sus nodos y sus conexiones reales</figcaption>
             <picture>
               <source media="(max-width: 899px)" srcset="media/flujo-contacto-movil.svg" width="351" height="1298">
               <img class="flujo__mapa" src="media/flujo-contacto.svg" width="613" height="1024"
                    alt="Mapa del flujo: el formulario web entra por un webhook, se normaliza y valida, se comprueba si es un robot (si lo es, se descarta en silencio), se anota el intento, se cuentan los envíos recientes de esa IP, se decide, y según el caso se rechaza el envío o se guarda el contacto, se avisa al dueño por correo —marcando si salió o falló—, se responde al visitante y se limpian los intentos viejos."
                    decoding="async">
             </picture>
-            <p class="flujo__pie">Dieciséis pasos y veinte conexiones, activo desde agosto. Las cajas naranjas son lo que puede salir mal —un robot, demasiados envíos de la misma IP, un correo que no sale— y está contemplado. Lo que montamos para un negocio tiene esta forma: el disparador cambia, la fontanería no.</p>
+            <!-- 21-oct · el rótulo decía «el que atiende el formulario de esta web»
+                 y el pie, «activo desde agosto». Las dos frases dejaron de ser
+                 comprobables: la API de ese n8n devuelve hoy 503 en todas sus rutas,
+                 incluida /healthz, y el formulario del sitio vivo redirige a /pqr sin
+                 pasar por él. Lo que SÍ se sostiene —y es lo que ahora dice— es que
+                 los 16 nodos y las 20 conexiones son los de un flujo real suyo,
+                 leídos de su API. No se afirma un estado que no se puede verificar. -->
+            <p class="flujo__pie">Dieciséis pasos y veinte conexiones, tal y como están construidos. Las cajas naranjas son lo que puede salir mal —un robot, demasiados envíos de la misma IP, un correo que no sale— y está contemplado. Lo que montamos para un negocio tiene esta forma: el disparador cambia, la fontanería no.</p>
           </figure>
         </div>
       </div>
